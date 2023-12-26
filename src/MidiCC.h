@@ -131,9 +131,10 @@
 #define CCsingleSW 132
 #define CCdoubleSW 133
 #define CCsplitSW 134
-// #define CCchorusBassSW 135
-// #define CCchorusStringsSW 136
-// #define CCchorusPolySW 137
+#define CCpolySW 135
+#define CCsingleMonoSW 136
+#define CCunisonMonoSW 137
+
 // #define CCchorusLeadSW 138
 // #define CCechoBassSW 139
 // #define CCechoStringsSW 140

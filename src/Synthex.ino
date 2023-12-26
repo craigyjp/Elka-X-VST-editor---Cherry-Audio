@@ -209,6 +209,9 @@ void setup() {
   sr.writePin(UPPER_LED, HIGH);
   // sr.writePin(GREEN_ARP_RANGE_4_LED, HIGH);
   // sr.writePin(LEAD_VCO2_WAVE_LED, HIGH);
+  // Blank the split display
+  setLEDDisplay2();
+  display2.setBacklight(0);
 
   recallPatch(patchNo);  //Load first patch
 }
@@ -5013,6 +5016,9 @@ void updatesingleSW() {
     layerSoloSW = 0;
     sr.writePin(LAYER_SOLO_LED, LOW);
     green.writePin(GREEN_LAYER_SOLO_LED, LOW);
+    // Blank the split display
+    setLEDDisplay2();
+    display2.setBacklight(0);
     doubleSW = 0;
     splitSW = 0;
     upperSW = 1;
@@ -5032,6 +5038,9 @@ void updatedoubleSW() {
     sr.writePin(SINGLE_LED, LOW);
     sr.writePin(DOUBLE_LED, HIGH);
     sr.writePin(SPLIT_LED, LOW);
+    // Blank the split display
+    setLEDDisplay2();
+    display2.setBacklight(0);
     singleSW = 0;
     splitSW = 0;
     midiCCOut(CCdoubleSW, 127);
@@ -5046,9 +5055,102 @@ void updatesplitSW() {
     sr.writePin(SINGLE_LED, LOW);
     sr.writePin(DOUBLE_LED, LOW);
     sr.writePin(SPLIT_LED, HIGH);
+    // Blank the split display
+    setLEDDisplay2();
+    display2.setBacklight(LEDintensity);
     singleSW = 0;
     doubleSW = 0;
     midiCCOut(CCsplitSW, 127);
+  }
+}
+
+void updatepolySW() {
+  if (!recallPatchFlag) {
+    showCurrentParameterPage("Poly Mode", "On");
+  }
+  if (polySWL && lowerSW) {
+    green.writePin(GREEN_POLY_LED, HIGH);
+    green.writePin(GREEN_SINGLE_MONO_LED, LOW);
+    green.writePin(GREEN_UNI_MONO_LED, LOW);
+    sr.writePin(POLY_LED, LOW);
+    sr.writePin(SINGLE_MONO_LED, LOW);
+    sr.writePin(UNI_MONO_LED, LOW);
+    singleMonoSWL = 0;
+    unisonMonoSWL = 0;
+  }
+  if (polySWU && upperSW) {
+    sr.writePin(POLY_LED, HIGH);
+    sr.writePin(SINGLE_MONO_LED, LOW);
+    sr.writePin(UNI_MONO_LED, LOW);
+    green.writePin(GREEN_POLY_LED, LOW);
+    green.writePin(GREEN_SINGLE_MONO_LED, LOW);
+    green.writePin(GREEN_UNI_MONO_LED, LOW);
+    singleMonoSWU = 0;
+    unisonMonoSWU = 0;
+  }
+
+  if (!layerPatchFlag) {
+    midiCCOut(CCpolySW, 127);
+  }
+}
+
+void updatesingleMonoSW() {
+  if (!recallPatchFlag) {
+    showCurrentParameterPage("Single Mode", "On");
+  }
+  if (singleMonoSWL && lowerSW) {
+    green.writePin(GREEN_POLY_LED, LOW);
+    green.writePin(GREEN_SINGLE_MONO_LED, HIGH);
+    green.writePin(GREEN_UNI_MONO_LED, LOW);
+    sr.writePin(POLY_LED, LOW);
+    sr.writePin(SINGLE_MONO_LED, LOW);
+    sr.writePin(UNI_MONO_LED, LOW);
+    polySWL = 0;
+    unisonMonoSWL = 0;
+  }
+  if (singleMonoSWU && upperSW) {
+    sr.writePin(POLY_LED, LOW);
+    sr.writePin(SINGLE_MONO_LED, HIGH);
+    sr.writePin(UNI_MONO_LED, LOW);
+    green.writePin(GREEN_POLY_LED, LOW);
+    green.writePin(GREEN_SINGLE_MONO_LED, LOW);
+    green.writePin(GREEN_UNI_MONO_LED, LOW);
+    polySWU = 0;
+    unisonMonoSWU = 0;
+  }
+
+  if (!layerPatchFlag) {
+    midiCCOut(CCsingleMonoSW, 127);
+  }
+}
+
+void updateunisonMonoSW() {
+  if (!recallPatchFlag) {
+    showCurrentParameterPage("Unison Mode", "On");
+  }
+  if (unisonMonoSWL && lowerSW) {
+    green.writePin(GREEN_POLY_LED, LOW);
+    green.writePin(GREEN_SINGLE_MONO_LED, LOW);
+    green.writePin(GREEN_UNI_MONO_LED, HIGH);
+    sr.writePin(POLY_LED, LOW);
+    sr.writePin(SINGLE_MONO_LED, LOW);
+    sr.writePin(UNI_MONO_LED, LOW);
+    polySWL = 0;
+    singleMonoSWL = 0;
+  }
+  if (unisonMonoSWU && upperSW) {
+    sr.writePin(POLY_LED, LOW);
+    sr.writePin(SINGLE_MONO_LED, LOW);
+    sr.writePin(UNI_MONO_LED, HIGH);
+    green.writePin(GREEN_POLY_LED, LOW);
+    green.writePin(GREEN_SINGLE_MONO_LED, LOW);
+    green.writePin(GREEN_UNI_MONO_LED, LOW);
+    polySWU = 0;
+    singleMonoSWU = 0;
+  }
+
+  if (!layerPatchFlag) {
+    midiCCOut(CCunisonMonoSW, 127);
   }
 }
 
@@ -5119,7 +5221,9 @@ void switchLEDs() {
   updateglideOffSW();
   updateosc2SyncSW();
   updatemultiTriggerSW();
-
+  updatepolySW();
+  updatesingleMonoSW();
+  updateunisonMonoSW();
 
   recallPatchFlag = false;
   layerPatchFlag = false;
@@ -6414,6 +6518,36 @@ void myControlChange(byte channel, byte control, int value) {
       updatesplitSW();
       break;
 
+    case CCpolySW:
+      if (lowerSW) {
+        polySWL = 1;
+      }
+      if (upperSW) {
+        polySWU = 1;
+      }
+      updatepolySW();
+      break;
+
+    case CCsingleMonoSW:
+      if (lowerSW) {
+        singleMonoSWL = 1;
+      }
+      if (upperSW) {
+        singleMonoSWU = 1;
+      }
+      updatesingleMonoSW();
+      break;
+
+    case CCunisonMonoSW:
+      if (lowerSW) {
+        unisonMonoSWL = 1;
+      }
+      if (upperSW) {
+        unisonMonoSWU = 1;
+      }
+      updateunisonMonoSW();
+      break;
+
     case CClowerSW:
       value > 0 ? lowerSW = 1 : lowerSW = 0;
       updateLowerSW();
@@ -6692,6 +6826,12 @@ void setCurrentPatchData(String data[]) {
   singleSW = data[221].toInt();
   doubleSW = data[222].toInt();
   splitSW = data[223].toInt();
+  polySWL = data[224].toInt();
+  polySWU = data[225].toInt();
+  singleMonoSWL = data[226].toInt();
+  singleMonoSWU = data[227].toInt();
+  unisonMonoSWL = data[228].toInt();
+  unisonMonoSWU = data[229].toInt();
 
   //Pots
 
@@ -6769,6 +6909,9 @@ void setCurrentPatchData(String data[]) {
   updatesingleSW();
   updatedoubleSW();
   updatesplitSW();
+  updatepolySW();
+  updatesingleMonoSW();
+  updateunisonMonoSW();
 
   //Patchname
   updatePatchname();
@@ -6815,7 +6958,8 @@ String getCurrentPatchData() {
          + "," + String(osc2_16SWL) + "," + String(osc2_16SWU) + "," + String(osc1glideSWL) + "," + String(osc1glideSWU) + "," + String(osc2glideSWL) + "," + String(osc2glideSWU)
          + "," + String(portSWL) + "," + String(portSWU) + "," + String(glideSWL) + "," + String(glideSWU) + "," + String(glideOffSWL) + "," + String(glideOffSWU)
          + "," + String(osc2SyncSWL) + "," + String(osc2SyncSWU) + "," + String(multiTriggerSWL) + "," + String(multiTriggerSWU) + "," + String(singleSW) + "," + String(doubleSW)
-         + "," + String(splitSW);
+         + "," + String(splitSW) + "," + String(polySWL) + "," + String(polySWU) + "," + String(singleMonoSWL) + "," + String(singleMonoSWU) + "," + String(unisonMonoSWL)
+         + "," + String(unisonMonoSWU);
 }
 
 void checkMux() {
@@ -7478,6 +7622,21 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
     myControlChange(midiChannel, CCsplitSW, splitSW);
   }
 
+  if (btnIndex == POLY_SW && btnType == ROX_PRESSED) {
+    polySW = !polySW;
+    myControlChange(midiChannel, CCpolySW, polySW);
+  }
+
+  if (btnIndex == SINGLE_MONO_SW && btnType == ROX_PRESSED) {
+    singleMonoSW = !singleMonoSW;
+    myControlChange(midiChannel, CCsingleMonoSW, singleMonoSW);
+  }
+
+  if (btnIndex == UNI_MONO_SW && btnType == ROX_PRESSED) {
+    unisonMonoSW = !unisonMonoSW;
+    myControlChange(midiChannel, CCunisonMonoSW, unisonMonoSW);
+  }
+
   // if (btnIndex == LEAD_VCO1_WAVE_SW && btnType == ROX_PRESSED) {
   //   sr.writePin(LEAD_VCO1_WAVE_LED, LOW);
   //   vco1wave_timer = millis();
@@ -7752,20 +7911,6 @@ void midiCCOut(byte cc, byte value) {
         }
       case 1:
         {
-          // usbMIDI.sendControlChange(99, 0, midiOutCh);      //MIDI DIN is set to Out
-          // usbMIDI.sendControlChange(98, cc, midiOutCh);     //MIDI DIN is set to Out
-          // usbMIDI.sendControlChange(38, value, midiOutCh);  //MIDI DIN is set to Out
-          // usbMIDI.sendControlChange(6, 0, midiOutCh);       //MIDI DIN is set to Out
-
-          // midi1.sendControlChange(99, 0, midiOutCh);      //MIDI DIN is set to Out
-          // midi1.sendControlChange(98, cc, midiOutCh);     //MIDI DIN is set to Out
-          // midi1.sendControlChange(38, value, midiOutCh);  //MIDI DIN is set to Out
-          // midi1.sendControlChange(6, 0, midiOutCh);       //MIDI DIN is set to Out
-
-          // MIDI.sendControlChange(99, 0, midiOutCh);      //MIDI DIN is set to Out
-          // MIDI.sendControlChange(98, cc, midiOutCh);     //MIDI DIN is set to Out
-          // MIDI.sendControlChange(38, value, midiOutCh);  //MIDI DIN is set to Out
-          // MIDI.sendControlChange(6, 0, midiOutCh);       //MIDI DIN is set to Out
           break;
         }
       case 2:
