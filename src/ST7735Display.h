@@ -192,7 +192,12 @@ void renderCurrentParameterPage()
       tft.println(currentParameter);
       tft.drawFastHLine(10, 62, tft.width() - 20, ST7735_RED);
       tft.setCursor(1, 90);
-      tft.setTextColor(ST7735_WHITE);
+      if (upperSW) {
+      tft.setTextColor(ST77XX_RED);
+      }
+      if (lowerSW) {
+      tft.setTextColor(ST7735_GREEN);
+      }
       tft.println(currentValue);
       switch (paramType)
       {
@@ -455,7 +460,7 @@ void displayThread()
 void setupDisplay()
 {
   tft.useFrameBuffer(true);
-  tft.initR(INITR_GREENTAB);
+  tft.initR(INITR_BLACKTAB);
   tft.setRotation(3);
   tft.invertDisplay(false);
   renderBootUpPage();

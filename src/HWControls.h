@@ -103,7 +103,7 @@ ADC *adc = new ADC();
 
 
 // // New Buttons
-
+// 1
 #define ARP_RANGE_4_SW 0
 #define ARP_RANGE_3_SW 1
 #define ARP_RANGE_2_SW 2
@@ -113,6 +113,7 @@ ADC *adc = new ADC();
 #define ARP_RAND_SW 6
 #define ARP_UP_DOWN_SW 7
 
+// 2
 #define ARP_DOWN_SW 8
 #define ARP_UP_SW 9
 #define ARP_OFF_SW 10
@@ -122,6 +123,7 @@ ADC *adc = new ADC();
 #define UPPER_SW 14
 #define UTILITY_SW 15
 
+// 3
 #define FILT_ENV_INV_SW 16
 #define FILT_HP_SW 17
 #define FILT_BP2_SW 18
@@ -131,6 +133,7 @@ ADC *adc = new ADC();
 #define REV_ROOM_SW 22
 #define REV_OFF_SW 23
 
+// 4
 #define FILT_BP1_SW 24
 #define FILT_LP2_SW 25
 #define FILT_LP1_SW 26
@@ -140,6 +143,7 @@ ADC *adc = new ADC();
 #define ECHO_SYNC_SW 30
 #define OSC2_RINGMOD_SW 31
 
+// 5
 #define OSC1_RINGMOD_SW 32
 #define OSC1_OSC2_PWM_SW 33
 #define OSC1_PULSE_SW 34
@@ -149,6 +153,7 @@ ADC *adc = new ADC();
 #define OSC2_OSC1_PWM_SW 38
 #define OSC2_PULSE_SW 39
 
+// 6
 #define OSC1_1_SW 40
 #define OSC1_2_SW 41
 #define OSC1_4_SW 42
@@ -158,6 +163,7 @@ ADC *adc = new ADC();
 #define OSC2_SAW_SW 46
 #define OSC2_TRIANGLE_SW 47
 
+// 7
 #define OSC2_1_SW 48
 #define OSC2_2_SW 49
 #define OSC2_4_SW 50
@@ -167,6 +173,7 @@ ADC *adc = new ADC();
 #define GLIDE_OSC1_SW 54
 #define GLIDE_PORTA_SW 55
 
+// 8
 #define ECHO_PINGPONG_SW 56
 #define ECHO_TAPE_SW 57
 #define ECHO_STD_SW 58
@@ -176,6 +183,7 @@ ADC *adc = new ADC();
 #define CHORUS_1_SW 62
 #define CHORUS_OFF_SW 63
 
+// 9
 #define GLIDE_GLIDE_SW 64
 #define GLIDE_OFF_SW 65
 #define SPLIT_SW 66
@@ -185,6 +193,7 @@ ADC *adc = new ADC();
 #define LFO1_SYNC_SW 70
 #define LFO1_WHEEL_SW 71
 
+// 10
 #define OSC2_SYNC_SW 72
 #define MULTI_SW 73
 #define CHORD_MEMORY_SW 74
@@ -194,6 +203,7 @@ ADC *adc = new ADC();
 #define STEP_FW_SW 78
 #define STEP_BW_SW 79
 
+// 11
 #define SEQ_LOOP_SW 80
 #define SEQ_TRANS_SW 81
 #define SEQ_KEY_SW 82
@@ -203,6 +213,7 @@ ADC *adc = new ADC();
 #define LFO2_SYNC_SW 86
 #define SEQ_STOP_SW 87
 
+// 12
 #define SEQ_ENABLE_1_SW 88
 #define SEQ_ENABLE_2_SW 89
 #define SEQ_ENABLE_3_SW 90
@@ -212,6 +223,7 @@ ADC *adc = new ADC();
 #define SEQ_INS_STEP_SW 94
 #define EQ_REC_EDIT_SW 95
 
+// 13
 #define SEQ_SYNC_SW 96
 #define LFO1_RANDOM_SW 97
 #define LFO1_SQ_UNIPOLAR_SW 98
@@ -221,6 +233,7 @@ ADC *adc = new ADC();
 #define LFO1_TRIANGLE_SW 102
 #define LFO1_RESET_SW 103
 
+// 14
 #define LFO1_SEQ_RATE_SW 104
 #define LFO1_AMP_SW 105
 #define LFO1_FILT_SW 106
@@ -232,6 +245,7 @@ ADC *adc = new ADC();
 
 // New LEDs
 
+// 1
 #define ARP_RANGE_4_LED 0
 #define ARP_RANGE_3_LED 1
 #define ARP_RANGE_2_LED 2
@@ -241,6 +255,7 @@ ADC *adc = new ADC();
 #define ARP_RAND_LED 6
 #define ARP_UP_DOWN_LED 7
 
+// 2
 #define ARP_DOWN_LED 8
 #define ARP_UP_LED 9
 // spare 10
@@ -250,6 +265,7 @@ ADC *adc = new ADC();
 #define UPPER_LED 14
 // spare 15
 
+// 3
 #define ENV_INV_LED 16
 #define FILT_HP_LED 17
 #define FILT_BP2_LED 18
@@ -259,6 +275,7 @@ ADC *adc = new ADC();
 #define REV_ROOM_LED 22
 // spare 23
 
+// 4
 #define FILT_BP1_LED 24
 #define FILT_LP2_LED 25
 #define FILT_LP1_LED 26
@@ -268,6 +285,7 @@ ADC *adc = new ADC();
 #define ECHO_SYNC_LED 30
 #define OSC2_RINGMOD_LED 31
 
+// 5
 #define OSC1_RINGMOD_LED 32
 #define OSC1_OSC2_PWM_LED 33
 #define OSC1_PULSE_LED 34
@@ -277,6 +295,7 @@ ADC *adc = new ADC();
 #define OSC2_OSC1_PWM_LED 38
 #define OSC2_PULSE_LED 39
 
+// 6
 #define OSC1_1_LED 40
 #define OSC1_2_LED 41
 #define OSC1_4_LED 42
@@ -286,6 +305,7 @@ ADC *adc = new ADC();
 #define OSC2_SAW_LED 46
 #define OSC2_TRIANGLE_LED 47
 
+// 7
 #define OSC2_1_LED 48
 #define OSC2_2_LED 49
 #define OSC2_4_LED 50
@@ -295,6 +315,7 @@ ADC *adc = new ADC();
 #define GLIDE_OSC1_LED 54
 #define GLIDE_PORTA_LED 55
 
+// 8
 #define ECHO_PINGPONG_LED 56
 #define ECHO_TAPE_LED 57
 #define ECHO_STD_LED 58
@@ -304,6 +325,8 @@ ADC *adc = new ADC();
 #define CHORUS_1_LED 62
 // spare 63
 
+
+// 9
 #define GLIDE_GLIDE_LED 64
 // spare 65
 #define SPLIT_LED 66
@@ -313,6 +336,7 @@ ADC *adc = new ADC();
 #define LFO1_SYNC_LED 70
 #define LFO1_WHEEL_LED 71
 
+// 10
 #define OSC2_SYNC_LED 72
 #define MULTI_LED 73
 #define CHORD_MEMORY_LED 74
@@ -322,6 +346,7 @@ ADC *adc = new ADC();
 #define LFO1_SEQ_RATE_LED 78
 #define LFO1_AMP_LED 79
 
+// 11
 #define SEQ_LOOP_LED 80
 #define SEQ_TRANS_LED 81
 #define SEQ_KEY_LED 82
@@ -331,6 +356,7 @@ ADC *adc = new ADC();
 #define LFO2_SYNC_LED 86
 #define SEQ_STOP_LED 87
 
+// 12
 #define SEQ_ENABLE_1_LED 88
 #define SEQ_ENABLE_2_LED 89
 #define SEQ_ENABLE_3_LED 90
@@ -340,6 +366,7 @@ ADC *adc = new ADC();
 #define LFO1_PW1_LED 94
 #define EQ_REC_EDIT_LED 95
 
+// 13
 #define SEQ_SYNC_LED 96
 #define LFO1_RANDOM_LED 97
 #define LFO1_SQ_UNIPOLAR_LED 98

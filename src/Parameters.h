@@ -454,10 +454,6 @@ int multiTriggerSW = 0;
 int multiTriggerSWU = 0;
 int multiTriggerSWL = 0;
 
-int singleSW = 0;
-int doubleSW = 0;
-int splitSW = 0;
-
 int polySW = 0;
 int polySWU = 0;
 int polySWL = 0;
@@ -468,6 +464,19 @@ int unisonMonoSW = 0;
 int unisonMonoSWU = 0;
 int unisonMonoSWL = 0;
 
+int lfo1SyncSW = 0;
+int lfo1SyncSWU = 0;
+int lfo1SyncSWL = 0;
+int lfo1modWheelSW = 0;
+int lfo1modWheelSWU = 0;
+int lfo1modWheelSWL = 0;
+int lfo2SyncSW = 0;
+
+int limiterSW = 0;
+int singleSW = 0;
+int doubleSW = 0;
+int splitSW = 0;
+int maxVoicesSW = 0;
 int layerSoloSW = 0;
 int layerSoloSWU = 0;
 int layerSoloSWL = 0;

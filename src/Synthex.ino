@@ -24,6 +24,7 @@
 #include <MIDI.h>
 #include <USBHost_t36.h>
 #include "MidiCC.h"
+#include "ButtonsPots.h"
 #include "Constants.h"
 #include "Parameters.h"
 #include "PatchMgr.h"
@@ -119,7 +120,7 @@ void setup() {
 
   trilldisplay.begin();                     // initializes the display
   trilldisplay.setBacklight(LEDintensity);  // set the brightness to 100 %
-  trilldisplay.print("   1");               // display INIT on the display
+  trilldisplay.print("   8");               // display INIT on the display
   delay(10);
 
   setLEDDisplay0();
@@ -207,7 +208,7 @@ void setup() {
   midiOutCh = getMIDIOutCh();
 
   sr.writePin(UPPER_LED, HIGH);
-  // sr.writePin(GREEN_ARP_RANGE_4_LED, HIGH);
+  sr.writePin(LFO2_SYNC_LED, HIGH);
   // sr.writePin(LEAD_VCO2_WAVE_LED, HIGH);
   // Blank the split display
   setLEDDisplay2();
@@ -723,21 +724,31 @@ void updatemasterTune() {
   if (!recallPatchFlag) {
     showCurrentParameterPage("Tune", String(masterTunestr) + " Semi");
   }
-  midiCCOut(CCmasterTune, masterTune);
+  midiCCOut(MIDImasterTune, masterTune);
 }
 
 void updatemasterVolume() {
   if (!recallPatchFlag) {
     showCurrentParameterPage("Master Volume", String(masterVolumestr) + " %");
   }
-  midiCCOut(CCmasterVolume, masterVolume);
+  midiCCOut(MIDImasterVolume, masterVolume);
 }
 
 void updatelayerPan() {
   if (!recallPatchFlag) {
-    showCurrentParameterPage("Layer Pan", String(layerPanstr) + " %");
+    if (lowerSW) {
+      showCurrentParameterPage("Layer Pan", "Low " + String(layerPanstr) + " %");
+    }
+    if (upperSW) {
+      showCurrentParameterPage("Layer Pan", "Upp " + String(layerPanstr) + " %");
+    }
   }
-  midiCCOut(CClayerPan, layerPan);
+  if (upperSW) {
+    midiCCOut(MIDIlayerPanU, layerPan);
+  }
+  if (lowerSW) {
+    midiCCOut(MIDIlayerPanL, layerPan);
+  }
 }
 
 void updatelayerVolume() {
@@ -750,10 +761,10 @@ void updatelayerVolume() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CClayerVolume, layerVolumeL);
+    midiCCOut(MIDIlayerVolumeL, layerVolumeL);
   }
   if (upperSW) {
-    midiCCOut(CClayerVolume, layerVolumeU);
+    midiCCOut(MIDIlayerVolumeU, layerVolumeU);
   }
 }
 
@@ -767,10 +778,10 @@ void updatereverbLevel() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCreverbLevel, reverbLevelL);
+    midiCCOut(MIDIreverbLevelL, reverbLevelL);
   }
   if (upperSW) {
-    midiCCOut(CCreverbLevel, reverbLevelU);
+    midiCCOut(MIDIreverbLevelU, reverbLevelU);
   }
 }
 
@@ -784,10 +795,10 @@ void updatereverbDecay() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCreverbDecay, reverbDecayL);
+    midiCCOut(MIDIreverbDecayL, reverbDecayL);
   }
   if (upperSW) {
-    midiCCOut(CCreverbDecay, reverbDecayU);
+    midiCCOut(MIDIreverbDecayU, reverbDecayU);
   }
 }
 
@@ -801,10 +812,10 @@ void updatereverbEQ() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCreverbEQ, reverbEQL);
+    midiCCOut(MIDIreverbEQL, reverbEQL);
   }
   if (upperSW) {
-    midiCCOut(CCreverbEQ, reverbEQU);
+    midiCCOut(MIDIreverbEQU, reverbEQU);
   }
 }
 
@@ -818,10 +829,10 @@ void updatearpFrequency() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCarpFrequency, arpFrequencyL);
+    midiCCOut(MIDIarpFrequencyL, arpFrequencyL);
   }
   if (upperSW) {
-    midiCCOut(CCarpFrequency, arpFrequencyU);
+    midiCCOut(MIDIarpFrequencyU, arpFrequencyU);
   }
 }
 
@@ -835,10 +846,10 @@ void updateampVelocity() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCampVelocity, ampVelocityL);
+    midiCCOut(MIDIampVelocityL, ampVelocityL);
   }
   if (upperSW) {
-    midiCCOut(CCampVelocity, ampVelocityU);
+    midiCCOut(MIDIampVelocityU, ampVelocityU);
   }
 }
 
@@ -852,10 +863,10 @@ void updatefilterVelocity() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCfilterVelocity, filterVelocityL);
+    midiCCOut(MIDIfilterVelocityL, filterVelocityL);
   }
   if (upperSW) {
-    midiCCOut(CCfilterVelocity, filterVelocityU);
+    midiCCOut(MIDIfilterVelocityU, filterVelocityU);
   }
 }
 
@@ -869,10 +880,10 @@ void updateampRelease() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCampRelease, ampReleaseL);
+    midiCCOut(MIDIampReleaseL, ampReleaseL);
   }
   if (upperSW) {
-    midiCCOut(CCampRelease, ampReleaseU);
+    midiCCOut(MIDIampReleaseU, ampReleaseU);
   }
 }
 
@@ -886,10 +897,10 @@ void updateampSustain() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCampSustain, ampSustainL);
+    midiCCOut(MIDIampSustainL, ampSustainL);
   }
   if (upperSW) {
-    midiCCOut(CCampSustain, ampSustainU);
+    midiCCOut(MIDIampSustainU, ampSustainU);
   }
 }
 
@@ -903,10 +914,10 @@ void updateampDecay() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCampDecay, ampDecayL);
+    midiCCOut(MIDIampDecayU, ampDecayL);
   }
   if (upperSW) {
-    midiCCOut(CCampDecay, ampDecayU);
+    midiCCOut(MIDIampDecayU, ampDecayU);
   }
 }
 
@@ -920,10 +931,10 @@ void updateampAttack() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCampAttack, ampAttackL);
+    midiCCOut(MIDIampAttackL, ampAttackL);
   }
   if (upperSW) {
-    midiCCOut(CCampAttack, ampAttackU);
+    midiCCOut(MIDIampAttackU, ampAttackU);
   }
 }
 
@@ -937,10 +948,10 @@ void updatefilterKeyboard() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCfilterKeyboard, filterKeyboardL);
+    midiCCOut(MIDIfilterKeyboardU, filterKeyboardL);
   }
   if (upperSW) {
-    midiCCOut(CCfilterKeyboard, filterKeyboardU);
+    midiCCOut(MIDIfilterKeyboardU, filterKeyboardU);
   }
 }
 
@@ -954,10 +965,10 @@ void updatefilterResonance() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCfilterResonance, filterResonanceL);
+    midiCCOut(MIDIfilterResonanceL, filterResonanceL);
   }
   if (upperSW) {
-    midiCCOut(CCfilterResonance, filterResonanceU);
+    midiCCOut(MIDIfilterResonanceU, filterResonanceU);
   }
 }
 
@@ -971,10 +982,10 @@ void updateosc2Volume() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCosc2Volume, osc2VolumeL);
+    midiCCOut(MIDIosc2VolumeL, osc2VolumeL);
   }
   if (upperSW) {
-    midiCCOut(CCosc2Volume, osc2VolumeU);
+    midiCCOut(MIDIosc2VolumeU, osc2VolumeU);
   }
 }
 
@@ -988,10 +999,10 @@ void updateosc2PW() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCosc2PW, osc2PWL);
+    midiCCOut(MIDIosc2PWL, osc2PWL);
   }
   if (upperSW) {
-    midiCCOut(CCosc2PW, osc2PWU);
+    midiCCOut(MIDIosc2PWU, osc2PWU);
   }
 }
 
@@ -1005,10 +1016,10 @@ void updateosc1PW() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCosc1PW, osc1PWL);
+    midiCCOut(MIDIosc1PWL, osc1PWL);
   }
   if (upperSW) {
-    midiCCOut(CCosc1PW, osc1PWU);
+    midiCCOut(MIDIosc1PWU, osc1PWU);
   }
 }
 
@@ -1022,10 +1033,10 @@ void updateosc1Volume() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCosc1Volume, osc1VolumeL);
+    midiCCOut(MIDIosc1VolumeL, osc1VolumeL);
   }
   if (upperSW) {
-    midiCCOut(CCosc1Volume, osc1VolumeU);
+    midiCCOut(MIDIosc1VolumeU, osc1VolumeU);
   }
 }
 
@@ -1039,10 +1050,10 @@ void updatefilterCutoff() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCfilterCutoff, filterCutoffL);
+    midiCCOut(MIDIfilterCutoffL, filterCutoffL);
   }
   if (upperSW) {
-    midiCCOut(CCfilterCutoff, filterCutoffU);
+    midiCCOut(MIDIfilterCutoffU, filterCutoffU);
   }
 }
 
@@ -1056,10 +1067,10 @@ void updatefilterEnvAmount() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCfilterEnvAmount, filterEnvAmountL);
+    midiCCOut(MIDIfilterEnvAmountL, filterEnvAmountL);
   }
   if (upperSW) {
-    midiCCOut(CCfilterEnvAmount, filterEnvAmountU);
+    midiCCOut(MIDIfilterEnvAmountU, filterEnvAmountU);
   }
 }
 
@@ -1073,10 +1084,10 @@ void updatefilterAttack() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCfilterAttack, filterAttackL);
+    midiCCOut(MIDIfilterAttackL, filterAttackL);
   }
   if (upperSW) {
-    midiCCOut(CCfilterAttack, filterAttackU);
+    midiCCOut(MIDIfilterAttackU, filterAttackU);
   }
 }
 
@@ -1090,10 +1101,10 @@ void updatefilterDecay() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCfilterDecay, filterDecayL);
+    midiCCOut(MIDIfilterDecayL, filterDecayL);
   }
   if (upperSW) {
-    midiCCOut(CCfilterDecay, filterDecayU);
+    midiCCOut(MIDIfilterDecayU, filterDecayU);
   }
 }
 
@@ -1107,10 +1118,10 @@ void updatefilterSustain() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCfilterSustain, filterSustainL);
+    midiCCOut(MIDIfilterSustainL, filterSustainL);
   }
   if (upperSW) {
-    midiCCOut(CCfilterSustain, filterSustainU);
+    midiCCOut(MIDIfilterSustainU, filterSustainU);
   }
 }
 
@@ -1124,10 +1135,10 @@ void updatefilterRelease() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCfilterRelease, filterReleaseL);
+    midiCCOut(MIDIfilterReleaseU, filterReleaseL);
   }
   if (upperSW) {
-    midiCCOut(CCfilterRelease, filterReleaseU);
+    midiCCOut(MIDIfilterReleaseU, filterReleaseU);
   }
 }
 
@@ -1141,10 +1152,10 @@ void updateechoEQ() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCechoEQ, echoEQL);
+    midiCCOut(MIDIechoEQL, echoEQL);
   }
   if (upperSW) {
-    midiCCOut(CCechoEQ, echoEQU);
+    midiCCOut(MIDIechoEQU, echoEQU);
   }
 }
 
@@ -1158,10 +1169,10 @@ void updateechoLevel() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCechoLevel, echoLevelL);
+    midiCCOut(MIDIechoLevelL, echoLevelL);
   }
   if (upperSW) {
-    midiCCOut(CCechoLevel, echoLevelU);
+    midiCCOut(MIDIechoLevelU, echoLevelU);
   }
 }
 
@@ -1175,10 +1186,10 @@ void updateechoFeedback() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCechoFeedback, echoFeedbackL);
+    midiCCOut(MIDIechoFeedbackL, echoFeedbackL);
   }
   if (upperSW) {
-    midiCCOut(CCechoFeedback, echoFeedbackU);
+    midiCCOut(MIDIechoFeedbackU, echoFeedbackU);
   }
 }
 
@@ -1192,10 +1203,10 @@ void updateechoSpread() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCechoSpread, echoSpreadL);
+    midiCCOut(MIDIechoSpreadL, echoSpreadL);
   }
   if (upperSW) {
-    midiCCOut(CCechoSpread, echoSpreadU);
+    midiCCOut(MIDIechoSpreadU, echoSpreadU);
   }
 }
 
@@ -1209,10 +1220,10 @@ void updateechoTime() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCechoTime, echoTimeL);
+    midiCCOut(MIDIechoTimeL, echoTimeL);
   }
   if (upperSW) {
-    midiCCOut(CCechoTime, echoTimeU);
+    midiCCOut(MIDIechoTimeU, echoTimeU);
   }
 }
 
@@ -1232,7 +1243,7 @@ void updatelfo2Destination() {
         break;
     }
   }
-  midiCCOut(CClfo2UpperLower, lfo2Destination);
+  midiCCOut(MIDIlfo2UpperLower, lfo2Destination);
 }
 
 void updateunisonDetune() {
@@ -1245,10 +1256,10 @@ void updateunisonDetune() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCunisonDetune, unisonDetuneL);
+    midiCCOut(MIDIunisonDetuneL, unisonDetuneL);
   }
   if (upperSW) {
-    midiCCOut(CCunisonDetune, unisonDetuneU);
+    midiCCOut(MIDIunisonDetuneU, unisonDetuneU);
   }
 }
 
@@ -1262,10 +1273,10 @@ void updateglideSpeed() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCglideSpeed, glideSpeedL);
+    midiCCOut(MIDIglideSpeedL, glideSpeedL);
   }
   if (upperSW) {
-    midiCCOut(CCglideSpeed, glideSpeedU);
+    midiCCOut(MIDIglideSpeedU, glideSpeedU);
   }
 }
 
@@ -1279,10 +1290,10 @@ void updateosc1Transpose() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCosc1Transpose, osc1TransposeL);
+    midiCCOut(MIDIosc1TransposeL, osc1TransposeL);
   }
   if (upperSW) {
-    midiCCOut(CCosc1Transpose, osc1TransposeU);
+    midiCCOut(MIDIosc1TransposeU, osc1TransposeU);
   }
 }
 
@@ -1296,10 +1307,10 @@ void updateosc2Transpose() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCosc2Transpose, osc2TransposeL);
+    midiCCOut(MIDIosc2TransposeL, osc2TransposeL);
   }
   if (upperSW) {
-    midiCCOut(CCosc2Transpose, osc2TransposeU);
+    midiCCOut(MIDIosc2TransposeU, osc2TransposeU);
   }
 }
 
@@ -1313,10 +1324,10 @@ void updatenoiseLevel() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCnoiseLevel, noiseLevelL);
+    midiCCOut(MIDInoiseLevelL, noiseLevelL);
   }
   if (upperSW) {
-    midiCCOut(CCnoiseLevel, noiseLevelU);
+    midiCCOut(MIDInoiseLevelU, noiseLevelU);
   }
 }
 
@@ -1330,10 +1341,10 @@ void updateglideAmount() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCglideAmount, glideAmountL);
+    midiCCOut(MIDIglideAmountL, glideAmountL);
   }
   if (upperSW) {
-    midiCCOut(CCglideAmount, glideAmountU);
+    midiCCOut(MIDIglideAmountU, glideAmountU);
   }
 }
 
@@ -1347,10 +1358,10 @@ void updateosc1Tune() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCosc1Tune, osc1TuneL);
+    midiCCOut(MIDIosc1TuneL, osc1TuneL);
   }
   if (upperSW) {
-    midiCCOut(CCosc1Tune, osc1TuneU);
+    midiCCOut(MIDIosc1TuneU, osc1TuneU);
   }
 }
 
@@ -1364,10 +1375,10 @@ void updateosc2Tune() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CCosc2Tune, osc2TuneL);
+    midiCCOut(MIDIosc2TuneL, osc2TuneL);
   }
   if (upperSW) {
-    midiCCOut(CCosc2Tune, osc2TuneU);
+    midiCCOut(MIDIosc2TuneU, osc2TuneU);
   }
 }
 
@@ -1375,49 +1386,49 @@ void updatebendToFilter() {
   if (!recallPatchFlag) {
     showCurrentParameterPage("Bend to Filter", String(bendToFilterstr) + " %");
   }
-  midiCCOut(CCbendToFilter, bendToFilter);
+  midiCCOut(MIDIbendToFilter, bendToFilter);
 }
 
 void updatelfo2ToFilter() {
   if (!recallPatchFlag) {
     showCurrentParameterPage("LFO2 to Filter", String(lfo2ToFilterstr) + " %");
   }
-  midiCCOut(CClfo2ToFilter, lfo2ToFilter);
+  midiCCOut(MIDIlfo2ToFilter, lfo2ToFilter);
 }
 
 void updatebendToOsc() {
   if (!recallPatchFlag) {
     showCurrentParameterPage("Bend to OSC", String(bendToOscstr) + " %");
   }
-  midiCCOut(CCbendToOsc, bendToOsc);
+  midiCCOut(MIDIbendToOsc, bendToOsc);
 }
 
 void updatelfo2ToOsc() {
   if (!recallPatchFlag) {
     showCurrentParameterPage("LFO2 to OSC", String(lfo2ToOscstr) + " %");
   }
-  midiCCOut(CClfo2ToOsc, lfo2ToOsc);
+  midiCCOut(MIDIlfo2ToOsc, lfo2ToOsc);
 }
 
 void updatelfo2FreqAcc() {
   if (!recallPatchFlag) {
     showCurrentParameterPage("LFO2 Freq Acc", String(lfo2FreqAccstr) + " %");
   }
-  midiCCOut(CClfo2FreqAcc, lfo2FreqAcc);
+  midiCCOut(MIDIlfo2FreqAcc, lfo2FreqAcc);
 }
 
 void updatelfo2InitFrequency() {
   if (!recallPatchFlag) {
     showCurrentParameterPage("LFO2 Init Freq", String(lfo2InitFrequencystr) + " %");
   }
-  midiCCOut(CClfo2InitFrequency, lfo2InitFrequency);
+  midiCCOut(MIDIlfo2InitFrequency, lfo2InitFrequency);
 }
 
 void updatelfo2InitAmount() {
   if (!recallPatchFlag) {
     showCurrentParameterPage("LFO2 Init Amnt", String(lfo2InitAmountstr) + " %");
   }
-  midiCCOut(CClfo2InitAmount, lfo2InitAmount);
+  midiCCOut(MIDIlfo2InitAmount, lfo2InitAmount);
 }
 
 void updateseqAssign() {
@@ -1459,10 +1470,10 @@ void updatelfo1Frequency() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CClfo1Frequency, lfo1FrequencyL);
+    midiCCOut(MIDIlfo1FrequencyL, lfo1FrequencyL);
   }
   if (upperSW) {
-    midiCCOut(CClfo1Frequency, lfo1FrequencyU);
+    midiCCOut(MIDIlfo1FrequencyU, lfo1FrequencyU);
   }
 }
 
@@ -1476,10 +1487,10 @@ void updatelfo1DepthA() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CClfo1DepthA, lfo1DepthAL);
+    midiCCOut(MIDIlfo1DepthAL, lfo1DepthAL);
   }
   if (upperSW) {
-    midiCCOut(CClfo1DepthA, lfo1DepthAU);
+    midiCCOut(MIDIlfo1DepthAU, lfo1DepthAU);
   }
 }
 
@@ -1493,10 +1504,10 @@ void updatelfo1Delay() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CClfo1Delay, lfo1DelayL);
+    midiCCOut(MIDIlfo1DelayL, lfo1DelayL);
   }
   if (upperSW) {
-    midiCCOut(CClfo1Delay, lfo1DelayU);
+    midiCCOut(MIDIlfo1DelayU, lfo1DelayU);
   }
 }
 
@@ -1510,10 +1521,10 @@ void updatelfo1DepthB() {
     }
   }
   if (lowerSW) {
-    midiCCOut(CClfo1DepthB, lfo1DepthBL);
+    midiCCOut(MIDIlfo1DepthBL, lfo1DepthBL);
   }
   if (upperSW) {
-    midiCCOut(CClfo1DepthB, lfo1DepthBU);
+    midiCCOut(MIDIlfo1DepthBU, lfo1DepthBU);
   }
 }
 
@@ -1823,132 +1834,6 @@ void updatelfo1DepthB() {
 //   }
 // }
 
-// void updateLFOTri() {
-//   if (LFOTri == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Wave", "Triangle");
-//     }
-//     sr.writePin(LFO_TRI_LED, HIGH);
-//     sr.writePin(LFO_SAW_UP_LED, LOW);
-//     sr.writePin(LFO_SAW_DN_LED, LOW);
-//     sr.writePin(LFO_SQUARE_LED, LOW);
-//     sr.writePin(LFO_SH_LED, LOW);
-//     LFOSawUp = 0;
-//     LFOSawDown = 0;
-//     LFOSquare = 0;
-//     LFOSH = 0;
-//     midiCCOut(CCLFOTri, 127);
-//   }
-// }
-
-// void updateLFOSawUp() {
-//   if (LFOSawUp == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Wave", "Saw Up");
-//     }
-//     sr.writePin(LFO_TRI_LED, LOW);
-//     sr.writePin(LFO_SAW_UP_LED, HIGH);
-//     sr.writePin(LFO_SAW_DN_LED, LOW);
-//     sr.writePin(LFO_SQUARE_LED, LOW);
-//     sr.writePin(LFO_SH_LED, LOW);
-//     LFOTri = 0;
-//     LFOSawDown = 0;
-//     LFOSquare = 0;
-//     LFOSH = 0;
-//     midiCCOut(CCLFOSawUp, 127);
-//   }
-// }
-
-// void updateLFOSawDown() {
-//   if (LFOSawDown == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Wave", "Saw Down");
-//     }
-//     sr.writePin(LFO_TRI_LED, LOW);
-//     sr.writePin(LFO_SAW_UP_LED, LOW);
-//     sr.writePin(LFO_SAW_DN_LED, HIGH);
-//     sr.writePin(LFO_SQUARE_LED, LOW);
-//     sr.writePin(LFO_SH_LED, LOW);
-//     LFOTri = 0;
-//     LFOSawUp = 0;
-//     LFOSquare = 0;
-//     LFOSH = 0;
-//     midiCCOut(CCLFOSawDown, 127);
-//   }
-// }
-
-// void updateLFOSquare() {
-//   if (LFOSquare == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Wave", "Square");
-//     }
-//     sr.writePin(LFO_TRI_LED, LOW);
-//     sr.writePin(LFO_SAW_UP_LED, LOW);
-//     sr.writePin(LFO_SAW_DN_LED, LOW);
-//     sr.writePin(LFO_SQUARE_LED, HIGH);
-//     sr.writePin(LFO_SH_LED, LOW);
-//     LFOTri = 0;
-//     LFOSawUp = 0;
-//     LFOSawDown = 0;
-//     LFOSH = 0;
-//     midiCCOut(CCLFOSquare, 127);
-//   }
-// }
-
-// void updateLFOSH() {
-//   if (LFOSH == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Wave", "Sample & Hold");
-//     }
-//     sr.writePin(LFO_TRI_LED, LOW);
-//     sr.writePin(LFO_SAW_UP_LED, LOW);
-//     sr.writePin(LFO_SAW_DN_LED, LOW);
-//     sr.writePin(LFO_SQUARE_LED, LOW);
-//     sr.writePin(LFO_SH_LED, HIGH);
-//     LFOTri = 0;
-//     LFOSawUp = 0;
-//     LFOSawDown = 0;
-//     LFOSquare = 0;
-//     midiCCOut(CCLFOSH, 127);
-//   }
-// }
-
-// void updatestrings8() {
-//   if (strings8 == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings 8", "On");
-//     }
-//     sr.writePin(STRINGS_8_LED, HIGH);  // LED on
-//     midiCCOut(CCstrings8, 127);
-//     midiCCOut(CCstrings8, 0);
-//   } else {
-//     sr.writePin(STRINGS_8_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings 8", "Off");
-//       midiCCOut(CCstrings8, 127);
-//       midiCCOut(CCstrings8, 0);
-//     }
-//   }
-// }
-
-// void updatestrings4() {
-//   if (strings4 == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings 4", "On");
-//     }
-//     sr.writePin(STRINGS_4_LED, HIGH);  // LED on
-//     midiCCOut(CCstrings4, 127);
-//     midiCCOut(CCstrings4, 0);
-//   } else {
-//     sr.writePin(STRINGS_4_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings 4", "Off");
-//       midiCCOut(CCstrings4, 127);
-//       midiCCOut(CCstrings4, 0);
-//     }
-//   }
-// }
-
 // void updatepolyNoteTrigger() {
 //   if (polyNoteTrigger == 1) {
 //     if (!recallPatchFlag) {
@@ -1987,223 +1872,7 @@ void updatelfo1DepthB() {
 //   }
 // }
 
-// void updatepolyDrift() {
-//   if (polyDrift == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Drift", "On");
-//     }
-//     sr.writePin(POLY_DRIFT_LED, HIGH);  // LED on
-//     midiCCOut(CCpolyDrift, 127);
-//     midiCCOut(CCpolyDrift, 0);
-//   } else {
-//     sr.writePin(POLY_DRIFT_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Drift", "Off");
-//       midiCCOut(CCpolyDrift, 127);
-//       midiCCOut(CCpolyDrift, 0);
-//     }
-//   }
-// }
 
-// void updatepoly16() {
-//   if (poly16 == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly 16", "On");
-//     }
-//     sr.writePin(POLY_16_LED, HIGH);  // LED on
-//     midiCCOut(CCpoly16, 127);
-//     midiCCOut(CCpoly16, 0);
-//   } else {
-//     sr.writePin(POLY_16_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly 16", "Off");
-//       midiCCOut(CCpoly16, 127);
-//       midiCCOut(CCpoly16, 0);
-//     }
-//   }
-// }
-
-// void updatepoly8() {
-//   if (poly8 == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly 8", "On");
-//     }
-//     sr.writePin(POLY_8_LED, HIGH);  // LED on
-//     midiCCOut(CCpoly8, 127);
-//     midiCCOut(CCpoly8, 0);
-//   } else {
-//     sr.writePin(POLY_8_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly 8", "Off");
-//       midiCCOut(CCpoly8, 127);
-//       midiCCOut(CCpoly8, 0);
-//     }
-//   }
-// }
-
-// void updatepoly4() {
-//   if (poly4 == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly 4", "On");
-//     }
-//     sr.writePin(POLY_4_LED, HIGH);  // LED on
-//     midiCCOut(CCpoly4, 127);
-//     midiCCOut(CCpoly4, 0);
-//   } else {
-//     sr.writePin(POLY_4_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly 4", "Off");
-//       midiCCOut(CCpoly4, 127);
-//       midiCCOut(CCpoly4, 0);
-//     }
-//   }
-// }
-
-// void updateebass16() {
-//   if (ebass16 == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Elec Bass 16", "On");
-//     }
-//     sr.writePin(EBASS_16_LED, HIGH);  // LED on
-//     midiCCOut(CCebass16, 127);
-//     midiCCOut(CCebass16, 0);
-//   } else {
-//     sr.writePin(EBASS_16_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Elec Bass 16", "Off");
-//       midiCCOut(CCebass16, 127);
-//       midiCCOut(CCebass16, 0);
-//     }
-//   }
-// }
-
-// void updateebass8() {
-//   if (ebass8 == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Elec Bass 8", "On");
-//     }
-//     sr.writePin(EBASS_8_LED, HIGH);  // LED on
-//     midiCCOut(CCebass8, 127);
-//     midiCCOut(CCebass8, 0);
-//   } else {
-//     sr.writePin(EBASS_8_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Elec Bass 8", "Off");
-//       midiCCOut(CCebass8, 127);
-//       midiCCOut(CCebass8, 0);
-//     }
-//   }
-// }
-
-// void updatebassNoteTrigger() {
-//   if (bassNoteTrigger == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Note Trigger", "Single");
-//     }
-//     sr.writePin(BASS_NOTE_TRIGGER_RED_LED, HIGH);
-//     sr.writePin(BASS_NOTE_TRIGGER_GREEN_LED, LOW);
-//     midiCCOut(CCbassNoteTrigger, 127);
-//     midiCCOut(CCbassNoteTrigger, 0);
-//   } else {
-//     sr.writePin(BASS_NOTE_TRIGGER_GREEN_LED, HIGH);
-//     sr.writePin(BASS_NOTE_TRIGGER_RED_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Note Trigger", "Multi");
-//       midiCCOut(CCbassNoteTrigger, 127);
-//       midiCCOut(CCbassNoteTrigger, 0);
-//     }
-//   }
-// }
-
-// void updatestringbass16() {
-//   if (stringbass16 == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("String Bass 16", "On");
-//     }
-//     sr.writePin(STRINGS_BASS_16_LED, HIGH);  // LED on
-//     midiCCOut(CCstringbass16, 127);
-//     midiCCOut(CCstringbass16, 0);
-//   } else {
-//     sr.writePin(STRINGS_BASS_16_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("String Bass 16", "Off");
-//       midiCCOut(CCstringbass16, 127);
-//       midiCCOut(CCstringbass16, 0);
-//     }
-//   }
-// }
-
-// void updatestringbass8() {
-//   if (stringbass8 == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("String Bass 8", "On");
-//     }
-//     sr.writePin(STRINGS_BASS_8_LED, HIGH);  // LED on
-//     midiCCOut(CCstringbass8, 127);
-//     midiCCOut(CCstringbass8, 0);
-//   } else {
-//     sr.writePin(STRINGS_BASS_8_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("String Bass 8", "Off");
-//       midiCCOut(CCstringbass8, 127);
-//       midiCCOut(CCstringbass8, 0);
-//     }
-//   }
-// }
-
-// void updatehollowWave() {
-//   if (hollowWave == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Hollow Wave", "On");
-//     }
-//     sr.writePin(HOLLOW_WAVE_LED, HIGH);  // LED on
-//     midiCCOut(CChollowWave, 127);
-//     midiCCOut(CChollowWave, 0);
-//   } else {
-//     sr.writePin(HOLLOW_WAVE_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Hollow Wave", "Off");
-//       midiCCOut(CChollowWave, 127);
-//       midiCCOut(CChollowWave, 0);
-//     }
-//   }
-// }
-
-// void updatebassPitchSW() {
-//   if (bassPitchSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Bass PB", "On");
-//     }
-//     sr.writePin(BASS_PITCH_LED, HIGH);  // LED on
-//     midiCCOut(CCbassPitchSW, 127);
-//     midiCCOut(CCbassPitchSW, 0);
-//   } else {
-//     sr.writePin(BASS_PITCH_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Bass PB", "Off");
-//       midiCCOut(CCbassPitchSW, 127);
-//       midiCCOut(CCbassPitchSW, 0);
-//     }
-//   }
-// }
-
-// void updatestringsPitchSW() {
-//   if (stringsPitchSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings PB", "On");
-//     }
-//     sr.writePin(STRINGS_PITCH_LED, HIGH);  // LED on
-//     midiCCOut(CCstringsPitchSW, 127);
-//     midiCCOut(CCstringsPitchSW, 0);
-//   } else {
-//     sr.writePin(STRINGS_PITCH_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings PB", "Off");
-//       midiCCOut(CCstringsPitchSW, 127);
-//       midiCCOut(CCstringsPitchSW, 0);
-//     }
-//   }
-// }
 
 // void updatepolyPitchSW() {
 //   if (polyPitchSW == 1) {
@@ -2237,24 +1906,6 @@ void updatelfo1DepthB() {
 //       showCurrentParameterPage("Poly VCF PB", "Off");
 //       midiCCOut(CCpolyVCFSW, 127);
 //       midiCCOut(CCpolyVCFSW, 0);
-//     }
-//   }
-// }
-
-// void updateleadPitchSW() {
-//   if (leadPitchSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead Pitch PB", "On");
-//     }
-//     sr.writePin(LEAD_PITCH_LED, HIGH);  // LED on
-//     midiCCOut(CCleadPitchSW, 127);
-//     midiCCOut(CCleadPitchSW, 0);
-//   } else {
-//     sr.writePin(LEAD_PITCH_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead Pitch PB", "Off");
-//       midiCCOut(CCleadPitchSW, 127);
-//       midiCCOut(CCleadPitchSW, 0);
 //     }
 //   }
 // }
@@ -2317,267 +1968,6 @@ void updatelfo1DepthB() {
 //   }
 // }
 
-// void updatephaserBassSW() {
-//   if (phaserBassSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Bass Phaser", "On");
-//     }
-//     sr.writePin(PHASE_BASS_LED, HIGH);  // LED on
-//     midiCCOut(CCphaserBassSW, 127);
-//     midiCCOut(CCphaserBassSW, 0);
-//   } else {
-//     sr.writePin(PHASE_BASS_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Bass Phaser", "Off");
-//       midiCCOut(CCphaserBassSW, 127);
-//       midiCCOut(CCphaserBassSW, 0);
-//     }
-//   }
-// }
-
-// void updatephaserStringsSW() {
-//   if (phaserStringsSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings Phaser", "On");
-//     }
-//     sr.writePin(PHASE_STRINGS_LED, HIGH);  // LED on
-//     midiCCOut(CCphaserStringsSW, 127);
-//     midiCCOut(CCphaserStringsSW, 0);
-//   } else {
-//     sr.writePin(PHASE_STRINGS_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings Phaser", "Off");
-//       midiCCOut(CCphaserStringsSW, 127);
-//       midiCCOut(CCphaserStringsSW, 0);
-//     }
-//   }
-// }
-
-// void updatephaserPolySW() {
-//   if (phaserPolySW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Phaser", "On");
-//     }
-//     sr.writePin(PHASE_POLY_LED, HIGH);  // LED on
-//     midiCCOut(CCphaserPolySW, 127);
-//     midiCCOut(CCphaserPolySW, 0);
-//   } else {
-//     sr.writePin(PHASE_POLY_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Phaser", "Off");
-//       midiCCOut(CCphaserPolySW, 127);
-//       midiCCOut(CCphaserPolySW, 0);
-//     }
-//   }
-// }
-
-// void updatephaserLeadSW() {
-//   if (phaserLeadSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead Phaser", "On");
-//     }
-//     sr.writePin(PHASE_LEAD_LED, HIGH);  // LED on
-//     midiCCOut(CCphaserLeadSW, 127);
-//   } else {
-//     sr.writePin(PHASE_LEAD_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead Phaser", "Off");
-//       midiCCOut(CCphaserLeadSW, 127);
-//     }
-//   }
-// }
-
-// void updatechorusBassSW() {
-//   if (chorusBassSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Bass Chorus", "On");
-//     }
-//     sr.writePin(CHORUS_BASS_LED, HIGH);  // LED on
-//     midiCCOut(CCchorusBassSW, 127);
-//   } else {
-//     sr.writePin(CHORUS_BASS_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Bass Chorus", "Off");
-//       midiCCOut(CCchorusBassSW, 127);
-//     }
-//   }
-// }
-
-// void updatechorusStringsSW() {
-//   if (chorusStringsSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings Chorus", "On");
-//     }
-//     sr.writePin(CHORUS_STRINGS_LED, HIGH);  // LED on
-//     midiCCOut(CCchorusStringsSW, 127);
-//   } else {
-//     sr.writePin(CHORUS_STRINGS_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings Chorus", "Off");
-//       midiCCOut(CCchorusStringsSW, 127);
-//     }
-//   }
-// }
-
-// void updatechorusPolySW() {
-//   if (chorusPolySW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Chorus", "On");
-//     }
-//     sr.writePin(CHORUS_POLY_LED, HIGH);  // LED on
-//     midiCCOut(CCchorusPolySW, 127);
-//   } else {
-//     sr.writePin(CHORUS_POLY_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Chorus", "Off");
-//       midiCCOut(CCchorusPolySW, 127);
-//     }
-//   }
-// }
-
-// void updatechorusLeadSW() {
-//   if (chorusLeadSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead Chorus", "On");
-//     }
-//     sr.writePin(CHORUS_LEAD_LED, HIGH);  // LED on
-//     midiCCOut(CCchorusLeadSW, 127);
-//   } else {
-//     sr.writePin(CHORUS_LEAD_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead Chorus", "Off");
-//       midiCCOut(CCchorusLeadSW, 127);
-//     }
-//   }
-// }
-
-// void updateechoBassSW() {
-//   if (echoBassSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Bass Echo", "On");
-//     }
-//     sr.writePin(ECHO_BASS_LED, HIGH);  // LED on
-//     midiCCOut(CCechoBassSW, 127);
-//   } else {
-//     sr.writePin(ECHO_BASS_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Bass Echo", "Off");
-//       midiCCOut(CCechoBassSW, 127);
-//     }
-//   }
-// }
-
-// void updateechoStringsSW() {
-//   if (echoStringsSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings Echo", "On");
-//     }
-//     sr.writePin(ECHO_STRINGS_LED, HIGH);  // LED on
-//     midiCCOut(CCechoStringsSW, 127);
-//   } else {
-//     sr.writePin(ECHO_STRINGS_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings Echo", "Off");
-//       midiCCOut(CCechoStringsSW, 127);
-//     }
-//   }
-// }
-
-// void updateechoPolySW() {
-//   if (echoPolySW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Echo", "On");
-//     }
-//     sr.writePin(ECHO_POLY_LED, HIGH);  // LED on
-//     midiCCOut(CCechoPolySW, 127);
-//   } else {
-//     sr.writePin(ECHO_POLY_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Echo", "Off");
-//       midiCCOut(CCechoPolySW, 127);
-//     }
-//   }
-// }
-
-// void updateechoLeadSW() {
-//   if (echoLeadSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead Echo", "On");
-//     }
-//     sr.writePin(ECHO_LEAD_LED, HIGH);  // LED on
-//     midiCCOut(CCechoLeadSW, 127);
-//   } else {
-//     sr.writePin(ECHO_LEAD_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead Echo", "Off");
-//       midiCCOut(CCechoLeadSW, 127);
-//     }
-//   }
-// }
-
-// void updatereverbBassSW() {
-//   if (reverbBassSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Bass Reverb", "On");
-//     }
-//     sr.writePin(REVERB_BASS_LED, HIGH);  // LED on
-//     midiCCOut(CCreverbBassSW, 127);
-//   } else {
-//     sr.writePin(REVERB_BASS_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Bass Reverb", "Off");
-//       midiCCOut(CCreverbBassSW, 127);
-//     }
-//   }
-// }
-
-// void updatereverbStringsSW() {
-//   if (reverbStringsSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings Reverb", "On");
-//     }
-//     sr.writePin(REVERB_STRINGS_LED, HIGH);  // LED on
-//     midiCCOut(CCreverbStringsSW, 127);
-//   } else {
-//     sr.writePin(REVERB_STRINGS_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Strings Reverb", "Off");
-//       midiCCOut(CCreverbStringsSW, 127);
-//     }
-//   }
-// }
-
-// void updatereverbPolySW() {
-//   if (reverbPolySW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Reverb", "On");
-//     }
-//     sr.writePin(REVERB_POLY_LED, HIGH);  // LED on
-//     midiCCOut(CCreverbPolySW, 127);
-//   } else {
-//     sr.writePin(REVERB_POLY_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Reverb", "Off");
-//       midiCCOut(CCreverbPolySW, 127);
-//     }
-//   }
-// }
-
-// void updatereverbLeadSW() {
-//   if (reverbLeadSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead Reverb", "On");
-//     }
-//     sr.writePin(REVERB_LEAD_LED, HIGH);  // LED on
-//     midiCCOut(CCreverbLeadSW, 127);
-//   } else {
-//     sr.writePin(REVERB_LEAD_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead Reverb", "Off");
-//       midiCCOut(CCreverbLeadSW, 127);
-//     }
-//   }
-// }
 
 // void updatearpOnSW() {
 //   if (arpOnSW == 1) {
@@ -2628,7 +2018,12 @@ void updatearpRange4SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpRange4SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpRangeU, 69);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpRangeL, 69);
+    }
   }
 }
 
@@ -2664,7 +2059,12 @@ void updatearpRange3SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpRange3SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpRangeU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpRangeL, 74);
+    }
   }
 }
 
@@ -2700,7 +2100,12 @@ void updatearpRange2SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpRange2SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpRangeU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpRangeL, 82);
+    }
   }
 }
 
@@ -2736,7 +2141,12 @@ void updatearpRange1SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpRange1SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpRangeU, 93);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpRangeL, 93);
+    }
   }
 }
 
@@ -2772,7 +2182,12 @@ void updatearpSyncSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpSyncSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpSyncU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpSyncL, 127);
+    }
   }
 }
 
@@ -2808,7 +2223,12 @@ void updatearpHoldSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpHoldSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpHoldU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpHoldL, 127);
+    }
   }
 }
 
@@ -2836,7 +2256,16 @@ void updatelayerSoloSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CClayerSoloSW, 127);
+    midiCCOut(MIDIlayerSolo, 127);
+  }
+}
+
+void updatemaxVoicesSW() {
+  if (maxVoicesSW == 1) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Max Voices", "On");
+    }
+    midiCCOut(MIDImaxVoicesSW, 127);
   }
 }
 
@@ -2848,7 +2277,7 @@ void updateLowerSW() {
     sr.writePin(LOWER_LED, HIGH);
     sr.writePin(UPPER_LED, LOW);
     upperSW = 0;
-    midiCCOut(CClowerSW, 127);
+    midiCCOut(MIDIpanel, 100);
     switchLEDs();
   }
 }
@@ -2861,18 +2290,18 @@ void updateUpperSW() {
     sr.writePin(LOWER_LED, LOW);
     sr.writePin(UPPER_LED, HIGH);
     lowerSW = 0;
-    midiCCOut(CCupperSW, 127);
+    midiCCOut(MIDIpanel, 50);
     switchLEDs();
   }
 }
 
 void updateUtilitySW() {
-  if (utilitySW == 1) {
-    if (!recallPatchFlag) {
-      showCurrentParameterPage("Utility", "On");
-    }
-    midiCCOut(CCutilitySW, 127);
-  }
+  // if (utilitySW == 1) {
+  //   if (!recallPatchFlag) {
+  //     showCurrentParameterPage("Utility", "On");
+  //   }
+  //   midiCCOut(CCutilitySW, 127);
+  // }
 }
 
 void updatearpRandSW() {
@@ -2909,7 +2338,12 @@ void updatearpRandSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpRandSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpDirectionU, 69);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpDirectionL, 69);
+    }
   }
 }
 
@@ -2947,7 +2381,12 @@ void updatearpUpDownSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpUpDownSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpDirectionU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpDirectionL, 74);
+    }
   }
 }
 
@@ -2985,7 +2424,12 @@ void updatearpDownSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpDownSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpDirectionU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpDirectionL, 82);
+    }
   }
 }
 
@@ -3023,7 +2467,12 @@ void updatearpUpSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpUpSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpDirectionU, 93);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpDirectionL, 93);
+    }
   }
 }
 
@@ -3061,7 +2510,12 @@ void updatearpOffSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCarpOffSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIarpDirectionU, 117);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIarpDirectionL, 117);
+    }
   }
 }
 
@@ -3097,7 +2551,12 @@ void updateenvInvSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCenvInvSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIenvInvU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIenvInvL, 127);
+    }
   }
 }
 
@@ -3139,7 +2598,12 @@ void updatefilterHPSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCfilterHPSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIfilterU, 64);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIfilterL, 64);
+    }
   }
 }
 
@@ -3181,7 +2645,12 @@ void updatefilterBP2SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCfilterBP2SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIfilterU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIfilterL, 74);
+    }
   }
 }
 
@@ -3223,7 +2692,12 @@ void updatefilterBP1SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCfilterBP1SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIfilterU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIfilterL, 82);
+    }
   }
 }
 
@@ -3265,7 +2739,12 @@ void updatefilterLP2SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCfilterLP2SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIfilterU, 93);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIfilterL, 93);
+    }
   }
 }
 
@@ -3307,7 +2786,12 @@ void updatefilterLP1SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCfilterLP1SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIfilterU, 117);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIfilterL, 117);
+    }
   }
 }
 
@@ -3345,7 +2829,12 @@ void updaterevGLTCSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCrevGLTCSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIreverbU, 69);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIreverbL, 69);
+    }
   }
 }
 
@@ -3383,7 +2872,12 @@ void updaterevHallSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCrevHallSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIreverbU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIreverbL, 74);
+    }
   }
 }
 
@@ -3421,7 +2915,12 @@ void updaterevPlateSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCrevPlateSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIreverbU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIreverbL, 82);
+    }
   }
 }
 
@@ -3459,7 +2958,12 @@ void updaterevRoomSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCrevRoomSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIreverbU, 93);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIreverbL, 93);
+    }
   }
 }
 
@@ -3497,7 +3001,12 @@ void updaterevOffSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCrevOffSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIreverbU, 117);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIreverbL, 117);
+    }
   }
 }
 
@@ -3523,7 +3032,12 @@ void updatenoisePinkSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCnoisePinkSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDInoisePinkU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDInoisePinkL, 127);
+    }
   }
 }
 
@@ -3549,7 +3063,12 @@ void updatenoiseWhiteSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCnoiseWhiteSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDInoiseWhiteU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDInoiseWhiteL, 127);
+    }
   }
 }
 
@@ -3575,7 +3094,12 @@ void updatenoiseOffSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCnoiseOffSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDInoiseOffU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDInoiseOffL, 127);
+    }
   }
 }
 
@@ -3611,7 +3135,12 @@ void updateechoSyncSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCechoSyncSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIechoSyncU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIechoSyncU, 127);
+    }
   }
 }
 
@@ -3647,7 +3176,12 @@ void updateosc1ringModSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1ringModSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1ringU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1ringL, 127);
+    }
   }
 }
 
@@ -3683,7 +3217,12 @@ void updateosc2ringModSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2ringModSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2ringU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2ringL, 127);
+    }
   }
 }
 
@@ -3725,7 +3264,12 @@ void updateosc1_osc2PWMSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1_osc2PWMSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1WaveU, 117);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1WaveL, 117);
+    }
   }
 }
 
@@ -3767,7 +3311,12 @@ void updateosc1pulseSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1pulseSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1WaveU, 93);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1WaveL, 93);
+    }
   }
 }
 
@@ -3809,7 +3358,12 @@ void updateosc1squareSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1squareSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1WaveU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1WaveL, 82);
+    }
   }
 }
 
@@ -3851,7 +3405,12 @@ void updateosc1sawSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1sawSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1WaveU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1WaveL, 74);
+    }
   }
 }
 
@@ -3893,7 +3452,12 @@ void updateosc1triangleSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1triangleSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1WaveU, 69);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1WaveL, 69);
+    }
   }
 }
 
@@ -3935,7 +3499,12 @@ void updateosc2_osc1PWMSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2_osc1PWMSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2WaveU, 117);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2WaveL, 117);
+    }
   }
 }
 
@@ -3977,7 +3546,12 @@ void updateosc2pulseSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2pulseSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2WaveU, 93);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2WaveL, 93);
+    }
   }
 }
 
@@ -4019,7 +3593,12 @@ void updateosc2squareSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2squareSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2WaveU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2WaveL, 82);
+    }
   }
 }
 
@@ -4061,7 +3640,12 @@ void updateosc2sawSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2sawSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2WaveU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2WaveL, 74);
+    }
   }
 }
 
@@ -4103,7 +3687,12 @@ void updateosc2triangleSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2triangleSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2WaveU, 69);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2WaveL, 69);
+    }
   }
 }
 
@@ -4135,7 +3724,12 @@ void updateechoPingPongSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCechoPingPongSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIechoU, 93);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIechoL, 93);
+    }
   }
 }
 
@@ -4167,7 +3761,12 @@ void updateechoTapeSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCechoTapeSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIechoU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIechoL, 82);
+    }
   }
 }
 
@@ -4199,7 +3798,12 @@ void updateechoSTDSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCechoSTDSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIechoU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIechoL, 74);
+    }
   }
 }
 
@@ -4231,7 +3835,12 @@ void updateechoOffSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCechoOffSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIechoU, 69);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIechoL, 69);
+    }
   }
 }
 
@@ -4263,7 +3872,12 @@ void updatechorus3SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCchorus3SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIchorusU, 93);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIchorusL, 93);
+    }
   }
 }
 
@@ -4295,7 +3909,12 @@ void updatechorus2SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCchorus2SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIchorusU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIchorusL, 82);
+    }
   }
 }
 
@@ -4327,7 +3946,12 @@ void updatechorus1SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCchorus1SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIchorusU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIchorusL, 74);
+    }
   }
 }
 
@@ -4359,7 +3983,12 @@ void updatechorusOffSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCchorusOffSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIchorusU, 69);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIchorusL, 69);
+    }
   }
 }
 
@@ -4401,7 +4030,12 @@ void updateosc1_1SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1_1SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1FootU, 69);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1FootL, 69);
+    }
   }
 }
 
@@ -4443,7 +4077,12 @@ void updateosc1_2SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1_2SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1FootU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1FootL, 74);
+    }
   }
 }
 
@@ -4485,7 +4124,12 @@ void updateosc1_4SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1_4SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1FootU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1FootL, 82);
+    }
   }
 }
 
@@ -4527,7 +4171,12 @@ void updateosc1_8SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1_8SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1FootU, 93);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1FootL, 93);
+    }
   }
 }
 
@@ -4569,7 +4218,12 @@ void updateosc1_16SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1_16SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1FootU, 117);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1FootL, 117);
+    }
   }
 }
 
@@ -4611,7 +4265,12 @@ void updateosc2_1SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2_1SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2FootU, 69);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2FootL, 69);
+    }
   }
 }
 
@@ -4653,7 +4312,12 @@ void updateosc2_2SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2_2SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2FootU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2FootL, 74);
+    }
   }
 }
 
@@ -4695,7 +4359,12 @@ void updateosc2_4SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2_4SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2FootU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2FootL, 82);
+    }
   }
 }
 
@@ -4737,7 +4406,12 @@ void updateosc2_8SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2_8SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2FootU, 93);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2FootL, 93);
+    }
   }
 }
 
@@ -4779,7 +4453,12 @@ void updateosc2_16SW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2_16SW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2FootU, 117);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2FootL, 117);
+    }
   }
 }
 
@@ -4815,7 +4494,12 @@ void updateosc1glideSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc1glideSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc1glideU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc1glideL, 127);
+    }
   }
 }
 
@@ -4851,7 +4535,12 @@ void updateosc2glideSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2glideSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2glideU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2glideL, 127);
+    }
   }
 }
 
@@ -4877,7 +4566,12 @@ void updateportSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCportSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIportU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIportL, 127);
+    }
   }
 }
 
@@ -4903,7 +4597,12 @@ void updateglideSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCglideSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIglideU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIglideL, 127);
+    }
   }
 }
 
@@ -4929,7 +4628,12 @@ void updateglideOffSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCglideOffSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIglideOffU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIglideOffL, 127);
+    }
   }
 }
 
@@ -4965,7 +4669,12 @@ void updateosc2SyncSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCosc2SyncSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIosc2SyncU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIosc2SyncL, 127);
+    }
   }
 }
 
@@ -5001,7 +4710,12 @@ void updatemultiTriggerSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCmultiTriggerSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDImultiTriggerU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDImultiTriggerL, 127);
+    }
   }
 }
 
@@ -5026,7 +4740,7 @@ void updatesingleSW() {
     recallPatchFlag = true;
     updateUpperSW();
     recallPatchFlag = false;
-    midiCCOut(CCsingleSW, 127);
+    midiCCOut(MIDIkeyboard, 69);
   }
 }
 
@@ -5043,7 +4757,7 @@ void updatedoubleSW() {
     display2.setBacklight(0);
     singleSW = 0;
     splitSW = 0;
-    midiCCOut(CCdoubleSW, 127);
+    midiCCOut(MIDIkeyboard, 74);
   }
 }
 
@@ -5060,7 +4774,7 @@ void updatesplitSW() {
     display2.setBacklight(LEDintensity);
     singleSW = 0;
     doubleSW = 0;
-    midiCCOut(CCsplitSW, 127);
+    midiCCOut(MIDIkeyboard, 82);
   }
 }
 
@@ -5090,7 +4804,12 @@ void updatepolySW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCpolySW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIpolyU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIpolyL, 127);
+    }
   }
 }
 
@@ -5120,7 +4839,12 @@ void updatesingleMonoSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCsingleMonoSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIsingleU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIsingleL, 127);
+    }
   }
 }
 
@@ -5150,7 +4874,114 @@ void updateunisonMonoSW() {
   }
 
   if (!layerPatchFlag) {
-    midiCCOut(CCunisonMonoSW, 127);
+    if (upperSW) {
+      midiCCOut(MIDIunisonU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIunisonL, 127);
+    }
+  }
+}
+
+void updatelfo1SyncSW() {
+
+  if (lfo1SyncSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_SYNC_LED, HIGH);
+    sr.writePin(LFO1_SYNC_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Sync", "Lower On");
+    }
+  }
+  if (!lfo1SyncSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_SYNC_LED, LOW);
+    sr.writePin(LFO1_SYNC_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Sync", "Lower Off");
+    }
+  }
+  if (lfo1SyncSWU && upperSW) {
+    sr.writePin(LFO1_SYNC_LED, HIGH);
+    green.writePin(GREEN_LFO1_SYNC_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Sync", "Upper On");
+    }
+  }
+  if (!lfo1SyncSWU && upperSW) {
+    sr.writePin(LFO1_SYNC_LED, LOW);
+    green.writePin(GREEN_LFO1_SYNC_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Sync", "Upper Off");
+    }
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1SyncU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1SyncL, 127);
+    }
+  }
+}
+
+void updatelfo1modWheelSW() {
+
+  if (lfo1modWheelSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_WHEEL_LED, HIGH);
+    sr.writePin(LFO1_WHEEL_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Wheel", "Lower On");
+    }
+  }
+  if (!lfo1modWheelSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_WHEEL_LED, LOW);
+    sr.writePin(LFO1_WHEEL_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Wheel", "Lower Off");
+    }
+  }
+  if (lfo1modWheelSWU && upperSW) {
+    sr.writePin(LFO1_WHEEL_LED, HIGH);
+    green.writePin(GREEN_LFO1_WHEEL_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Wheel", "Upper On");
+    }
+  }
+  if (!lfo1modWheelSWU && upperSW) {
+    sr.writePin(LFO1_WHEEL_LED, LOW);
+    green.writePin(GREEN_LFO1_WHEEL_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Wheel", "Upper Off");
+    }
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1modWheelU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1modWheelL, 127);
+    }
+  }
+}
+
+void updatelfo2SyncSW() {
+  if (!recallPatchFlag) {
+    if (lfo2SyncSW) {
+    showCurrentParameterPage("LFO2 Sync", "On");
+    }
+    if (!lfo2SyncSW) {
+    showCurrentParameterPage("LFO2 Sync", "Off");
+    }
+  }
+  if (lfo2SyncSW) {
+    sr.writePin(LFO2_SYNC_LED, HIGH);
+  }
+  if (!lfo2SyncSW) {
+    sr.writePin(LFO2_SYNC_LED, LOW);
+  }
+  if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo2SyncSW, 127);
   }
 }
 
@@ -5224,6 +5055,9 @@ void switchLEDs() {
   updatepolySW();
   updatesingleMonoSW();
   updateunisonMonoSW();
+  updatelfo1SyncSW();
+  updatelfo1modWheelSW();
+  updatelfo2SyncSW();
 
   recallPatchFlag = false;
   layerPatchFlag = false;
@@ -5831,7 +5665,8 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         lfo1FrequencyU = value;
       }
-      lfo1Frequencystr = QUADRA100[value];
+      //lfo1Frequencystr = QUADRA100[value];
+      lfo1Frequencystr = value;
       updatelfo1Frequency();
       break;
 
@@ -6548,6 +6383,36 @@ void myControlChange(byte channel, byte control, int value) {
       updateunisonMonoSW();
       break;
 
+    case CClfo1SyncSW:
+      if (lowerSW) {
+        value > 0 ? lfo1SyncSWL = 1 : lfo1SyncSWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? lfo1SyncSWU = 1 : lfo1SyncSWU = 0;
+      }
+      updatelfo1SyncSW();
+      break;
+
+    case CClfo1modWheelSW:
+      if (lowerSW) {
+        value > 0 ? lfo1modWheelSWL = 1 : lfo1modWheelSWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? lfo1modWheelSWU = 1 : lfo1modWheelSWU = 0;
+      }
+      updatelfo1modWheelSW();
+      break;
+
+    case CClfo2SyncSW:
+      value > 0 ? lfo2SyncSW = 1 : lfo2SyncSW = 0;
+      updatelfo2SyncSW();
+      break;
+
+    case CCmaxVoicesSW:
+      value > 0 ? maxVoicesSW = 1 : maxVoicesSW = 0;
+      updatemaxVoicesSW();
+      break;
+
     case CClowerSW:
       value > 0 ? lowerSW = 1 : lowerSW = 0;
       updateLowerSW();
@@ -6832,6 +6697,11 @@ void setCurrentPatchData(String data[]) {
   singleMonoSWU = data[227].toInt();
   unisonMonoSWL = data[228].toInt();
   unisonMonoSWU = data[229].toInt();
+  lfo1SyncSWL = data[230].toInt();
+  lfo1SyncSWU = data[231].toInt();
+  lfo1modWheelSWL = data[232].toInt();
+  lfo1modWheelSWU = data[233].toInt();
+  lfo2SyncSW = data[234].toInt();
 
   //Pots
 
@@ -6841,7 +6711,7 @@ void setCurrentPatchData(String data[]) {
   updatelayerVolume();
 
   //Switches
-  
+
   updatearpRange4SW();
   updatearpRange3SW();
   updatearpRange2SW();
@@ -6912,6 +6782,9 @@ void setCurrentPatchData(String data[]) {
   updatepolySW();
   updatesingleMonoSW();
   updateunisonMonoSW();
+  updatelfo1SyncSW();
+  updatelfo1modWheelSW();
+  updatelfo2SyncSW();
 
   //Patchname
   updatePatchname();
@@ -6959,7 +6832,7 @@ String getCurrentPatchData() {
          + "," + String(portSWL) + "," + String(portSWU) + "," + String(glideSWL) + "," + String(glideSWU) + "," + String(glideOffSWL) + "," + String(glideOffSWU)
          + "," + String(osc2SyncSWL) + "," + String(osc2SyncSWU) + "," + String(multiTriggerSWL) + "," + String(multiTriggerSWU) + "," + String(singleSW) + "," + String(doubleSW)
          + "," + String(splitSW) + "," + String(polySWL) + "," + String(polySWU) + "," + String(singleMonoSWL) + "," + String(singleMonoSWU) + "," + String(unisonMonoSWL)
-         + "," + String(unisonMonoSWU);
+         + "," + String(unisonMonoSWU) + "," + String(lfo1SyncSWL) + "," + String(lfo1SyncSWU) + "," + String(lfo1modWheelSWL) + "," + String(lfo1modWheelSWU) + "," + String(lfo2SyncSW);
 }
 
 void checkMux() {
@@ -7207,6 +7080,13 @@ void checkMux() {
 void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
 
   // to check if a specific button was pressed
+
+  if (btnIndex == LIMITER_SW && btnType == ROX_PRESSED) {
+    if (!limiterSW) {
+      limiterSW = !limiterSW;
+      myControlChange(midiChannel, CClimiterSW, limiterSW);
+    }
+  }
 
   if (btnIndex == LOWER_SW && btnType == ROX_PRESSED) {
     if (!singleSW) {
@@ -7637,6 +7517,27 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
     myControlChange(midiChannel, CCunisonMonoSW, unisonMonoSW);
   }
 
+  if (btnIndex == MAX_VOICES_SW && btnType == ROX_PRESSED) {
+    maxVoicesSW = 1;
+    myControlChange(midiChannel, CCmaxVoicesSW, maxVoicesSW);
+  }
+
+  if (btnIndex == LFO1_SYNC_SW && btnType == ROX_PRESSED) {
+    lfo1SyncSW = !lfo1SyncSW;
+    myControlChange(midiChannel, CClfo1SyncSW, lfo1SyncSW);
+  }
+
+  if (btnIndex == LFO1_WHEEL_SW && btnType == ROX_PRESSED) {
+    lfo1modWheelSW = !lfo1modWheelSW;
+    myControlChange(midiChannel, CClfo1modWheelSW, lfo1modWheelSW);
+  }
+
+  if (btnIndex == LFO2_SYNC_SW && btnType == ROX_PRESSED) {
+    Serial.print("Switch Pushed");
+    lfo2SyncSW = !lfo2SyncSW;
+    myControlChange(midiChannel, CClfo2SyncSW, lfo2SyncSW);
+  }
+
   // if (btnIndex == LEAD_VCO1_WAVE_SW && btnType == ROX_PRESSED) {
   //   sr.writePin(LEAD_VCO1_WAVE_LED, LOW);
   //   vco1wave_timer = millis();
@@ -7666,7 +7567,6 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
   //   }
   //   myControlChange(midiChannel, CCpolyWave, polyWave);
   // }
-
 }
 
 void showSettingsPage() {
@@ -7733,40 +7633,40 @@ void midiCCOut(byte cc, byte value) {
               //   MIDI.sendNoteOff(118, 0, midiOutCh);   //MIDI USB is set to Out
               //   break;
 
-              // case CCphaserLeadSW:
+              // case CCarpRange4SW:
               //   if (updateParams) {
               //     usbMIDI.sendNoteOn(0, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(0, 0, midiOutCh);   //MIDI USB is set to Out
+              //     //usbMIDI.sendNoteOff(0, 0, midiOutCh);   //MIDI USB is set to Out
               //   }
               //   MIDI.sendNoteOn(0, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(0, 0, midiOutCh);   //MIDI USB is set to Out
+              //   //MIDI.sendNoteOff(0, 0, midiOutCh);   //MIDI USB is set to Out
               //   break;
 
-              // case CCchorusBassSW:
+              // case CCarpRange3SW:
               //   if (updateParams) {
               //     usbMIDI.sendNoteOn(1, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(1, 0, midiOutCh);   //MIDI USB is set to Out
+              //     //usbMIDI.sendNoteOff(1, 0, midiOutCh);   //MIDI USB is set to Out
               //   }
               //   MIDI.sendNoteOn(1, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(1, 0, midiOutCh);   //MIDI USB is set to Out
+              //   //MIDI.sendNoteOff(1, 0, midiOutCh);   //MIDI USB is set to Out
               //   break;
 
-              // case CCchorusStringsSW:
+              // case CCarpRange2SW:
               //   if (updateParams) {
               //     usbMIDI.sendNoteOn(2, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(2, 0, midiOutCh);   //MIDI USB is set to Out
+              //     //usbMIDI.sendNoteOff(2, 0, midiOutCh);   //MIDI USB is set to Out
               //   }
               //   MIDI.sendNoteOn(2, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(2, 0, midiOutCh);   //MIDI USB is set to Out
+              //   //MIDI.sendNoteOff(2, 0, midiOutCh);   //MIDI USB is set to Out
               //   break;
 
-              // case CCchorusPolySW:
+              // case CCarpRange1SW:
               //   if (updateParams) {
               //     usbMIDI.sendNoteOn(3, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(3, 0, midiOutCh);   //MIDI USB is set to Out
+              //     //usbMIDI.sendNoteOff(3, 0, midiOutCh);   //MIDI USB is set to Out
               //   }
               //   MIDI.sendNoteOn(3, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(3, 0, midiOutCh);   //MIDI USB is set to Out
+              //   //MIDI.sendNoteOff(3, 0, midiOutCh);   //MIDI USB is set to Out
               //   break;
 
               // case CCchorusLeadSW:
@@ -7850,13 +7750,13 @@ void midiCCOut(byte cc, byte value) {
               //   MIDI.sendNoteOff(12, 0, midiOutCh);   //MIDI USB is set to Out
               //   break;
 
-              // case CCarpOnSW:
+              // case CCmaxVoicesSW:
               //   if (updateParams) {
               //     usbMIDI.sendNoteOn(127, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(127, 0, midiOutCh);   //MIDI USB is set to Out
+              //     //usbMIDI.sendNoteOff(127, 0, midiOutCh);   //MIDI USB is set to Out
               //   }
               //   MIDI.sendNoteOn(127, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(127, 0, midiOutCh);   //MIDI USB is set to Out
+              //   //MIDI.sendNoteOff(127, 0, midiOutCh);   //MIDI USB is set to Out
               //   break;
 
               // case CCarpDownSW:
@@ -7903,6 +7803,7 @@ void midiCCOut(byte cc, byte value) {
 
             default:
               if (updateParams) {
+
                 usbMIDI.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
               }
               MIDI.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
