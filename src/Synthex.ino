@@ -3033,10 +3033,10 @@ void updatenoisePinkSW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDInoisePinkU, 127);
+      midiCCOut(MIDInoiseU, 82);
     }
     if (lowerSW) {
-      midiCCOut(MIDInoisePinkL, 127);
+      midiCCOut(MIDInoiseL, 82);
     }
   }
 }
@@ -3064,10 +3064,10 @@ void updatenoiseWhiteSW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDInoiseWhiteU, 127);
+      midiCCOut(MIDInoiseU, 74);
     }
     if (lowerSW) {
-      midiCCOut(MIDInoiseWhiteL, 127);
+      midiCCOut(MIDInoiseL, 74);
     }
   }
 }
@@ -3095,10 +3095,10 @@ void updatenoiseOffSW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDInoiseOffU, 127);
+      midiCCOut(MIDInoiseU, 69);
     }
     if (lowerSW) {
-      midiCCOut(MIDInoiseOffL, 127);
+      midiCCOut(MIDInoiseL, 69);
     }
   }
 }
@@ -4567,10 +4567,10 @@ void updateportSW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDIportU, 127);
+      midiCCOut(MIDIglideU, 127);
     }
     if (lowerSW) {
-      midiCCOut(MIDIportL, 127);
+      midiCCOut(MIDIglideL, 127);
     }
   }
 }
@@ -4629,10 +4629,10 @@ void updateglideOffSW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDIglideOffU, 127);
+      midiCCOut(MIDIglideU, 127);
     }
     if (lowerSW) {
-      midiCCOut(MIDIglideOffL, 127);
+      midiCCOut(MIDIglideL, 127);
     }
   }
 }
@@ -4805,10 +4805,10 @@ void updatepolySW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDIpolyU, 127);
+      midiCCOut(MIDIpolyMonoU, 82);
     }
     if (lowerSW) {
-      midiCCOut(MIDIpolyL, 127);
+      midiCCOut(MIDIpolyMonoL, 82);
     }
   }
 }
@@ -4840,10 +4840,10 @@ void updatesingleMonoSW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDIsingleU, 127);
+      midiCCOut(MIDIpolyMonoU, 74);
     }
     if (lowerSW) {
-      midiCCOut(MIDIsingleL, 127);
+      midiCCOut(MIDIpolyMonoL, 74);
     }
   }
 }
@@ -4875,10 +4875,10 @@ void updateunisonMonoSW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDIunisonU, 127);
+      midiCCOut(MIDIpolyMonoU, 69);
     }
     if (lowerSW) {
-      midiCCOut(MIDIunisonL, 127);
+      midiCCOut(MIDIpolyMonoL, 69);
     }
   }
 }

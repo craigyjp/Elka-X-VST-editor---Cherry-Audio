@@ -10,7 +10,7 @@
 #define MIDIreverbLevelU 8
 #define MIDIreverbLevelL 9
 #define MIDIreverbDecayU 10
-
+#define MIDIpolyMonoU 11
 #define MIDIreverbDecayL 12
 #define MIDIreverbEQU 13
 #define MIDIreverbEQL 14
@@ -119,9 +119,15 @@
 #define MIDIarpRangeU 118
 #define MIDIarpRangeL 119
 #define MIDIarpDirectionU 120
-
+#define MIDIpolyMonoL 121
 #define MIDIarpDirectionL 122
 #define CCallnotesoff 123  //Panic button
+
+#define MIDIglideU 124
+#define MIDIglideL 125
+#define MIDInoiseU 126
+#define MIDInoiseL 127
+
 
 // Above 128 will be handled as Note On events
 
@@ -135,38 +141,34 @@
 #define MIDIosc2SyncL 135
 #define MIDImultiTriggerU 136
 #define MIDImultiTriggerL 137
-#define MIDIpolyU 138
-#define MIDIpolyL 139
-#define MIDIsingleU 140
-#define MIDIsingleL 141
-#define MIDIunisonU 142
-#define MIDIunisonL 143
-#define MIDIechoSyncU 144
-#define MIDIechoSyncL 145
-#define MIDIosc1ringU 146
-#define MIDIosc1ringL 147
-#define MIDIosc2ringU 148
-#define MIDIosc2ringL 149
-#define MIDIosc1glideU 150
-#define MIDIosc1glideL 151
-#define MIDIosc2glideU 152
-#define MIDIosc2glideL 153
-#define MIDIlimiter 154
-#define MIDIlayerSolo 155
-#define MIDInoisePinkU 156
-#define MIDInoisePinkL 157
-#define MIDInoiseWhiteU 158
-#define MIDInoiseWhiteL 159
-#define MIDInoiseOffU 160
-#define MIDInoiseOffL 161
-#define MIDIportU 162
-#define MIDIportL 163
-#define MIDIglideU 164
-#define MIDIglideL 165
-#define MIDIglideOffU 166
-#define MIDIglideOffL 167
-#define MIDIlfo1SyncU 168
-#define MIDIlfo1SyncL 169
-#define MIDIlfo1modWheelU 170
-#define MIDIlfo1modWheelL 171
-#define MIDImaxVoicesSW 172
+#define MIDIechoSyncU 138
+#define MIDIechoSyncL 139
+#define MIDIosc1ringU 140
+#define MIDIosc1ringL 141
+#define MIDIosc2ringU 142
+#define MIDIosc2ringL 143
+#define MIDIosc1glideU 144
+#define MIDIosc1glideL 145
+#define MIDIosc2glideU 146
+#define MIDIosc2glideL 147
+#define MIDIlimiter 148
+#define MIDIlayerSolo 149
+#define MIDIlfo1SyncU 150
+#define MIDIlfo1SyncL 151
+#define MIDIlfo1modWheelU 152
+#define MIDIlfo1modWheelL 153
+#define MIDIlfo1resetU 154
+#define MIDIlfo1resetL 155
+#define MIDIlfo1osc1U 156
+#define MIDIlfo1osc1L 157
+#define MIDIlfo1osc2U 158
+#define MIDIlfo1osc2L 159
+#define MIDIlfo1pw1U 160
+#define MIDIlfo1pw1L 161
+#define MIDIlfo1pw2U 162
+#define MIDIlfo1pw2L 163
+#define MIDIlfo1filtU 164
+#define MIDIlfo1filtL 165
+#define MIDIlfo1ampU 166
+#define MIDIlfo1ampL 167
+#define MIDImaxVoicesSW 168
