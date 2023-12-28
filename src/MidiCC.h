@@ -131,12 +131,12 @@
 
 // Above 128 will be handled as Note On events
 
-#define MIDIarpSyncU 128
-#define MIDIarpSyncL 129
-#define MIDIarpHoldU 130
-#define MIDIarpHoldL 131
-#define MIDIenvInvU 132
-#define MIDIenvInvL 133
+#define MIDIarpSyncU 128  // note 0
+#define MIDIarpSyncL 129  // note 1
+#define MIDIarpHoldU 130  // note 2
+#define MIDIarpHoldL 131  // note 3
+#define MIDIenvInvU 132   // note 4
+#define MIDIenvInvL 133   // note 5
 #define MIDIosc2SyncU 134
 #define MIDIosc2SyncL 135
 #define MIDImultiTriggerU 136
@@ -171,4 +171,6 @@
 #define MIDIlfo1filtL 165
 #define MIDIlfo1ampU 166
 #define MIDIlfo1ampL 167
-#define MIDImaxVoicesSW 168
+#define MIDIlfo1seqRateU 168
+#define MIDIlfo1seqRateL 169
+#define MIDImaxVoicesSW 170

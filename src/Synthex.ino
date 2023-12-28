@@ -208,7 +208,7 @@ void setup() {
   midiOutCh = getMIDIOutCh();
 
   sr.writePin(UPPER_LED, HIGH);
-  sr.writePin(LFO2_SYNC_LED, HIGH);
+
   // sr.writePin(LEAD_VCO2_WAVE_LED, HIGH);
   // Blank the split display
   setLEDDisplay2();
@@ -4567,10 +4567,10 @@ void updateportSW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDIglideU, 127);
+      midiCCOut(MIDIglideU, 82);
     }
     if (lowerSW) {
-      midiCCOut(MIDIglideL, 127);
+      midiCCOut(MIDIglideL, 82);
     }
   }
 }
@@ -4598,10 +4598,10 @@ void updateglideSW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDIglideU, 127);
+      midiCCOut(MIDIglideU, 74);
     }
     if (lowerSW) {
-      midiCCOut(MIDIglideL, 127);
+      midiCCOut(MIDIglideL, 74);
     }
   }
 }
@@ -4629,10 +4629,10 @@ void updateglideOffSW() {
 
   if (!layerPatchFlag) {
     if (upperSW) {
-      midiCCOut(MIDIglideU, 127);
+      midiCCOut(MIDIglideU, 69);
     }
     if (lowerSW) {
-      midiCCOut(MIDIglideL, 127);
+      midiCCOut(MIDIglideL, 69);
     }
   }
 }
@@ -4968,10 +4968,10 @@ void updatelfo1modWheelSW() {
 void updatelfo2SyncSW() {
   if (!recallPatchFlag) {
     if (lfo2SyncSW) {
-    showCurrentParameterPage("LFO2 Sync", "On");
+      showCurrentParameterPage("LFO2 Sync", "On");
     }
     if (!lfo2SyncSW) {
-    showCurrentParameterPage("LFO2 Sync", "Off");
+      showCurrentParameterPage("LFO2 Sync", "Off");
     }
   }
   if (lfo2SyncSW) {
@@ -4981,7 +4981,8 @@ void updatelfo2SyncSW() {
     sr.writePin(LFO2_SYNC_LED, LOW);
   }
   if (!layerPatchFlag) {
-      midiCCOut(MIDIlfo2SyncSW, 127);
+    midiCCOut(MIDIlfo2SyncSW, 127);
+    midiCCOut(MIDIlfo2SyncSW, 0);
   }
 }
 
@@ -7579,227 +7580,383 @@ void midiCCOut(byte cc, byte value) {
       case 0:
         {
           switch (cc) {
-              // case CCpolyLearn:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(120, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(120, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(120, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(120, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIarpSyncU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(0, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(0, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(0, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(0, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCtrillUp:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(116, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(116, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(116, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(116, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIarpSyncL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(1, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(1, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(1, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(1, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCtrillDown:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(117, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(117, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(117, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(117, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIarpHoldU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(2, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(2, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(2, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(2, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCleadLearn:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(121, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(121, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(121, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(121, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIarpHoldL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(3, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(3, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(3, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(3, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCbassLearn:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(119, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(119, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(119, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(119, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIenvInvU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(4, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(4, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(4, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(4, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCstringsLearn:  // strings learn
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(118, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(118, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(118, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(118, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIenvInvL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(5, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(5, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(5, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(5, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCarpRange4SW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(0, 127, midiOutCh);  //MIDI USB is set to Out
-              //     //usbMIDI.sendNoteOff(0, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(0, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   //MIDI.sendNoteOff(0, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIosc2SyncU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(6, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(6, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(6, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(6, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCarpRange3SW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(1, 127, midiOutCh);  //MIDI USB is set to Out
-              //     //usbMIDI.sendNoteOff(1, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(1, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   //MIDI.sendNoteOff(1, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIosc2SyncL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(7, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(7, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(7, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(7, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCarpRange2SW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(2, 127, midiOutCh);  //MIDI USB is set to Out
-              //     //usbMIDI.sendNoteOff(2, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(2, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   //MIDI.sendNoteOff(2, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDImultiTriggerU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(8, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(8, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(8, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(8, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCarpRange1SW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(3, 127, midiOutCh);  //MIDI USB is set to Out
-              //     //usbMIDI.sendNoteOff(3, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(3, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   //MIDI.sendNoteOff(3, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDImultiTriggerL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(9, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(9, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(9, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(9, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCchorusLeadSW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(4, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(4, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(4, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(4, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIechoSyncU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(10, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(10, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(10, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(10, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCechoBassSW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(5, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(5, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(5, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(5, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIechoSyncL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(11, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(11, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(11, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(11, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCechoStringsSW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(6, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(6, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(6, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(6, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIosc1ringU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(12, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(12, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(12, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(12, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCechoPolySW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(7, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(7, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(7, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(7, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIosc1ringL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(13, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(13, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(13, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(13, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCechoLeadSW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(8, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(8, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(8, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(8, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIosc2ringU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(14, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(14, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(14, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(14, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCreverbBassSW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(9, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(9, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(9, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(9, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIosc2ringL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(15, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(15, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(15, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(15, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCreverbStringsSW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(10, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(10, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(10, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(10, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIosc1glideU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(16, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(16, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(16, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(16, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCreverbPolySW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(11, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(11, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(11, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(11, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIosc1glideL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(17, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(17, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(17, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(17, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCreverbLeadSW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(12, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(12, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(12, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(12, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIosc2glideU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(18, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(18, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(18, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(18, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCmaxVoicesSW:
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(127, 127, midiOutCh);  //MIDI USB is set to Out
-              //     //usbMIDI.sendNoteOff(127, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(127, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   //MIDI.sendNoteOff(127, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIosc2glideL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(19, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(19, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(19, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(19, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCarpDownSW:
-              //   // Arp Down
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(126, 127, midiOutCh);  //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(126, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   break;
+            case MIDIlimiter:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(20, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(20, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(20, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(20, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCarpUpSW:
-              //   // Arp Up
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(125, 127, midiOutCh);  //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(125, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   break;
+            case MIDIlayerSolo:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(21, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(21, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(21, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(21, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCarpUpDownSW:
-              //   // Arp UpDown
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(124, 127, midiOutCh);  //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(124, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   break;
+            case MIDIlfo1SyncU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(22, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(22, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(22, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(22, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCarpRandomSW:
-              //   // Arp Random
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(123, 127, midiOutCh);  //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(123, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   break;
+            case MIDIlfo1SyncL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(23, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(23, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(23, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(23, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
-              // case CCarpHoldSW:
-              //   // Arp Hold
-              //   if (updateParams) {
-              //     usbMIDI.sendNoteOn(122, 127, midiOutCh);  //MIDI USB is set to Out
-              //     usbMIDI.sendNoteOff(122, 0, midiOutCh);   //MIDI USB is set to Out
-              //   }
-              //   MIDI.sendNoteOn(122, 127, midiOutCh);  //MIDI DIN is set to Out
-              //   MIDI.sendNoteOff(122, 0, midiOutCh);   //MIDI USB is set to Out
-              //   break;
+            case MIDIlfo1modWheelU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(127, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(127, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(127, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(127, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1modWheelL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(126, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(126, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(126, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(126, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1resetU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(125, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(125, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(125, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(125, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1resetL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(124, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(124, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(124, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(124, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1osc1U:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(123, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(123, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(123, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(123, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1osc1L:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(122, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(122, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(122, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(122, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1osc2U:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(121, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(121, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(121, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(121, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1osc2L:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(120, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(120, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(120, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(120, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1pw1U:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(119, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(119, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(119, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(119, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1pw1L:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(118, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(118, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(118, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(118, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1pw2U:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(117, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(117, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(117, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(117, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1pw2L:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(116, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(116, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(116, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(116, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1filtU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(115, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(115, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(115, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(115, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1filtL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(114, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(114, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(114, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(114, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+              case MIDIlfo1ampU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(113, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(113, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(113, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(113, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1ampL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(112, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(112, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(112, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(112, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1seqRateU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(111, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(111, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(111, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(111, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1seqRateL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(110, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(110, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(110, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(110, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
 
             default:
               if (updateParams) {
