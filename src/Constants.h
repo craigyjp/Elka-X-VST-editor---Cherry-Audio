@@ -31,7 +31,7 @@ const String QUADRAARPSYNC[20] = {"8 Beats", "4 Beats", "1/2 Dotted", "1/2", "1/
 
 #define RE_READ -9
 #define  NO_OF_VOICES 1
-#define NO_OF_PARAMS 250
+#define NO_OF_PARAMS 270
 const char* INITPATCHNAME = "Initial Patch";
 #define HOLD_DURATION 1000
 const uint32_t CLICK_DURATION = 250;

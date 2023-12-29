@@ -63,11 +63,6 @@
 #define CClayerSoloSW 63
 #define CCmaxVoicesSW 65
 
-// #define CCarpUpDownSW 66
-// #define CCarpDownSW 67
-// #define CCarpUpSW 68
-// #define CCarpOffSW  69
-
 #define CCenvInvSW 70
 #define CCfilterHPSW 71
 #define CCfilterBP2SW 72
@@ -107,14 +102,12 @@
 #define CClfo1SyncSW 106
 #define CClfo1modWheelSW 107
 #define CClfo2SyncSW 108
-
-// #define CCosc1_16SW 109
-// #define CCosc2_1SW 110
-// #define CCosc2_2SW 111
-// #define CCosc2_4SW 112
-// #define CCosc2_8SW 113
-// #define CCosc2_16SW 114
-
+#define CClfo1randSW 109
+#define CClfo1resetSW 110
+#define CClfo1osc1SW 111
+#define CClfo1osc2SW 112
+#define CClfo1pw1SW 113
+#define CClfo1pw2SW 114
 #define CCosc1glideSW 115
 #define CCosc2glideSW 116
 #define CCportSW 117
@@ -122,7 +115,11 @@
 #define CCglideOffSW 119
 #define CCosc2SyncSW 120
 #define CCmultiTriggerSW 122
-
+#define CClfo1filtSW  123
+#define CClfo1ampSW  124
+#define CClfo1seqRateSW  125
+#define CClfo1squareUniSW 126
+#define CClfo1squareBipSW 127
 #define CCarpRange4SW 128
 #define CCarpRange3SW 129
 #define CCarpRange2SW 130
@@ -133,21 +130,21 @@
 #define CCpolySW 135
 #define CCsingleMonoSW 136
 #define CCunisonMonoSW 137
-
+#define CClfo1triangleSW 138
 #define CCosc1_1SW 139
 #define CCosc1_2SW 140
 #define CCosc1_4SW 141
 #define CCosc1_8SW 142
 #define CCosc1_16SW 143
-
 #define CCosc2_1SW 144
 #define CCosc2_2SW 145
 #define CCosc2_4SW 146
 #define CCosc2_8SW 147
 #define CCosc2_16SW 148
-
 #define CCarpRandSW 149 
 #define CCarpUpDownSW 150
 #define CCarpDownSW 151
 #define CCarpUpSW 152
 #define CCarpOffSW  153
+#define CClfo1sawUpSW 154
+#define CClfo1sawDnSW 155

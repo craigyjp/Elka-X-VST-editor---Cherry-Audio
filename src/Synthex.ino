@@ -4986,6 +4986,356 @@ void updatelfo2SyncSW() {
   }
 }
 
+void updatelfo1randSW() {
+  if (!recallPatchFlag) {
+    showCurrentParameterPage("LFO1 Wave", "Random");
+  }
+  if (lfo1randSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_RANDOM_LED, HIGH);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    lfo1squareUniSWL = 0;
+    lfo1squareBipSWL = 0;
+    lfo1sawUpSWL = 0;
+    lfo1sawDnSWL = 0;
+    lfo1triangleSWL = 0;
+  }
+  if (lfo1randSWU && upperSW) {
+    sr.writePin(LFO1_RANDOM_LED, HIGH);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    lfo1squareUniSWU = 0;
+    lfo1squareBipSWU = 0;
+    lfo1sawUpSWU = 0;
+    lfo1sawDnSWU = 0;
+    lfo1triangleSWU = 0;
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1WaveU, 108);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1WaveL, 109);
+    }
+  }
+}
+
+void updatelfo1squareUniSW() {
+  if (!recallPatchFlag) {
+    showCurrentParameterPage("LFO1 Wave", "Square Uni");
+  }
+  if (lfo1squareUniSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, HIGH);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    lfo1randSWL = 0;
+    lfo1squareBipSWL = 0;
+    lfo1sawUpSWL = 0;
+    lfo1sawDnSWL = 0;
+    lfo1triangleSWL = 0;
+  }
+  if (lfo1squareUniSWU && upperSW) {
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, HIGH);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    lfo1randSWU = 0;
+    lfo1squareBipSWU = 0;
+    lfo1sawUpSWU = 0;
+    lfo1sawDnSWU = 0;
+    lfo1triangleSWU = 0;
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1WaveU, 103);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1WaveL, 103);
+    }
+  }
+}
+
+void updatelfo1squareBipSW() {
+  if (!recallPatchFlag) {
+    showCurrentParameterPage("LFO1 Wave", "Square Bip");
+  }
+  if (lfo1squareBipSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, HIGH);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    lfo1randSWL = 0;
+    lfo1squareUniSWL = 0;
+    lfo1sawUpSWL = 0;
+    lfo1sawDnSWL = 0;
+    lfo1triangleSWL = 0;
+  }
+  if (lfo1squareBipSWU && upperSW) {
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, HIGH);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    lfo1randSWU = 0;
+    lfo1squareUniSWU = 0;
+    lfo1sawUpSWU = 0;
+    lfo1sawDnSWU = 0;
+    lfo1triangleSWU = 0;
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1WaveU, 91);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1WaveL, 91);
+    }
+  }
+}
+
+void updatelfo1sawUpSW() {
+  if (!recallPatchFlag) {
+    showCurrentParameterPage("LFO1 Wave", "Saw Up");
+  }
+  if (lfo1sawUpSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, HIGH);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    lfo1randSWL = 0;
+    lfo1squareUniSWL = 0;
+    lfo1squareBipSWL = 0;
+    lfo1sawDnSWL = 0;
+    lfo1triangleSWL = 0;
+  }
+  if (lfo1sawUpSWU && upperSW) {
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, HIGH);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    lfo1randSWU = 0;
+    lfo1squareUniSWU = 0;
+    lfo1squareBipSWU = 0;
+    lfo1sawDnSWU = 0;
+    lfo1triangleSWU = 0;
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1WaveU, 82);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1WaveL, 82);
+    }
+  }
+}
+
+void updatelfo1sawDnSW() {
+  if (!recallPatchFlag) {
+    showCurrentParameterPage("LFO1 Wave", "Saw Down");
+  }
+  if (lfo1sawDnSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, HIGH);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    lfo1randSWL = 0;
+    lfo1squareUniSWL = 0;
+    lfo1squareBipSWL = 0;
+    lfo1sawUpSWL = 0;
+    lfo1triangleSWL = 0;
+  }
+  if (lfo1sawDnSWU && upperSW) {
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, HIGH);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    lfo1randSWU = 0;
+    lfo1squareUniSWU = 0;
+    lfo1squareBipSWU = 0;
+    lfo1sawUpSWU = 0;
+    lfo1triangleSWU = 0;
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1WaveU, 74);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1WaveL, 74);
+    }
+  }
+}
+
+void updatelfo1triangleSW() {
+  if (!recallPatchFlag) {
+    showCurrentParameterPage("LFO1 Wave", "Triangle");
+  }
+  if (lfo1triangleSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, HIGH);
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, LOW);
+    lfo1randSWL = 0;
+    lfo1squareUniSWL = 0;
+    lfo1squareBipSWL = 0;
+    lfo1sawUpSWL = 0;
+    lfo1sawDnSWL = 0;
+  }
+  if (lfo1triangleSWU && upperSW) {
+    sr.writePin(LFO1_RANDOM_LED, LOW);
+    sr.writePin(LFO1_SQ_UNIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SQ_BIPOLAR_LED, LOW);
+    sr.writePin(LFO1_SAW_UP_LED, LOW);
+    sr.writePin(LFO1_SAW_DOWN_LED, LOW);
+    sr.writePin(LFO1_TRIANGLE_LED, HIGH);
+    green.writePin(GREEN_LFO1_RANDOM_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_UNIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SQ_BIPOLAR_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_UP_LED, LOW);
+    green.writePin(GREEN_LFO1_SAW_DOWN_LED, LOW);
+    green.writePin(GREEN_LFO1_TRIANGLE_LED, LOW);
+    lfo1randSWU = 0;
+    lfo1squareUniSWU = 0;
+    lfo1squareBipSWU = 0;
+    lfo1sawUpSWU = 0;
+    lfo1sawDnSWU = 0;
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1WaveU, 69);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1WaveL, 69);
+    }
+  }
+}
+
+void updatelfo1resetSW() {
+
+}
+
+void updatelfo1osc1SW() {
+
+}
+
+void updatelfo1osc2SW() {
+
+}
+
+void  updatelfo1pw1SW() {
+
+}
+
+void  updatelfo1pw2SW() {
+
+}
+
+void  updatelfo1filtSW(){
+
+}
+
+void  updatelfo1ampSW(){
+
+}
+
+void  updatelfo1seqRateSW(){
+
+}
+
 void switchLEDs() {
   layerPatchFlag = true;
   recallPatchFlag = true;
@@ -5059,6 +5409,20 @@ void switchLEDs() {
   updatelfo1SyncSW();
   updatelfo1modWheelSW();
   updatelfo2SyncSW();
+  updatelfo1randSW();
+  updatelfo1squareUniSW();
+  updatelfo1squareBipSW();
+  updatelfo1sawUpSW();
+  updatelfo1sawDnSW();
+  updatelfo1triangleSW();
+  updatelfo1resetSW();
+  updatelfo1osc1SW();
+  updatelfo1osc2SW();
+  updatelfo1pw1SW();
+  updatelfo1pw2SW();
+  updatelfo1filtSW();
+  updatelfo1ampSW();
+  updatelfo1seqRateSW();
 
   recallPatchFlag = false;
   layerPatchFlag = false;
@@ -6409,6 +6773,66 @@ void myControlChange(byte channel, byte control, int value) {
       updatelfo2SyncSW();
       break;
 
+    case CClfo1randSW:
+      if (lowerSW) {
+        lfo1randSWL = 1;
+      }
+      if (upperSW) {
+        lfo1randSWU = 1;
+      }
+      updatelfo1randSW();
+      break;
+   
+    case CClfo1squareUniSW:
+      if (lowerSW) {
+        lfo1squareUniSWL = 1;
+      }
+      if (upperSW) {
+        lfo1squareUniSWU = 1;
+      }
+      updatelfo1squareUniSW();
+      break;   
+
+    case CClfo1squareBipSW:
+      if (lowerSW) {
+        lfo1squareBipSWL = 1;
+      }
+      if (upperSW) {
+        lfo1squareBipSWU = 1;
+      }
+      updatelfo1squareBipSW();
+      break;  
+
+    case CClfo1sawUpSW:
+      if (lowerSW) {
+        lfo1sawUpSWL = 1;
+      }
+      if (upperSW) {
+        lfo1sawUpSWU = 1;
+      }
+      updatelfo1sawUpSW();
+      break;  
+
+    case CClfo1sawDnSW:
+      if (lowerSW) {
+        lfo1sawDnSWL = 1;
+      }
+      if (upperSW) {
+        lfo1sawDnSWU = 1;
+      }
+      updatelfo1sawDnSW();
+      break; 
+
+    case CClfo1triangleSW:
+      if (lowerSW) {
+        lfo1triangleSWL = 1;
+      }
+      if (upperSW) {
+        lfo1triangleSWU = 1;
+      }
+      updatelfo1triangleSW();
+      break; 
+
     case CCmaxVoicesSW:
       value > 0 ? maxVoicesSW = 1 : maxVoicesSW = 0;
       updatemaxVoicesSW();
@@ -6703,6 +7127,35 @@ void setCurrentPatchData(String data[]) {
   lfo1modWheelSWL = data[232].toInt();
   lfo1modWheelSWU = data[233].toInt();
   lfo2SyncSW = data[234].toInt();
+  lfo1randSWL = data[235].toInt();
+  lfo1randSWU = data[236].toInt();
+  lfo1resetSWL = data[237].toInt();
+  lfo1resetSWU = data[238].toInt();
+  lfo1osc1SWL = data[239].toInt();
+  lfo1osc1SWU = data[240].toInt();
+  lfo1osc2SWL = data[241].toInt();
+  lfo1osc2SWU = data[242].toInt();
+  lfo1pw1SWL = data[243].toInt();
+  lfo1pw1SWU = data[244].toInt();
+  lfo1pw2SWL = data[245].toInt();
+  lfo1pw2SWU = data[246].toInt();
+  lfo1filtSWL = data[247].toInt();
+  lfo1filtSWU = data[248].toInt();
+  lfo1ampSWL = data[249].toInt();
+  lfo1ampSWU = data[250].toInt();
+  lfo1seqRateSWL = data[251].toInt();
+  lfo1seqRateSWU = data[252].toInt();
+  lfo1squareUniSWL = data[253].toInt();
+  lfo1squareUniSWU = data[254].toInt();
+  lfo1squareBipSWL = data[255].toInt();
+  lfo1squareBipSWU = data[256].toInt();
+  lfo1sawUpSWL = data[257].toInt();
+  lfo1sawUpSWU = data[258].toInt();
+  lfo1sawDnSWL = data[259].toInt();
+  lfo1sawDnSWU = data[260].toInt();
+  lfo1triangleSWL = data[261].toInt();
+  lfo1triangleSWU = data[262].toInt();
+
 
   //Pots
 
@@ -6786,6 +7239,20 @@ void setCurrentPatchData(String data[]) {
   updatelfo1SyncSW();
   updatelfo1modWheelSW();
   updatelfo2SyncSW();
+  updatelfo1randSW();
+  updatelfo1squareUniSW();
+  updatelfo1squareBipSW();
+  updatelfo1sawUpSW();
+  updatelfo1sawDnSW();
+  updatelfo1triangleSW();
+  updatelfo1resetSW();
+  updatelfo1osc1SW();
+  updatelfo1osc2SW();
+  updatelfo1pw1SW();
+  updatelfo1pw2SW();
+  updatelfo1filtSW();
+  updatelfo1ampSW();
+  updatelfo1seqRateSW();
 
   //Patchname
   updatePatchname();
@@ -6833,7 +7300,12 @@ String getCurrentPatchData() {
          + "," + String(portSWL) + "," + String(portSWU) + "," + String(glideSWL) + "," + String(glideSWU) + "," + String(glideOffSWL) + "," + String(glideOffSWU)
          + "," + String(osc2SyncSWL) + "," + String(osc2SyncSWU) + "," + String(multiTriggerSWL) + "," + String(multiTriggerSWU) + "," + String(singleSW) + "," + String(doubleSW)
          + "," + String(splitSW) + "," + String(polySWL) + "," + String(polySWU) + "," + String(singleMonoSWL) + "," + String(singleMonoSWU) + "," + String(unisonMonoSWL)
-         + "," + String(unisonMonoSWU) + "," + String(lfo1SyncSWL) + "," + String(lfo1SyncSWU) + "," + String(lfo1modWheelSWL) + "," + String(lfo1modWheelSWU) + "," + String(lfo2SyncSW);
+         + "," + String(unisonMonoSWU) + "," + String(lfo1SyncSWL) + "," + String(lfo1SyncSWU) + "," + String(lfo1modWheelSWL) + "," + String(lfo1modWheelSWU) + "," + String(lfo2SyncSW)
+         + "," + String(lfo1randSWL) + "," + String(lfo1randSWU) + "," + String(lfo1resetSWL) + "," + String(lfo1resetSWU) + "," + String(lfo1osc1SWL) + "," + String(lfo1osc1SWU)
+         + "," + String(lfo1osc2SWL) + "," + String(lfo1osc2SWU) + "," + String(lfo1pw1SWL) + "," + String(lfo1pw1SWU) + "," + String(lfo1pw2SWL) + "," + String(lfo1pw2SWU)
+         + "," + String(lfo1filtSWL) + "," + String(lfo1filtSWU) + "," + String(lfo1ampSWL) + "," + String(lfo1ampSWU) + "," + String(lfo1seqRateSWL) + "," + String(lfo1seqRateSWU)
+         + "," + String(lfo1squareUniSWL) + "," + String(lfo1squareUniSWU) + "," + String(lfo1squareBipSWL) + "," + String(lfo1squareBipSWU) + "," + String(lfo1sawUpSWL) + "," + String(lfo1sawUpSWU)
+         + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU);
 }
 
 void checkMux() {
@@ -7539,6 +8011,36 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
     myControlChange(midiChannel, CClfo2SyncSW, lfo2SyncSW);
   }
 
+  if (btnIndex == LFO1_RANDOM_SW && btnType == ROX_PRESSED) {
+    lfo1randSW = !lfo1randSW;
+    myControlChange(midiChannel, CClfo1randSW, lfo1randSW);
+  }
+
+  if (btnIndex == LFO1_SQ_UNIPOLAR_SW && btnType == ROX_PRESSED) {
+    lfo1squareUniSW = !lfo1squareUniSW;
+    myControlChange(midiChannel, CClfo1squareUniSW, lfo1squareUniSW);
+  }
+
+  if (btnIndex == LFO1_SQ_BIPOLAR_SW && btnType == ROX_PRESSED) {
+    lfo1squareBipSW = !lfo1squareBipSW;
+    myControlChange(midiChannel, CClfo1squareBipSW, lfo1squareBipSW);
+  }
+
+  if (btnIndex == LFO1_SAW_UP_SW && btnType == ROX_PRESSED) {
+    lfo1sawUpSW = !lfo1sawUpSW;
+    myControlChange(midiChannel, CClfo1sawUpSW, lfo1sawUpSW);
+  }
+
+  if (btnIndex == LFO1_SAW_DOWN_SW && btnType == ROX_PRESSED) {
+    lfo1sawDnSW = !lfo1sawDnSW;
+    myControlChange(midiChannel, CClfo1sawDnSW, lfo1sawDnSW);
+  }
+
+  if (btnIndex == LFO1_TRIANGLE_SW && btnType == ROX_PRESSED) {
+    lfo1triangleSW = !lfo1triangleSW;
+    myControlChange(midiChannel, CClfo1triangleSW, lfo1triangleSW);
+  }
+
   // if (btnIndex == LEAD_VCO1_WAVE_SW && btnType == ROX_PRESSED) {
   //   sr.writePin(LEAD_VCO1_WAVE_LED, LOW);
   //   vco1wave_timer = millis();
@@ -7922,7 +8424,7 @@ void midiCCOut(byte cc, byte value) {
               MIDI.sendNoteOff(114, 0, midiOutCh);   //MIDI USB is set to Out
               break;
 
-              case MIDIlfo1ampU:
+            case MIDIlfo1ampU:
               if (updateParams) {
                 usbMIDI.sendNoteOn(113, 127, midiOutCh);  //MIDI USB is set to Out
                 usbMIDI.sendNoteOff(113, 0, midiOutCh);   //MIDI USB is set to Out

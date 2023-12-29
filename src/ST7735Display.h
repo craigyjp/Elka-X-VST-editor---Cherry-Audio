@@ -6,7 +6,7 @@
 #define cs 2    // CS & DC can use pins 2, 6, 9, 10, 15, 20, 21, 22, 23
 #define dc 3    //but certain pairs must NOT be used: 2+10, 6+9, 20+23, 21+22
 #define rst 9   // RST can use any pin
-#define DISPLAYTIMEOUT 1500
+#define DISPLAYTIMEOUT 3000
 
 #include <Adafruit_GFX.h>
 #include "ST7735_t3.h" // Local copy from TD1.48 that works for 0.96" IPS 160x80 display
