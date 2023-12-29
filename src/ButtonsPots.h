@@ -115,7 +115,7 @@
 #define CCglideOffSW 119
 #define CCosc2SyncSW 120
 #define CCmultiTriggerSW 122
-#define CClfo1filtSW  123
+#define CClfo1filtSW  121
 #define CClfo1ampSW  124
 #define CClfo1seqRateSW  125
 #define CClfo1squareUniSW 126

@@ -361,8 +361,8 @@ ADC *adc = new ADC();
 #define SEQ_ENABLE_2_LED 89
 #define SEQ_ENABLE_3_LED 90
 #define SEQ_ENABLE_4_LED 91
-#define LFO1_OSC2_LED 92
-#define LFO1_OSC1_LED 93
+#define LFO1_OSC1_LED 92
+#define LFO1_OSC2_LED 93
 #define LFO1_PW1_LED 94
 #define EQ_REC_EDIT_LED 95
 

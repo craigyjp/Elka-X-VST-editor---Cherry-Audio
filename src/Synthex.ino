@@ -5306,34 +5306,330 @@ void updatelfo1triangleSW() {
 
 void updatelfo1resetSW() {
 
+  if (lfo1resetSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_RESET_LED, HIGH);
+    sr.writePin(LFO1_RESET_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Reset", "Lower On");
+    }
+  }
+  if (!lfo1resetSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_RESET_LED, LOW);
+    sr.writePin(LFO1_RESET_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Reset", "Lower Off");
+    }
+  }
+  if (lfo1resetSWU && upperSW) {
+    sr.writePin(LFO1_RESET_LED, HIGH);
+    green.writePin(GREEN_LFO1_RESET_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Reset", "Upper On");
+    }
+  }
+  if (!lfo1resetSWU && upperSW) {
+    sr.writePin(LFO1_RESET_LED, LOW);
+    green.writePin(GREEN_LFO1_RESET_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Reset", "Upper Off");
+    }
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1resetU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1resetL, 127);
+    }
+  }
 }
 
 void updatelfo1osc1SW() {
 
+  if (lfo1osc1SWL && lowerSW) {
+    green.writePin(GREEN_LFO1_OSC1_LED, HIGH);
+    sr.writePin(LFO1_OSC1_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 OSC1", "Lower On");
+    }
+  }
+  if (!lfo1osc1SWL && lowerSW) {
+    green.writePin(GREEN_LFO1_OSC1_LED, LOW);
+    sr.writePin(LFO1_OSC1_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 OSC1", "Lower Off");
+    }
+  }
+  if (lfo1osc1SWU && upperSW) {
+    sr.writePin(LFO1_OSC1_LED, HIGH);
+    green.writePin(GREEN_LFO1_OSC1_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 OSC1", "Upper On");
+    }
+  }
+  if (!lfo1osc1SWU && upperSW) {
+    sr.writePin(LFO1_OSC1_LED, LOW);
+    green.writePin(GREEN_LFO1_OSC1_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 OSC1", "Upper Off");
+    }
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1osc1U, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1osc1L, 127);
+    }
+  }
 }
 
 void updatelfo1osc2SW() {
 
+  if (lfo1osc2SWL && lowerSW) {
+    green.writePin(GREEN_LFO1_OSC2_LED, HIGH);
+    sr.writePin(LFO1_OSC2_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 OSC2", "Lower On");
+    }
+  }
+  if (!lfo1osc2SWL && lowerSW) {
+    green.writePin(GREEN_LFO1_OSC2_LED, LOW);
+    sr.writePin(LFO1_OSC2_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 OSC2", "Lower Off");
+    }
+  }
+  if (lfo1osc2SWU && upperSW) {
+    sr.writePin(LFO1_OSC2_LED, HIGH);
+    green.writePin(GREEN_LFO1_OSC2_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 OSC2", "Upper On");
+    }
+  }
+  if (!lfo1osc2SWU && upperSW) {
+    sr.writePin(LFO1_OSC2_LED, LOW);
+    green.writePin(GREEN_LFO1_OSC2_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 OSC2", "Upper Off");
+    }
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1osc2U, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1osc2L, 127);
+    }
+  }
 }
 
-void  updatelfo1pw1SW() {
+void updatelfo1pw1SW() {
 
+  if (lfo1pw1SWL && lowerSW) {
+    green.writePin(GREEN_LFO1_PW1_LED, HIGH);
+    sr.writePin(LFO1_PW1_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 PW1", "Lower On");
+    }
+  }
+  if (!lfo1pw1SWL && lowerSW) {
+    green.writePin(GREEN_LFO1_PW1_LED, LOW);
+    sr.writePin(LFO1_PW1_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 PW1", "Lower Off");
+    }
+  }
+  if (lfo1pw1SWU && upperSW) {
+    sr.writePin(LFO1_PW1_LED, HIGH);
+    green.writePin(GREEN_LFO1_PW1_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 PW1", "Upper On");
+    }
+  }
+  if (!lfo1pw1SWU && upperSW) {
+    sr.writePin(LFO1_PW1_LED, LOW);
+    green.writePin(GREEN_LFO1_PW1_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 PW1", "Upper Off");
+    }
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1pw1U, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1pw1L, 127);
+    }
+  }
 }
 
-void  updatelfo1pw2SW() {
+void updatelfo1pw2SW() {
 
+  if (lfo1pw1SWL && lowerSW) {
+    green.writePin(GREEN_LFO1_PW2_LED, HIGH);
+    sr.writePin(LFO1_PW2_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 PW2", "Lower On");
+    }
+  }
+  if (!lfo1pw2SWL && lowerSW) {
+    green.writePin(GREEN_LFO1_PW2_LED, LOW);
+    sr.writePin(LFO1_PW2_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 PW2", "Lower Off");
+    }
+  }
+  if (lfo1pw2SWU && upperSW) {
+    sr.writePin(LFO1_PW2_LED, HIGH);
+    green.writePin(GREEN_LFO1_PW2_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 PW2", "Upper On");
+    }
+  }
+  if (!lfo1pw2SWU && upperSW) {
+    sr.writePin(LFO1_PW2_LED, LOW);
+    green.writePin(GREEN_LFO1_PW2_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 PW2", "Upper Off");
+    }
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1pw2U, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1pw2L, 127);
+    }
+  }
 }
 
-void  updatelfo1filtSW(){
+void updatelfo1filtSW() {
 
+  if (lfo1filtSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_FILT_LED, HIGH);
+    sr.writePin(LFO1_FILT_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Filter", "Lower On");
+    }
+  }
+  if (!lfo1filtSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_FILT_LED, LOW);
+    sr.writePin(LFO1_FILT_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Filter", "Lower Off");
+    }
+  }
+  if (lfo1filtSWU && upperSW) {
+    sr.writePin(LFO1_FILT_LED, HIGH);
+    green.writePin(GREEN_LFO1_FILT_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Filter", "Upper On");
+    }
+  }
+  if (!lfo1filtSWU && upperSW) {
+    sr.writePin(LFO1_FILT_LED, LOW);
+    green.writePin(GREEN_LFO1_FILT_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 Filter", "Upper Off");
+    }
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1filtU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1filtL, 127);
+    }
+  }
 }
 
-void  updatelfo1ampSW(){
+void updatelfo1ampSW() {
 
+  if (lfo1ampSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_AMP_LED, HIGH);
+    sr.writePin(LFO1_AMP_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 AMP", "Lower On");
+    }
+  }
+  if (!lfo1ampSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_AMP_LED, LOW);
+    sr.writePin(LFO1_AMP_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 AMP", "Lower Off");
+    }
+  }
+  if (lfo1ampSWU && upperSW) {
+    sr.writePin(LFO1_AMP_LED, HIGH);
+    green.writePin(GREEN_LFO1_AMP_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 AMP", "Upper On");
+    }
+  }
+  if (!lfo1ampSWU && upperSW) {
+    sr.writePin(LFO1_AMP_LED, LOW);
+    green.writePin(GREEN_LFO1_AMP_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 AMP", "Upper Off");
+    }
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1ampU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1ampL, 127);
+    }
+  }
 }
 
-void  updatelfo1seqRateSW(){
+void updatelfo1seqRateSW() {
 
+  if (lfo1seqRateSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_SEQ_RATE_LED, HIGH);
+    sr.writePin(LFO1_SEQ_RATE_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 SeqRate", "Lower On");
+    }
+  }
+  if (!lfo1seqRateSWL && lowerSW) {
+    green.writePin(GREEN_LFO1_SEQ_RATE_LED, LOW);
+    sr.writePin(LFO1_SEQ_RATE_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 SeqRate", "Lower Off");
+    }
+  }
+  if (lfo1seqRateSWU && upperSW) {
+    sr.writePin(LFO1_SEQ_RATE_LED, HIGH);
+    green.writePin(GREEN_LFO1_SEQ_RATE_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 SeqRate", "Upper On");
+    }
+  }
+  if (!lfo1seqRateSWU && upperSW) {
+    sr.writePin(LFO1_SEQ_RATE_LED, LOW);
+    green.writePin(GREEN_LFO1_SEQ_RATE_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO1 SeqRate", "Upper Off");
+    }
+  }
+
+  if (!layerPatchFlag) {
+    if (upperSW) {
+      midiCCOut(MIDIlfo1seqRateU, 127);
+    }
+    if (lowerSW) {
+      midiCCOut(MIDIlfo1seqRateL, 127);
+    }
+  }
 }
 
 void switchLEDs() {
@@ -6782,7 +7078,7 @@ void myControlChange(byte channel, byte control, int value) {
       }
       updatelfo1randSW();
       break;
-   
+
     case CClfo1squareUniSW:
       if (lowerSW) {
         lfo1squareUniSWL = 1;
@@ -6791,7 +7087,7 @@ void myControlChange(byte channel, byte control, int value) {
         lfo1squareUniSWU = 1;
       }
       updatelfo1squareUniSW();
-      break;   
+      break;
 
     case CClfo1squareBipSW:
       if (lowerSW) {
@@ -6801,7 +7097,7 @@ void myControlChange(byte channel, byte control, int value) {
         lfo1squareBipSWU = 1;
       }
       updatelfo1squareBipSW();
-      break;  
+      break;
 
     case CClfo1sawUpSW:
       if (lowerSW) {
@@ -6811,7 +7107,7 @@ void myControlChange(byte channel, byte control, int value) {
         lfo1sawUpSWU = 1;
       }
       updatelfo1sawUpSW();
-      break;  
+      break;
 
     case CClfo1sawDnSW:
       if (lowerSW) {
@@ -6821,7 +7117,7 @@ void myControlChange(byte channel, byte control, int value) {
         lfo1sawDnSWU = 1;
       }
       updatelfo1sawDnSW();
-      break; 
+      break;
 
     case CClfo1triangleSW:
       if (lowerSW) {
@@ -6831,7 +7127,87 @@ void myControlChange(byte channel, byte control, int value) {
         lfo1triangleSWU = 1;
       }
       updatelfo1triangleSW();
-      break; 
+      break;
+
+    case CClfo1resetSW:
+      if (lowerSW) {
+        value > 0 ? lfo1resetSWL = 1 : lfo1resetSWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? lfo1resetSWU = 1 : lfo1resetSWU = 0;
+      }
+      updatelfo1resetSW();
+      break;
+
+    case CClfo1osc1SW:
+      if (lowerSW) {
+        value > 0 ? lfo1osc1SWL = 1 : lfo1osc1SWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? lfo1osc1SWU = 1 : lfo1osc1SWU = 0;
+      }
+      updatelfo1osc1SW();
+      break;
+
+    case CClfo1osc2SW:
+      if (lowerSW) {
+        value > 0 ? lfo1osc2SWL = 1 : lfo1osc2SWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? lfo1osc2SWU = 1 : lfo1osc2SWU = 0;
+      }
+      updatelfo1osc2SW();
+      break;
+
+    case CClfo1pw1SW:
+      if (lowerSW) {
+        value > 0 ? lfo1pw1SWL = 1 : lfo1pw1SWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? lfo1pw1SWU = 1 : lfo1pw1SWU = 0;
+      }
+      updatelfo1pw1SW();
+      break;
+
+    case CClfo1pw2SW:
+      if (lowerSW) {
+        value > 0 ? lfo1pw2SWL = 1 : lfo1pw2SWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? lfo1pw2SWU = 1 : lfo1pw2SWU = 0;
+      }
+      updatelfo1pw2SW();
+      break;
+
+    case CClfo1filtSW:
+      if (lowerSW) {
+        value > 0 ? lfo1filtSWL = 1 : lfo1filtSWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? lfo1filtSWU = 1 : lfo1filtSWU = 0;
+      }
+      updatelfo1filtSW();
+      break;
+
+    case CClfo1ampSW:
+      if (lowerSW) {
+        value > 0 ? lfo1ampSWL = 1 : lfo1ampSWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? lfo1ampSWU = 1 : lfo1ampSWU = 0;
+      }
+      updatelfo1ampSW();
+      break;
+
+    case CClfo1seqRateSW:
+      if (lowerSW) {
+        value > 0 ? lfo1seqRateSWL = 1 : lfo1seqRateSWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? lfo1seqRateSWU = 1 : lfo1seqRateSWU = 0;
+      }
+      updatelfo1seqRateSW();
+      break;
 
     case CCmaxVoicesSW:
       value > 0 ? maxVoicesSW = 1 : maxVoicesSW = 0;
@@ -8039,6 +8415,46 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
   if (btnIndex == LFO1_TRIANGLE_SW && btnType == ROX_PRESSED) {
     lfo1triangleSW = !lfo1triangleSW;
     myControlChange(midiChannel, CClfo1triangleSW, lfo1triangleSW);
+  }
+
+  if (btnIndex == LFO1_RESET_SW && btnType == ROX_PRESSED) {
+    lfo1resetSW = !lfo1resetSW;
+    myControlChange(midiChannel, CClfo1resetSW, lfo1resetSW);
+  }
+
+  if (btnIndex == LFO1_OSC1_SW && btnType == ROX_PRESSED) {
+    lfo1osc1SW = !lfo1osc1SW;
+    myControlChange(midiChannel, CClfo1osc1SW, lfo1osc1SW);
+  }
+
+  if (btnIndex == LFO1_OSC2_SW && btnType == ROX_PRESSED) {
+    lfo1osc2SW = !lfo1osc2SW;
+    myControlChange(midiChannel, CClfo1osc2SW, lfo1osc2SW);
+  }
+
+  if (btnIndex == LFO1_PW1_SW && btnType == ROX_PRESSED) {
+    lfo1pw1SW = !lfo1pw1SW;
+    myControlChange(midiChannel, CClfo1pw1SW, lfo1pw1SW);
+  }
+
+  if (btnIndex == LFO1_PW2_SW && btnType == ROX_PRESSED) {
+    lfo1pw2SW = !lfo1pw2SW;
+    myControlChange(midiChannel, CClfo1pw2SW, lfo1pw2SW);
+  }
+
+  if (btnIndex == LFO1_FILT_SW && btnType == ROX_PRESSED) {
+    lfo1filtSW = !lfo1filtSW;
+    myControlChange(midiChannel, CClfo1filtSW, lfo1filtSW);
+  }
+
+  if (btnIndex == LFO1_AMP_SW && btnType == ROX_PRESSED) {
+    lfo1ampSW = !lfo1ampSW;
+    myControlChange(midiChannel, CClfo1ampSW, lfo1ampSW);
+  }
+
+  if (btnIndex == LFO1_SEQ_RATE_SW && btnType == ROX_PRESSED) {
+    lfo1seqRateSW = !lfo1seqRateSW;
+    myControlChange(midiChannel, CClfo1seqRateSW, lfo1seqRateSW);
   }
 
   // if (btnIndex == LEAD_VCO1_WAVE_SW && btnType == ROX_PRESSED) {
