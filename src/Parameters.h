@@ -40,7 +40,8 @@ int masterTune = 0;
 int masterTunemap = 0;
 float masterTunestr = 0;
 
-int layerPan = 0;
+int layerPanU = 0;
+int layerPanL = 0;
 int layerPanmap = 0;
 float layerPanstr = 0;
 
@@ -64,8 +65,10 @@ float reverbEQstr = 0;
 
 int arpFrequencyL = 0;
 int arpFrequencyU = 0;
-int arpFrequencymap = 0;
+int arpFrequencymapL = 0;
+int arpFrequencymapU = 0;
 float arpFrequencystr = 0;
+String arpFrequencystring = "";
 
 int ampVelocityL = 0;
 int ampVelocityU = 0;
@@ -161,8 +164,10 @@ int echoSpreadmap = 0;
 float echoSpreadstr = 0;
 int echoTimeL = 0;
 int echoTimeU = 0;
-int echoTimemap = 0;
+int echoTimemapL = 0;
+int echoTimemapU = 0;
 float echoTimestr = 0;
+String echoTimestring = "";
 
 int unisonDetuneL = 0;
 int unisonDetuneU = 0;
@@ -212,7 +217,9 @@ int lfo2ToOscstr = 0;
 int lfo2FreqAcc = 0;
 int lfo2FreqAccstr = 0;
 int lfo2InitFrequency = 0;
-int lfo2InitFrequencystr = 0;
+float lfo2InitFrequencystr = 0;
+int lfo2InitFrequencymap = 0;
+String lfo2InitFrequencystring = "";
 int lfo2InitAmount = 0;
 int lfo2InitAmountstr = 0;
 int lfo2Destination = 0;
@@ -229,7 +236,9 @@ int seqGatestr = 0;
 
 int lfo1FrequencyL = 0;
 int lfo1FrequencyU = 0;
-int lfo1Frequencymap = 0;
+int lfo1FrequencymapL = 0;
+int lfo1FrequencymapU = 0;
+String lfo1Frequencystring = "";
 float lfo1Frequencystr = 0;
 int lfo1DepthAL = 0;
 int lfo1DepthAU = 0;

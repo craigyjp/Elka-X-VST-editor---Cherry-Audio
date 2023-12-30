@@ -737,27 +737,27 @@ void updatemasterVolume() {
 void updatelayerPan() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Layer Pan", "Low " + String(layerPanstr) + " %");
+      showCurrentParameterPage("Layer Pan", String(layerPanstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Layer Pan", "Upp " + String(layerPanstr) + " %");
+      showCurrentParameterPage("Layer Pan", String(layerPanstr) + " %");
     }
   }
   if (upperSW) {
-    midiCCOut(MIDIlayerPanU, layerPan);
+    midiCCOut(MIDIlayerPanU, layerPanU);
   }
   if (lowerSW) {
-    midiCCOut(MIDIlayerPanL, layerPan);
+    midiCCOut(MIDIlayerPanL, layerPanL);
   }
 }
 
 void updatelayerVolume() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Layer Volume", "Low " + String(layerVolumestr) + " %");
+      showCurrentParameterPage("Layer Volume", String(layerVolumestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Layer Volume", "Upp " + String(layerVolumestr) + " %");
+      showCurrentParameterPage("Layer Volume", String(layerVolumestr) + " %");
     }
   }
   if (lowerSW) {
@@ -771,10 +771,10 @@ void updatelayerVolume() {
 void updatereverbLevel() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Reverb Level", "Low " + String(reverbLevelstr) + " %");
+      showCurrentParameterPage("Reverb Level", String(reverbLevelstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Reverb Level", "Upp " + String(reverbLevelstr) + " %");
+      showCurrentParameterPage("Reverb Level", String(reverbLevelstr) + " %");
     }
   }
   if (lowerSW) {
@@ -788,10 +788,10 @@ void updatereverbLevel() {
 void updatereverbDecay() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Reverb Decay", "Low " + String(reverbDecaystr) + " %");
+      showCurrentParameterPage("Reverb Decay", String(reverbDecaystr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Reverb Decay", "Upp " + String(reverbDecaystr) + " %");
+      showCurrentParameterPage("Reverb Decay", String(reverbDecaystr) + " %");
     }
   }
   if (lowerSW) {
@@ -805,10 +805,10 @@ void updatereverbDecay() {
 void updatereverbEQ() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Reverb EQ", "Low " + String(reverbEQstr) + " %");
+      showCurrentParameterPage("Reverb EQ", String(reverbEQstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Reverb EQ", "Upp " + String(reverbEQstr) + " %");
+      showCurrentParameterPage("Reverb EQ", String(reverbEQstr) + " %");
     }
   }
   if (lowerSW) {
@@ -822,10 +822,18 @@ void updatereverbEQ() {
 void updatearpFrequency() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Arp Frequency", "Low " + String(arpFrequencystr) + " Hz");
+      if (arpSyncSWL) {
+        showCurrentParameterPage("Arp Sync", String(arpFrequencystring));
+      } else {
+        showCurrentParameterPage("Arp Frequency", String(arpFrequencystr) + " Hz");
+      }
     }
     if (upperSW) {
-      showCurrentParameterPage("Arp Frequency", "Upp " + String(arpFrequencystr) + " Hz");
+      if (arpSyncSWU) {
+        showCurrentParameterPage("Arp Sync", String(arpFrequencystring));
+      } else {
+        showCurrentParameterPage("Arp Frequency", String(arpFrequencystr) + " Hz");
+      }
     }
   }
   if (lowerSW) {
@@ -839,10 +847,10 @@ void updatearpFrequency() {
 void updateampVelocity() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Amp Velocity", "Low " + String(ampVelocitystr) + " %");
+      showCurrentParameterPage("Amp Velocity", String(ampVelocitystr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Amp Velocity", "Upp " + String(ampVelocitystr) + " %");
+      showCurrentParameterPage("Amp Velocity", String(ampVelocitystr) + " %");
     }
   }
   if (lowerSW) {
@@ -856,10 +864,10 @@ void updateampVelocity() {
 void updatefilterVelocity() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Velocity", "Low " + String(filterVelocitystr) + " %");
+      showCurrentParameterPage("Filter Velocity", String(filterVelocitystr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Velocity", "Upp " + String(filterVelocitystr) + " %");
+      showCurrentParameterPage("Filter Velocity", String(filterVelocitystr) + " %");
     }
   }
   if (lowerSW) {
@@ -873,10 +881,10 @@ void updatefilterVelocity() {
 void updateampRelease() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Amp Release", "Low " + String(ampReleasestr) + " %");
+      showCurrentParameterPage("Amp Release", String(ampReleasestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Amp Release", "Upp " + String(ampReleasestr) + " %");
+      showCurrentParameterPage("Amp Release", String(ampReleasestr) + " %");
     }
   }
   if (lowerSW) {
@@ -890,10 +898,10 @@ void updateampRelease() {
 void updateampSustain() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Amp Sustain", "Low " + String(ampSustainstr) + " %");
+      showCurrentParameterPage("Amp Sustain", String(ampSustainstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Amp Sustain", "Upp " + String(ampSustainstr) + " %");
+      showCurrentParameterPage("Amp Sustain", String(ampSustainstr) + " %");
     }
   }
   if (lowerSW) {
@@ -907,10 +915,10 @@ void updateampSustain() {
 void updateampDecay() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Amp Decay", "Low " + String(ampDecaystr) + " %");
+      showCurrentParameterPage("Amp Decay", String(ampDecaystr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Amp Decay", "Upp " + String(ampDecaystr) + " %");
+      showCurrentParameterPage("Amp Decay", String(ampDecaystr) + " %");
     }
   }
   if (lowerSW) {
@@ -924,10 +932,10 @@ void updateampDecay() {
 void updateampAttack() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Amp Attack", "Low " + String(ampAttackstr) + " %");
+      showCurrentParameterPage("Amp Attack", String(ampAttackstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Amp Attack", "Upp " + String(ampAttackstr) + " %");
+      showCurrentParameterPage("Amp Attack", String(ampAttackstr) + " %");
     }
   }
   if (lowerSW) {
@@ -941,10 +949,10 @@ void updateampAttack() {
 void updatefilterKeyboard() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Keyboard Tracl", "Low " + String(filterKeyboardstr) + " %");
+      showCurrentParameterPage("Keyboard Tracl", String(filterKeyboardstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("KeyBoard Track", "Upp " + String(filterKeyboardstr) + " %");
+      showCurrentParameterPage("KeyBoard Track", String(filterKeyboardstr) + " %");
     }
   }
   if (lowerSW) {
@@ -958,10 +966,10 @@ void updatefilterKeyboard() {
 void updatefilterResonance() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Res", "Low " + String(filterResonancestr) + " %");
+      showCurrentParameterPage("Filter Res", String(filterResonancestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Res", "Upp " + String(filterResonancestr) + " %");
+      showCurrentParameterPage("Filter Res", String(filterResonancestr) + " %");
     }
   }
   if (lowerSW) {
@@ -975,10 +983,10 @@ void updatefilterResonance() {
 void updateosc2Volume() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Osc2 Volume", "Low " + String(osc2Volumestr) + " %");
+      showCurrentParameterPage("Osc2 Volume", String(osc2Volumestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Osc2 Volume", "Upp " + String(osc2Volumestr) + " %");
+      showCurrentParameterPage("Osc2 Volume", String(osc2Volumestr) + " %");
     }
   }
   if (lowerSW) {
@@ -992,10 +1000,10 @@ void updateosc2Volume() {
 void updateosc2PW() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Osc2 PW", "Low " + String(osc2PWstr) + " %");
+      showCurrentParameterPage("Osc2 PW", String(osc2PWstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Osc2 PW", "Upp " + String(osc2PWstr) + " %");
+      showCurrentParameterPage("Osc2 PW", String(osc2PWstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1009,10 +1017,10 @@ void updateosc2PW() {
 void updateosc1PW() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Osc1 PW", "Low " + String(osc1PWstr) + " %");
+      showCurrentParameterPage("Osc1 PW", String(osc1PWstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Osc1 PW", "Upp " + String(osc1PWstr) + " %");
+      showCurrentParameterPage("Osc1 PW", String(osc1PWstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1026,10 +1034,10 @@ void updateosc1PW() {
 void updateosc1Volume() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Osc1 Volume", "Low " + String(osc1Volumestr) + " %");
+      showCurrentParameterPage("Osc1 Volume", String(osc1Volumestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Osc1 Volume", "Upp " + String(osc1Volumestr) + " %");
+      showCurrentParameterPage("Osc1 Volume", String(osc1Volumestr) + " %");
     }
   }
   if (lowerSW) {
@@ -1043,10 +1051,10 @@ void updateosc1Volume() {
 void updatefilterCutoff() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Cutoff", "Low " + String(filterCutoffstr) + " %");
+      showCurrentParameterPage("Filter Cutoff", String(filterCutoffstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Cutoff", "Upp " + String(filterCutoffstr) + " %");
+      showCurrentParameterPage("Filter Cutoff", String(filterCutoffstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1060,10 +1068,10 @@ void updatefilterCutoff() {
 void updatefilterEnvAmount() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Envelope", "Low " + String(filterEnvAmountstr) + " %");
+      showCurrentParameterPage("Filter Envelope", String(filterEnvAmountstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Envelope", "Upp " + String(filterEnvAmountstr) + " %");
+      showCurrentParameterPage("Filter Envelope", String(filterEnvAmountstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1077,10 +1085,10 @@ void updatefilterEnvAmount() {
 void updatefilterAttack() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Attack", "Low " + String(filterAttackstr) + " %");
+      showCurrentParameterPage("Filter Attack", String(filterAttackstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Attack", "Upp " + String(filterAttackstr) + " %");
+      showCurrentParameterPage("Filter Attack", String(filterAttackstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1094,10 +1102,10 @@ void updatefilterAttack() {
 void updatefilterDecay() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Decay", "Low " + String(filterDecaystr) + " %");
+      showCurrentParameterPage("Filter Decay", String(filterDecaystr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Decay", "Upp " + String(filterDecaystr) + " %");
+      showCurrentParameterPage("Filter Decay", String(filterDecaystr) + " %");
     }
   }
   if (lowerSW) {
@@ -1111,10 +1119,10 @@ void updatefilterDecay() {
 void updatefilterSustain() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Sustain", "Low " + String(filterSustainstr) + " %");
+      showCurrentParameterPage("Filter Sustain", String(filterSustainstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Sustain", "Upp " + String(filterSustainstr) + " %");
+      showCurrentParameterPage("Filter Sustain", String(filterSustainstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1128,10 +1136,10 @@ void updatefilterSustain() {
 void updatefilterRelease() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Release", "Low " + String(filterReleasestr) + " %");
+      showCurrentParameterPage("Filter Release", String(filterReleasestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Release", "Upp " + String(filterReleasestr) + " %");
+      showCurrentParameterPage("Filter Release", String(filterReleasestr) + " %");
     }
   }
   if (lowerSW) {
@@ -1145,10 +1153,10 @@ void updatefilterRelease() {
 void updateechoEQ() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Echo EQ", "Low " + String(echoEQstr) + " %");
+      showCurrentParameterPage("Echo EQ", String(echoEQstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Echo EQ", "Upp " + String(echoEQstr) + " %");
+      showCurrentParameterPage("Echo EQ", String(echoEQstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1162,10 +1170,10 @@ void updateechoEQ() {
 void updateechoLevel() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Echo Level", "Low " + String(echoLevelstr) + " %");
+      showCurrentParameterPage("Echo Level", String(echoLevelstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Echo Level", "Upp " + String(echoLevelstr) + " %");
+      showCurrentParameterPage("Echo Level", String(echoLevelstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1179,10 +1187,10 @@ void updateechoLevel() {
 void updateechoFeedback() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Echo Feedbck", "Low " + String(echoFeedbackstr) + " %");
+      showCurrentParameterPage("Echo Feedbck", String(echoFeedbackstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Echo Feedbck", "Upp " + String(echoFeedbackstr) + " %");
+      showCurrentParameterPage("Echo Feedbck", String(echoFeedbackstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1196,10 +1204,10 @@ void updateechoFeedback() {
 void updateechoSpread() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Echo Spread", "Low " + String(echoSpreadstr) + " %");
+      showCurrentParameterPage("Echo Spread", String(echoSpreadstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Echo Spread", "Upp " + String(echoSpreadstr) + " %");
+      showCurrentParameterPage("Echo Spread", String(echoSpreadstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1213,10 +1221,18 @@ void updateechoSpread() {
 void updateechoTime() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Echo Time", "Low " + String(echoTimestr) + " %");
+      if (echoSyncSWL) {
+        showCurrentParameterPage("Echo Sync", String(echoTimestring));
+      } else {
+        showCurrentParameterPage("Echo Time", String(echoTimestr) + " Hz");
+      }
     }
     if (upperSW) {
-      showCurrentParameterPage("Echo Time", "Upp " + String(echoTimestr) + " %");
+      if (echoSyncSWU) {
+        showCurrentParameterPage("Echo Sync", String(echoTimestring));
+      } else {
+        showCurrentParameterPage("Echo Time", String(echoTimestr) + " Hz");
+      }
     }
   }
   if (lowerSW) {
@@ -1249,10 +1265,10 @@ void updatelfo2Destination() {
 void updateunisonDetune() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Unison Detune", "Low " + String(unisonDetunestr) + " %");
+      showCurrentParameterPage("Unison Detune", String(unisonDetunestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Unison Detune", "Upp " + String(unisonDetunestr) + " %");
+      showCurrentParameterPage("Unison Detune", String(unisonDetunestr) + " %");
     }
   }
   if (lowerSW) {
@@ -1266,10 +1282,10 @@ void updateunisonDetune() {
 void updateglideSpeed() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Glide Speed", "Low " + String(glideSpeedstr) + " %");
+      showCurrentParameterPage("Glide Speed", String(glideSpeedstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Glide Speed", "Upp " + String(glideSpeedstr) + " %");
+      showCurrentParameterPage("Glide Speed", String(glideSpeedstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1283,10 +1299,10 @@ void updateglideSpeed() {
 void updateosc1Transpose() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("OSC1 Trans", "Low " + String(osc1Transposestr) + " %");
+      showCurrentParameterPage("OSC1 Trans", String(osc1Transposestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("OSC1 Trans", "Upp " + String(osc1Transposestr) + " %");
+      showCurrentParameterPage("OSC1 Trans", String(osc1Transposestr) + " %");
     }
   }
   if (lowerSW) {
@@ -1300,10 +1316,10 @@ void updateosc1Transpose() {
 void updateosc2Transpose() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("OSC2 Trans", "Low " + String(osc2Transposestr) + " %");
+      showCurrentParameterPage("OSC2 Trans", String(osc2Transposestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("OSC2 Trans", "Upp " + String(osc2Transposestr) + " %");
+      showCurrentParameterPage("OSC2 Trans", String(osc2Transposestr) + " %");
     }
   }
   if (lowerSW) {
@@ -1317,10 +1333,10 @@ void updateosc2Transpose() {
 void updatenoiseLevel() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Noise Level", "Low " + String(noiseLevelstr) + " %");
+      showCurrentParameterPage("Noise Level", String(noiseLevelstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Noise Level", "Upp " + String(noiseLevelstr) + " %");
+      showCurrentParameterPage("Noise Level", String(noiseLevelstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1334,10 +1350,10 @@ void updatenoiseLevel() {
 void updateglideAmount() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Glide Amount", "Low " + String(glideAmountstr) + " %");
+      showCurrentParameterPage("Glide Amount", String(glideAmountstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("Glide Amount", "Upp " + String(glideAmountstr) + " %");
+      showCurrentParameterPage("Glide Amount", String(glideAmountstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1351,10 +1367,10 @@ void updateglideAmount() {
 void updateosc1Tune() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("OSC1 Tune", "Low " + String(osc1Tunestr) + " %");
+      showCurrentParameterPage("OSC1 Tune", String(osc1Tunestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("OSC1 Tune", "Upp " + String(osc1Tunestr) + " %");
+      showCurrentParameterPage("OSC1 Tune", String(osc1Tunestr) + " %");
     }
   }
   if (lowerSW) {
@@ -1368,10 +1384,10 @@ void updateosc1Tune() {
 void updateosc2Tune() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("OSC2 Tune", "Low " + String(osc2Tunestr) + " %");
+      showCurrentParameterPage("OSC2 Tune", String(osc2Tunestr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("OSC2 Tune", "Upp " + String(osc2Tunestr) + " %");
+      showCurrentParameterPage("OSC2 Tune", String(osc2Tunestr) + " %");
     }
   }
   if (lowerSW) {
@@ -1419,7 +1435,11 @@ void updatelfo2FreqAcc() {
 
 void updatelfo2InitFrequency() {
   if (!recallPatchFlag) {
-    showCurrentParameterPage("LFO2 Init Freq", String(lfo2InitFrequencystr) + " %");
+    if (lfo2SyncSW) {
+        showCurrentParameterPage("LFO2 SYNC", String(lfo2InitFrequencystring));
+      } else {
+        showCurrentParameterPage("LFO2 Freq", String(lfo2InitFrequencystr) + " Hz");
+      }
   }
   midiCCOut(MIDIlfo2InitFrequency, lfo2InitFrequency);
 }
@@ -1463,10 +1483,18 @@ void updateseqGate() {
 void updatelfo1Frequency() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("LFO1 Freq", "Low " + String(lfo1Frequencystr) + " %");
+      if (lfo1SyncSWL) {
+        showCurrentParameterPage("LFO1 SYNC", String(lfo1Frequencystring));
+      } else {
+        showCurrentParameterPage("LFO1 Freq", String(lfo1Frequencystr) + " Hz");
+      }
     }
     if (upperSW) {
-      showCurrentParameterPage("LFO1 Freq", "Upp " + String(lfo1Frequencystr) + " %");
+      if (lfo1SyncSWU) {
+        showCurrentParameterPage("LFO1 SYNC", String(lfo1Frequencystring));
+      } else {
+        showCurrentParameterPage("LFO1 Freq", String(lfo1Frequencystr) + " Hz");
+      }
     }
   }
   if (lowerSW) {
@@ -1480,10 +1508,10 @@ void updatelfo1Frequency() {
 void updatelfo1DepthA() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("LFO1 Depth A", "Low " + String(lfo1DepthAstr) + " %");
+      showCurrentParameterPage("LFO1 Depth A", String(lfo1DepthAstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("LFO1 Depth A", "Upp " + String(lfo1DepthAstr) + " %");
+      showCurrentParameterPage("LFO1 Depth A", String(lfo1DepthAstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1497,10 +1525,10 @@ void updatelfo1DepthA() {
 void updatelfo1Delay() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("LFO1 Delay", "Low " + String(lfo1Delaystr) + " %");
+      showCurrentParameterPage("LFO1 Delay", String(lfo1Delaystr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("LFO1 Delay", "Upp " + String(lfo1Delaystr) + " %");
+      showCurrentParameterPage("LFO1 Delay", String(lfo1Delaystr) + " %");
     }
   }
   if (lowerSW) {
@@ -1514,10 +1542,10 @@ void updatelfo1Delay() {
 void updatelfo1DepthB() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("LFO1 Depth B", "Low " + String(lfo1DepthBstr) + " %");
+      showCurrentParameterPage("LFO1 Depth B", String(lfo1DepthBstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("LFO1 Depth B", "Upp " + String(lfo1DepthBstr) + " %");
+      showCurrentParameterPage("LFO1 Depth B", String(lfo1DepthBstr) + " %");
     }
   }
   if (lowerSW) {
@@ -2158,13 +2186,21 @@ void updatearpSyncSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("ARP Sync", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIarpSyncL, 127);
+    }
+    arpSyncSW = 1;
   }
   if (!arpSyncSWL && lowerSW) {
     green.writePin(GREEN_ARP_SYNC_LED, LOW);
     sr.writePin(ARP_SYNC_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("ARP Sync", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIarpSyncL, 127);
+      }
     }
+    arpSyncSW = 0;
   }
   if (arpSyncSWU && upperSW) {
     sr.writePin(ARP_SYNC_LED, HIGH);
@@ -2172,22 +2208,21 @@ void updatearpSyncSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("ARP Sync", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIarpSyncU, 127);
+    }
+    arpSyncSW = 1;
   }
   if (!arpSyncSWU && upperSW) {
     sr.writePin(ARP_SYNC_LED, LOW);
     green.writePin(GREEN_ARP_SYNC_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("ARP Sync", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIarpSyncU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIarpSyncU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIarpSyncL, 127);
-    }
+    arpSyncSW = 0;
   }
 }
 
@@ -2199,13 +2234,21 @@ void updatearpHoldSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("ARP Hold", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIarpHoldL, 127);
+    }
+    arpHoldSW = 1;
   }
   if (!arpHoldSWL && lowerSW) {
     green.writePin(GREEN_ARP_HOLD_LED, LOW);
     sr.writePin(ARP_HOLD_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("ARP Hold", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIarpHoldL, 127);
+      }
     }
+    arpHoldSW = 0;
   }
   if (arpHoldSWU && upperSW) {
     sr.writePin(ARP_HOLD_LED, HIGH);
@@ -2213,22 +2256,21 @@ void updatearpHoldSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("ARP Hold", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIarpHoldU, 127);
+    }
+    arpHoldSW = 1;
   }
   if (!arpHoldSWU && upperSW) {
     sr.writePin(ARP_HOLD_LED, LOW);
     green.writePin(GREEN_ARP_HOLD_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("ARP Hold", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIarpHoldU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIarpHoldU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIarpHoldL, 127);
-    }
+    arpHoldSW = 0;
   }
 }
 
@@ -2527,13 +2569,21 @@ void updateenvInvSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Env Invert", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIenvInvL, 127);
+    }
+    envInvSW = 1;
   }
   if (!envInvSWL && lowerSW) {
     green.writePin(GREEN_ENV_INV_LED, LOW);
     sr.writePin(ENV_INV_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("Env Invert", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIenvInvL, 127);
+      }
     }
+    envInvSW = 0;
   }
   if (envInvSWU && upperSW) {
     sr.writePin(ENV_INV_LED, HIGH);
@@ -2541,22 +2591,21 @@ void updateenvInvSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Env Invert", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIenvInvU, 127);
+    }
+    envInvSW = 1;
   }
   if (!envInvSWU && upperSW) {
     sr.writePin(ENV_INV_LED, LOW);
     green.writePin(GREEN_ENV_INV_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("Env Invert", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIenvInvU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIenvInvU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIenvInvL, 127);
-    }
+    envInvSW = 0;
   }
 }
 
@@ -3111,13 +3160,21 @@ void updateechoSyncSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Echo Sync", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIechoSyncL, 127);
+    }
+    echoSyncSW = 1;
   }
   if (!echoSyncSWL && lowerSW) {
     green.writePin(GREEN_ECHO_SYNC_LED, LOW);
     sr.writePin(ECHO_SYNC_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("Echo Sync", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIechoSyncL, 127);
+      }
     }
+    echoSyncSW = 0;
   }
   if (echoSyncSWU && upperSW) {
     sr.writePin(ECHO_SYNC_LED, HIGH);
@@ -3125,22 +3182,21 @@ void updateechoSyncSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Echo Sync", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIechoSyncU, 127);
+    }
+    echoSyncSW = 1;
   }
   if (!echoSyncSWU && upperSW) {
     sr.writePin(ECHO_SYNC_LED, LOW);
     green.writePin(GREEN_ECHO_SYNC_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("Echo Sync", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIechoSyncU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIechoSyncU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIechoSyncU, 127);
-    }
+    echoSyncSW = 0;
   }
 }
 
@@ -3152,13 +3208,21 @@ void updateosc1ringModSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC1 RM", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIosc1ringL, 127);
+    }
+    osc1ringModSW = 1;
   }
   if (!osc1ringModSWL && lowerSW) {
     green.writePin(GREEN_OSC1_RINGMOD_LED, LOW);
     sr.writePin(OSC1_RINGMOD_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC1 RM", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIosc1ringL, 127);
+      }
     }
+    osc1ringModSW = 0;
   }
   if (osc1ringModSWU && upperSW) {
     sr.writePin(OSC1_RINGMOD_LED, HIGH);
@@ -3166,22 +3230,21 @@ void updateosc1ringModSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC1 RM", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIosc1ringU, 127);
+    }
+    osc1ringModSW = 1;
   }
   if (!osc1ringModSWU && upperSW) {
     sr.writePin(OSC1_RINGMOD_LED, LOW);
     green.writePin(GREEN_OSC1_RINGMOD_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC1 RM", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIosc1ringU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIosc1ringU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIosc1ringL, 127);
-    }
+    osc1ringModSW = 0;
   }
 }
 
@@ -3193,13 +3256,21 @@ void updateosc2ringModSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 RM", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIosc2ringL, 127);
+    }
+    osc2ringModSW = 1;
   }
   if (!osc2ringModSWL && lowerSW) {
     green.writePin(GREEN_OSC2_RINGMOD_LED, LOW);
     sr.writePin(OSC2_RINGMOD_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 RM", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIosc2ringL, 127);
+      }
     }
+    osc2ringModSW = 0;
   }
   if (osc2ringModSWU && upperSW) {
     sr.writePin(OSC2_RINGMOD_LED, HIGH);
@@ -3207,22 +3278,21 @@ void updateosc2ringModSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 RM", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIosc2ringU, 127);
+    }
+    osc2ringModSW = 1;
   }
   if (!osc2ringModSWU && upperSW) {
     sr.writePin(OSC2_RINGMOD_LED, LOW);
     green.writePin(GREEN_OSC2_RINGMOD_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 RM", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIosc2ringU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIosc2ringU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIosc2ringL, 127);
-    }
+    osc2ringModSW = 0;
   }
 }
 
@@ -3835,7 +3905,7 @@ void updateechoOffSW() {
   }
 
   if (!layerPatchFlag) {
-    if (upperSW  && echoOffSWU) {
+    if (upperSW && echoOffSWU) {
       midiCCOut(MIDIechoU, 93);
     }
     if (lowerSW && echoOffSWL) {
@@ -4470,13 +4540,21 @@ void updateosc1glideSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC1 Glide", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIosc1glideL, 127);
+    }
+    osc1glideSW = 1;
   }
   if (!osc1glideSWL && lowerSW) {
     green.writePin(GREEN_GLIDE_OSC1_LED, LOW);
     sr.writePin(GLIDE_OSC1_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC1 Glide", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIosc1glideL, 127);
+      }
     }
+    osc1glideSW = 0;
   }
   if (osc1glideSWU && upperSW) {
     sr.writePin(GLIDE_OSC1_LED, HIGH);
@@ -4484,22 +4562,21 @@ void updateosc1glideSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC1 Glide", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIosc1glideU, 127);
+    }
+    osc1glideSW = 1;
   }
   if (!osc1glideSWU && upperSW) {
     sr.writePin(GLIDE_OSC1_LED, LOW);
     green.writePin(GREEN_GLIDE_OSC1_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC1 Glide", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIosc1glideU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIosc1glideU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIosc1glideL, 127);
-    }
+    osc1glideSW = 0;
   }
 }
 
@@ -4511,13 +4588,21 @@ void updateosc2glideSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 Glide", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIosc2glideL, 127);
+    }
+    osc2glideSW = 1;
   }
   if (!osc2glideSWL && lowerSW) {
     green.writePin(GREEN_GLIDE_OSC2_LED, LOW);
     sr.writePin(GLIDE_OSC2_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 Glide", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIosc2glideL, 127);
+      }
     }
+    osc2glideSW = 0;
   }
   if (osc2glideSWU && upperSW) {
     sr.writePin(GLIDE_OSC2_LED, HIGH);
@@ -4525,22 +4610,21 @@ void updateosc2glideSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 Glide", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIosc2glideU, 127);
+    }
+    osc2glideSW = 1;
   }
   if (!osc2glideSWU && upperSW) {
     sr.writePin(GLIDE_OSC2_LED, LOW);
     green.writePin(GREEN_GLIDE_OSC2_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 Glide", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIosc2glideU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIosc2glideU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIosc2glideL, 127);
-    }
+    osc2glideSW = 0;
   }
 }
 
@@ -4645,13 +4729,21 @@ void updateosc2SyncSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 Sync", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIosc2SyncL, 127);
+    }
+    osc2SyncSW = 1;
   }
   if (!osc2SyncSWL && lowerSW) {
     green.writePin(GREEN_OSC2_SYNC_LED, LOW);
     sr.writePin(OSC2_SYNC_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 Sync", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIosc2SyncL, 127);
+      }
     }
+    osc2SyncSW = 0;
   }
   if (osc2SyncSWU && upperSW) {
     sr.writePin(OSC2_SYNC_LED, HIGH);
@@ -4659,22 +4751,21 @@ void updateosc2SyncSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 Sync", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIosc2SyncU, 127);
+    }
+    osc2SyncSW = 1;
   }
   if (!osc2SyncSWU && upperSW) {
     sr.writePin(OSC2_SYNC_LED, LOW);
     green.writePin(GREEN_OSC2_SYNC_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("OSC2 Sync", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIosc2SyncU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIosc2SyncU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIosc2SyncL, 127);
-    }
+    osc2SyncSW = 0;
   }
 }
 
@@ -4686,13 +4777,21 @@ void updatemultiTriggerSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Multi Trig", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDImultiTriggerL, 127);
+    }
+    multiTriggerSW = 1;
   }
   if (!multiTriggerSWL && lowerSW) {
     green.writePin(GREEN_MULTI_LED, LOW);
     sr.writePin(MULTI_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("Multi Trig", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDImultiTriggerL, 127);
+      }
     }
+    multiTriggerSW = 0;
   }
   if (multiTriggerSWU && upperSW) {
     sr.writePin(MULTI_LED, HIGH);
@@ -4700,22 +4799,21 @@ void updatemultiTriggerSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Multi Trig", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDImultiTriggerU, 127);
+    }
+    multiTriggerSW = 1;
   }
   if (!multiTriggerSWU && upperSW) {
     sr.writePin(MULTI_LED, LOW);
     green.writePin(GREEN_MULTI_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("Multi Trig", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDImultiTriggerU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDImultiTriggerU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDImultiTriggerL, 127);
-    }
+    multiTriggerSW = 0;
   }
 }
 
@@ -4891,13 +4989,21 @@ void updatelfo1SyncSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Sync", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1SyncL, 127);
+    }
+    lfo1SyncSW = 1;
   }
   if (!lfo1SyncSWL && lowerSW) {
     green.writePin(GREEN_LFO1_SYNC_LED, LOW);
     sr.writePin(LFO1_SYNC_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Sync", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1SyncL, 127);
+      }
     }
+    lfo1SyncSW = 0;
   }
   if (lfo1SyncSWU && upperSW) {
     sr.writePin(LFO1_SYNC_LED, HIGH);
@@ -4905,22 +5011,21 @@ void updatelfo1SyncSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Sync", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1SyncU, 127);
+    }
+    lfo1SyncSW = 1;
   }
   if (!lfo1SyncSWU && upperSW) {
     sr.writePin(LFO1_SYNC_LED, LOW);
     green.writePin(GREEN_LFO1_SYNC_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Sync", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1SyncU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIlfo1SyncU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIlfo1SyncL, 127);
-    }
+    lfo1SyncSW = 0;
   }
 }
 
@@ -4932,13 +5037,21 @@ void updatelfo1modWheelSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Wheel", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1modWheelL, 127);
+    }
+    lfo1modWheelSW = 1;
   }
   if (!lfo1modWheelSWL && lowerSW) {
     green.writePin(GREEN_LFO1_WHEEL_LED, LOW);
     sr.writePin(LFO1_WHEEL_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Wheel", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1modWheelL, 127);
+      }
     }
+    lfo1modWheelSW = 0;
   }
   if (lfo1modWheelSWU && upperSW) {
     sr.writePin(LFO1_WHEEL_LED, HIGH);
@@ -4946,45 +5059,45 @@ void updatelfo1modWheelSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Wheel", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1modWheelU, 127);
+    }
+    lfo1modWheelSW = 1;
   }
   if (!lfo1modWheelSWU && upperSW) {
     sr.writePin(LFO1_WHEEL_LED, LOW);
     green.writePin(GREEN_LFO1_WHEEL_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Wheel", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1modWheelU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIlfo1modWheelU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIlfo1modWheelL, 127);
-    }
+    lfo1modWheelSW = 0;
   }
 }
 
 void updatelfo2SyncSW() {
-  if (!recallPatchFlag) {
-    if (lfo2SyncSW) {
+  if (lfo2SyncSW) {
+    if (!recallPatchFlag) {
       showCurrentParameterPage("LFO2 Sync", "On");
     }
-    if (!lfo2SyncSW) {
-      showCurrentParameterPage("LFO2 Sync", "Off");
-    }
-  }
-  if (lfo2SyncSW) {
     sr.writePin(LFO2_SYNC_LED, HIGH);
+    midiCCOut(MIDIlfo2SyncSW, 127);
+    midiCCOut(MIDIlfo2SyncSW, 0);
+    lfo2SyncSW = 1;
   }
   if (!lfo2SyncSW) {
     sr.writePin(LFO2_SYNC_LED, LOW);
-  }
-  if (!layerPatchFlag) {
-    midiCCOut(MIDIlfo2SyncSW, 127);
-    midiCCOut(MIDIlfo2SyncSW, 0);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("LFO2 Sync", "Off");
+      midiCCOut(MIDIlfo2SyncSW, 127);
+      midiCCOut(MIDIlfo2SyncSW, 0);
+    }
+    lfo2SyncSW = 0;
   }
 }
+
 
 void updatelfo1randSW() {
   if (!recallPatchFlag) {
@@ -5312,13 +5425,21 @@ void updatelfo1resetSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Reset", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1resetL, 127);
+    }
+    lfo1resetSW = 1;
   }
   if (!lfo1resetSWL && lowerSW) {
     green.writePin(GREEN_LFO1_RESET_LED, LOW);
     sr.writePin(LFO1_RESET_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Reset", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1osc1L, 127);
+      }
     }
+    lfo1resetSW = 0;
   }
   if (lfo1resetSWU && upperSW) {
     sr.writePin(LFO1_RESET_LED, HIGH);
@@ -5326,22 +5447,21 @@ void updatelfo1resetSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Reset", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1resetU, 127);
+    }
+    lfo1resetSW = 1;
   }
   if (!lfo1resetSWU && upperSW) {
     sr.writePin(LFO1_RESET_LED, LOW);
     green.writePin(GREEN_LFO1_RESET_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Reset", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1resetU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIlfo1resetU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIlfo1resetL, 127);
-    }
+    lfo1resetSW = 0;
   }
 }
 
@@ -5353,13 +5473,21 @@ void updatelfo1osc1SW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 OSC1", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1osc1L, 127);
+    }
+    lfo1osc1SW = 1;
   }
   if (!lfo1osc1SWL && lowerSW) {
     green.writePin(GREEN_LFO1_OSC1_LED, LOW);
     sr.writePin(LFO1_OSC1_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 OSC1", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1osc1L, 127);
+      }
     }
+    lfo1osc1SW = 0;
   }
   if (lfo1osc1SWU && upperSW) {
     sr.writePin(LFO1_OSC1_LED, HIGH);
@@ -5367,22 +5495,21 @@ void updatelfo1osc1SW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 OSC1", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1osc1U, 127);
+    }
+    lfo1osc1SW = 1;
   }
   if (!lfo1osc1SWU && upperSW) {
     sr.writePin(LFO1_OSC1_LED, LOW);
     green.writePin(GREEN_LFO1_OSC1_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 OSC1", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1osc1U, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIlfo1osc1U, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIlfo1osc1L, 127);
-    }
+    lfo1osc1SW = 0;
   }
 }
 
@@ -5394,13 +5521,21 @@ void updatelfo1osc2SW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 OSC2", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1osc2L, 127);
+    }
+    lfo1osc2SW = 1;
   }
   if (!lfo1osc2SWL && lowerSW) {
     green.writePin(GREEN_LFO1_OSC2_LED, LOW);
     sr.writePin(LFO1_OSC2_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 OSC2", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1osc2L, 127);
+      }
     }
+    lfo1osc2SW = 0;
   }
   if (lfo1osc2SWU && upperSW) {
     sr.writePin(LFO1_OSC2_LED, HIGH);
@@ -5408,22 +5543,21 @@ void updatelfo1osc2SW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 OSC2", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1osc2U, 127);
+    }
+    lfo1osc2SW = 1;
   }
   if (!lfo1osc2SWU && upperSW) {
     sr.writePin(LFO1_OSC2_LED, LOW);
     green.writePin(GREEN_LFO1_OSC2_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 OSC2", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1osc2U, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIlfo1osc2U, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIlfo1osc2L, 127);
-    }
+    lfo1osc2SW = 0;
   }
 }
 
@@ -5435,13 +5569,21 @@ void updatelfo1pw1SW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 PW1", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1pw1L, 127);
+    }
+    lfo1pw1SW = 1;
   }
   if (!lfo1pw1SWL && lowerSW) {
     green.writePin(GREEN_LFO1_PW1_LED, LOW);
     sr.writePin(LFO1_PW1_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 PW1", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1pw1L, 127);
+      }
     }
+    lfo1pw1SW = 0;
   }
   if (lfo1pw1SWU && upperSW) {
     sr.writePin(LFO1_PW1_LED, HIGH);
@@ -5449,40 +5591,47 @@ void updatelfo1pw1SW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 PW1", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1pw1U, 127);
+    }
+    lfo1pw1SW = 1;
   }
   if (!lfo1pw1SWU && upperSW) {
     sr.writePin(LFO1_PW1_LED, LOW);
     green.writePin(GREEN_LFO1_PW1_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 PW1", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1pw1U, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIlfo1pw1U, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIlfo1pw1L, 127);
-    }
+    lfo1pw1SW = 0;
   }
 }
 
 void updatelfo1pw2SW() {
 
-  if (lfo1pw1SWL && lowerSW) {
+  if (lfo1pw2SWL && lowerSW) {
     green.writePin(GREEN_LFO1_PW2_LED, HIGH);
     sr.writePin(LFO1_PW2_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 PW2", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1pw2L, 127);
+    }
+    lfo1pw2SW = 1;
   }
   if (!lfo1pw2SWL && lowerSW) {
     green.writePin(GREEN_LFO1_PW2_LED, LOW);
     sr.writePin(LFO1_PW2_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 PW2", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1pw2L, 127);
+      }
     }
+    lfo1pw2SW = 0;
   }
   if (lfo1pw2SWU && upperSW) {
     sr.writePin(LFO1_PW2_LED, HIGH);
@@ -5490,22 +5639,21 @@ void updatelfo1pw2SW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 PW2", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1pw2U, 127);
+    }
+    lfo1pw2SW = 1;
   }
   if (!lfo1pw2SWU && upperSW) {
     sr.writePin(LFO1_PW2_LED, LOW);
     green.writePin(GREEN_LFO1_PW2_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 PW2", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1pw2U, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIlfo1pw2U, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIlfo1pw2L, 127);
-    }
+    lfo1pw2SW = 0;
   }
 }
 
@@ -5517,13 +5665,21 @@ void updatelfo1filtSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Filter", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1filtL, 127);
+    }
+    lfo1filtSW = 1;
   }
   if (!lfo1filtSWL && lowerSW) {
     green.writePin(GREEN_LFO1_FILT_LED, LOW);
     sr.writePin(LFO1_FILT_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Filter", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1filtL, 127);
+      }
     }
+    lfo1filtSW = 0;
   }
   if (lfo1filtSWU && upperSW) {
     sr.writePin(LFO1_FILT_LED, HIGH);
@@ -5531,22 +5687,21 @@ void updatelfo1filtSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Filter", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1filtU, 127);
+    }
+    lfo1filtSW = 1;
   }
   if (!lfo1filtSWU && upperSW) {
     sr.writePin(LFO1_FILT_LED, LOW);
     green.writePin(GREEN_LFO1_FILT_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 Filter", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1filtU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIlfo1filtU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIlfo1filtL, 127);
-    }
+    lfo1filtSW = 0;
   }
 }
 
@@ -5558,13 +5713,21 @@ void updatelfo1ampSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 AMP", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1ampL, 127);
+    }
+    lfo1ampSW = 1;
   }
   if (!lfo1ampSWL && lowerSW) {
     green.writePin(GREEN_LFO1_AMP_LED, LOW);
     sr.writePin(LFO1_AMP_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 AMP", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1ampL, 127);
+      }
     }
+    lfo1ampSW = 0;
   }
   if (lfo1ampSWU && upperSW) {
     sr.writePin(LFO1_AMP_LED, HIGH);
@@ -5572,22 +5735,21 @@ void updatelfo1ampSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 AMP", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1ampU, 127);
+    }
+    lfo1ampSW = 1;
   }
   if (!lfo1ampSWU && upperSW) {
     sr.writePin(LFO1_AMP_LED, LOW);
     green.writePin(GREEN_LFO1_AMP_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 AMP", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1ampU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIlfo1ampU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIlfo1ampL, 127);
-    }
+    lfo1ampSW = 0;
   }
 }
 
@@ -5599,13 +5761,21 @@ void updatelfo1seqRateSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 SeqRate", "Lower On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1seqRateL, 127);
+    }
+    lfo1seqRateSW = 1;
   }
   if (!lfo1seqRateSWL && lowerSW) {
     green.writePin(GREEN_LFO1_SEQ_RATE_LED, LOW);
     sr.writePin(LFO1_SEQ_RATE_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 SeqRate", "Lower Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1seqRateL, 127);
+      }
     }
+    lfo1seqRateSW = 0;
   }
   if (lfo1seqRateSWU && upperSW) {
     sr.writePin(LFO1_SEQ_RATE_LED, HIGH);
@@ -5613,22 +5783,21 @@ void updatelfo1seqRateSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 SeqRate", "Upper On");
     }
+    if (!layerPatchFlag) {
+      midiCCOut(MIDIlfo1seqRateU, 127);
+    }
+    lfo1seqRateSW = 1;
   }
   if (!lfo1seqRateSWU && upperSW) {
     sr.writePin(LFO1_SEQ_RATE_LED, LOW);
     green.writePin(GREEN_LFO1_SEQ_RATE_LED, LOW);
     if (!recallPatchFlag) {
       showCurrentParameterPage("LFO1 SeqRate", "Upper Off");
+      if (!layerPatchFlag) {
+        midiCCOut(MIDIlfo1seqRateU, 127);
+      }
     }
-  }
-
-  if (!layerPatchFlag) {
-    if (upperSW) {
-      midiCCOut(MIDIlfo1seqRateU, 127);
-    }
-    if (lowerSW) {
-      midiCCOut(MIDIlfo1seqRateL, 127);
-    }
+    lfo1seqRateSW = 0;
   }
 }
 
@@ -5704,7 +5873,6 @@ void switchLEDs() {
   updateunisonMonoSW();
   updatelfo1SyncSW();
   updatelfo1modWheelSW();
-  updatelfo2SyncSW();
   updatelfo1randSW();
   updatelfo1squareUniSW();
   updatelfo1squareBipSW();
@@ -5852,8 +6020,13 @@ void myControlChange(byte channel, byte control, int value) {
       break;
 
     case CClayerPan:
-      layerPan = value;
-      layerPanstr = QUADRA100[value];
+      if (lowerSW) {
+        layerPanL = value;
+      }
+      if (upperSW) {
+        layerPanU = value;
+      }
+      layerVolumestr = QUADRA100[value];
       updatelayerPan();
       break;
 
@@ -5904,11 +6077,22 @@ void myControlChange(byte channel, byte control, int value) {
     case CCarpFrequency:
       if (lowerSW) {
         arpFrequencyL = value;
+        if (arpSyncSWL) {
+          arpFrequencymapL = map(arpFrequencyL, 0, 127, 0, 19);
+          arpFrequencystring = SYNTHEXSYNC[arpFrequencymapL];
+        } else {
+          arpFrequencystr = QUADRA100[value];
+        }
       }
       if (upperSW) {
         arpFrequencyU = value;
+        if (arpSyncSWU) {
+          arpFrequencymapU = map(arpFrequencyU, 0, 127, 0, 19);
+          arpFrequencystring = SYNTHEXSYNC[arpFrequencymapU];
+        } else {
+          arpFrequencystr = QUADRA100[value];
+        }
       }
-      arpFrequencystr = QUADRALFO[value];
       updatearpFrequency();
       break;
 
@@ -6157,11 +6341,22 @@ void myControlChange(byte channel, byte control, int value) {
     case CCechoTime:
       if (lowerSW) {
         echoTimeL = value;
+        if (echoSyncSWL) {
+          echoTimemapL = map(echoTimeL, 0, 127, 0, 19);
+          echoTimestring = SYNTHEXECHOSYNC[echoTimemapL];
+        } else {
+          echoTimestr = QUADRA100[value];
+        }
       }
       if (upperSW) {
         echoTimeU = value;
+        if (echoSyncSWU) {
+          echoTimemapU = map(echoTimeU, 0, 127, 0, 19);
+          echoTimestring = SYNTHEXECHOSYNC[echoTimemapU];
+        } else {
+          echoTimestr = QUADRA100[value];
+        }
       }
-      echoTimestr = QUADRA100[value];
       updateechoTime();
       break;
 
@@ -6291,7 +6486,12 @@ void myControlChange(byte channel, byte control, int value) {
 
     case CClfo2InitFrequency:
       lfo2InitFrequency = value;
-      lfo2InitFrequencystr = QUADRA100[value];
+      if (lfo2SyncSW) {
+        lfo2InitFrequencymap = map(lfo2InitFrequency, 0, 127, 0, 19);
+        lfo2InitFrequencystring = SYNTHEXSYNC[lfo2InitFrequencymap];
+      } else {
+        lfo2InitFrequencystr = QUADRA100[value];
+      }
       updatelfo2InitFrequency();
       break;
 
@@ -6322,12 +6522,22 @@ void myControlChange(byte channel, byte control, int value) {
     case CClfo1Frequency:
       if (lowerSW) {
         lfo1FrequencyL = value;
+        if (lfo1SyncSWL) {
+          lfo1FrequencymapL = map(lfo1FrequencyL, 0, 127, 0, 19);
+          lfo1Frequencystring = SYNTHEXSYNC[lfo1FrequencymapL];
+        } else {
+          lfo1Frequencystr = QUADRA100[value];
+        }
       }
       if (upperSW) {
         lfo1FrequencyU = value;
+        if (lfo1SyncSWU) {
+          lfo1FrequencymapU = map(lfo1FrequencyU, 0, 127, 0, 19);
+          lfo1Frequencystring = SYNTHEXSYNC[lfo1FrequencymapU];
+        } else {
+          lfo1Frequencystr = QUADRA100[value];
+        }
       }
-      //lfo1Frequencystr = QUADRA100[value];
-      lfo1Frequencystr = value;
       updatelfo1Frequency();
       break;
 
@@ -6343,14 +6553,16 @@ void myControlChange(byte channel, byte control, int value) {
       break;
 
     case CClfo1Delay:
-      if (lowerSW) {
+      if (lowerSW && !lfo1modWheelSWL) {
         lfo1DelayL = value;
+        lfo1Delaystr = QUADRA100[value];
+        updatelfo1Delay();
       }
-      if (upperSW) {
+      if (upperSW && !lfo1modWheelSWU) {
         lfo1DelayU = value;
+        lfo1Delaystr = QUADRA100[value];
+        updatelfo1Delay();
       }
-      lfo1Delaystr = QUADRA100[value];
-      updatelfo1Delay();
       break;
 
     case CClfo1DepthB:
@@ -7269,7 +7481,7 @@ void setCurrentPatchData(String data[]) {
 
   masterVolume = data[1].toInt();
   masterTune = data[2].toInt();
-  layerPan = data[3].toInt();
+  layerPanU = data[3].toInt();
   layerVolumeL = data[4].toInt();
   layerVolumeU = data[5].toInt();
   reverbLevelL = data[6].toInt();
@@ -7531,9 +7743,13 @@ void setCurrentPatchData(String data[]) {
   lfo1sawDnSWU = data[260].toInt();
   lfo1triangleSWL = data[261].toInt();
   lfo1triangleSWU = data[262].toInt();
+  layerPanL = data[263].toInt();
 
 
   //Pots
+
+  lowerSW = 1;
+  upperSW = 0;
 
   updatemasterTune();
   updatelayerPan();
@@ -7577,15 +7793,6 @@ void setCurrentPatchData(String data[]) {
   updatereverbDecay();
   updatereverbEQ();
   updatereverbLevel();
-  updatelfo2InitAmount();
-  updatelfo2InitFrequency();
-  updatelfo2FreqAcc();
-  updatelfo2ToOsc();
-  updatebendToOsc();
-  updatelfo2ToFilter();
-  updatebendToFilter();
-
-  updatemasterVolume();
 
   //Switches
 
@@ -7653,15 +7860,11 @@ void setCurrentPatchData(String data[]) {
   updateglideOffSW();
   updateosc2SyncSW();
   updatemultiTriggerSW();
-  updatesingleSW();
-  updatedoubleSW();
-  updatesplitSW();
   updatepolySW();
   updatesingleMonoSW();
   updateunisonMonoSW();
   updatelfo1SyncSW();
   updatelfo1modWheelSW();
-  updatelfo2SyncSW();
   updatelfo1randSW();
   updatelfo1squareUniSW();
   updatelfo1squareBipSW();
@@ -7677,6 +7880,157 @@ void setCurrentPatchData(String data[]) {
   updatelfo1ampSW();
   updatelfo1seqRateSW();
 
+  lowerSW = 0;
+  upperSW = 1;
+  delay(5);
+
+  updatelayerPan();
+  updatelayerVolume();
+  updatefilterCutoff();
+  updatefilterResonance();
+  updatefilterEnvAmount();
+  updatefilterKeyboard();
+  updatelfo1Frequency();
+  updatelfo1Delay();
+  updatelfo1DepthA();
+  updatelfo1DepthA();
+  updateunisonDetune();
+  updateosc1Transpose();
+  updateosc1Tune();
+  updateosc1PW();
+  updateosc1Volume();
+  updateosc2Transpose();
+  updateosc2Tune();
+  updateosc2PW();
+  updateosc2Volume();
+  updatefilterAttack();
+  updatefilterDecay();
+  updatefilterSustain();
+  updatefilterRelease();
+  updatefilterVelocity();
+  updateampAttack();
+  updateampDecay();
+  updateampSustain();
+  updateampRelease();
+  updateampVelocity();
+  updatenoiseLevel();
+  updateglideSpeed();
+  updateglideAmount();
+  updatearpFrequency();
+  updateechoTime();
+  updateechoFeedback();
+  updateechoEQ();
+  updateechoSpread();
+  updateechoLevel();
+  updatereverbDecay();
+  updatereverbEQ();
+  updatereverbLevel();
+
+  //Switches
+
+  updatearpRange4SW();
+  updatearpRange3SW();
+  updatearpRange2SW();
+  updatearpRange1SW();
+  updatearpSyncSW();
+  updatearpHoldSW();
+  updatelayerSoloSW();
+  updatearpRandSW();
+  updatearpUpDownSW();
+  updatearpDownSW();
+  updatearpUpSW();
+  updatearpOffSW();
+  updateenvInvSW();
+  updatefilterHPSW();
+  updatefilterBP2SW();
+  updatefilterBP1SW();
+  updatefilterLP2SW();
+  updatefilterLP1SW();
+  updaterevGLTCSW();
+  updaterevHallSW();
+  updaterevPlateSW();
+  updaterevRoomSW();
+  updaterevOffSW();
+  updatenoisePinkSW();
+  updatenoiseWhiteSW();
+  updatenoiseOffSW();
+  updateechoSyncSW();
+  updateosc1ringModSW();
+  updateosc2ringModSW();
+  updateosc1_osc2PWMSW();
+  updateosc1pulseSW();
+  updateosc1squareSW();
+  updateosc1sawSW();
+  updateosc1triangleSW();
+  updateosc2_osc1PWMSW();
+  updateosc2pulseSW();
+  updateosc2squareSW();
+  updateosc2sawSW();
+  updateosc2triangleSW();
+  updateechoPingPongSW();
+  updateechoTapeSW();
+  updateechoSTDSW();
+  updateechoOffSW();
+  updatechorus3SW();
+  updatechorus2SW();
+  updatechorus1SW();
+  updatechorusOffSW();
+  updateosc1_1SW();
+  updateosc1_2SW();
+  updateosc1_4SW();
+  updateosc1_8SW();
+  updateosc1_16SW();
+  updateosc2_1SW();
+  updateosc2_2SW();
+  updateosc2_4SW();
+  updateosc2_8SW();
+  updateosc2_16SW();
+  updateosc1glideSW();
+  updateosc2glideSW();
+  updateportSW();
+  updateglideSW();
+  updateglideOffSW();
+  updateosc2SyncSW();
+  updatemultiTriggerSW();
+  updatepolySW();
+  updatesingleMonoSW();
+  updateunisonMonoSW();
+  updatelfo1SyncSW();
+  updatelfo1modWheelSW();
+  updatelfo1randSW();
+  updatelfo1squareUniSW();
+  updatelfo1squareBipSW();
+  updatelfo1sawUpSW();
+  updatelfo1sawDnSW();
+  updatelfo1triangleSW();
+  updatelfo1resetSW();
+  updatelfo1osc1SW();
+  updatelfo1osc2SW();
+  updatelfo1pw1SW();
+  updatelfo1pw2SW();
+  updatelfo1filtSW();
+  updatelfo1ampSW();
+  updatelfo1seqRateSW();
+
+  // common controls
+
+  updatelfo2SyncSW();
+  updatelfo2InitAmount();
+  updatelfo2InitFrequency();
+  updatelfo2FreqAcc();
+  updatelfo2ToOsc();
+  updatebendToOsc();
+  updatelfo2ToFilter();
+  updatebendToFilter();
+  updatemasterTune();
+  updatemasterVolume();
+  updateLowerSW();
+  updateUpperSW();
+  updatesingleSW();
+  updatedoubleSW();
+  updatesplitSW();
+
+
   //Patchname
   updatePatchname();
 
@@ -7685,7 +8039,7 @@ void setCurrentPatchData(String data[]) {
 }
 
 String getCurrentPatchData() {
-  return patchName + "," + String(masterVolume) + "," + String(masterTune) + "," + String(layerPan) + "," + String(layerVolumeL) + "," + String(layerVolumeU) + "," + String(reverbLevelL)
+  return patchName + "," + String(masterVolume) + "," + String(masterTune) + "," + String(layerPanU) + "," + String(layerVolumeL) + "," + String(layerVolumeU) + "," + String(reverbLevelL)
          + "," + String(reverbLevelU) + "," + String(reverbDecayL) + "," + String(reverbDecayU) + "," + String(reverbEQL) + "," + String(reverbEQU) + "," + String(arpFrequencyL)
          + "," + String(arpFrequencyL) + "," + String(ampVelocityL) + "," + String(ampVelocityL) + "," + String(filterVelocityL) + "," + String(filterVelocityU) + "," + String(ampReleaseL)
          + "," + String(ampReleaseU) + "," + String(ampSustainL) + "," + String(ampSustainU) + "," + String(ampDecayL) + "," + String(ampDecayU) + "," + String(ampAttackL)
@@ -7728,7 +8082,7 @@ String getCurrentPatchData() {
          + "," + String(lfo1osc2SWL) + "," + String(lfo1osc2SWU) + "," + String(lfo1pw1SWL) + "," + String(lfo1pw1SWU) + "," + String(lfo1pw2SWL) + "," + String(lfo1pw2SWU)
          + "," + String(lfo1filtSWL) + "," + String(lfo1filtSWU) + "," + String(lfo1ampSWL) + "," + String(lfo1ampSWU) + "," + String(lfo1seqRateSWL) + "," + String(lfo1seqRateSWU)
          + "," + String(lfo1squareUniSWL) + "," + String(lfo1squareUniSWU) + "," + String(lfo1squareBipSWL) + "," + String(lfo1squareBipSWU) + "," + String(lfo1sawUpSWL) + "," + String(lfo1sawUpSWU)
-         + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU);
+         + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU) + "," + String(layerPanL);
 }
 
 void checkMux() {
@@ -8429,7 +8783,6 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
   }
 
   if (btnIndex == LFO2_SYNC_SW && btnType == ROX_PRESSED) {
-    Serial.print("Switch Pushed");
     lfo2SyncSW = !lfo2SyncSW;
     myControlChange(midiChannel, CClfo2SyncSW, lfo2SyncSW);
   }
