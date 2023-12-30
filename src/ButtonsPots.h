@@ -148,3 +148,4 @@
 #define CCarpOffSW  153
 #define CClfo1sawUpSW 154
 #define CClfo1sawDnSW 155
+#define CCchordMemorySW 156

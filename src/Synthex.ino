@@ -87,6 +87,8 @@ Rox74HC595<GREEN_TOTAL> green;
 #define GREEN_LED_CLK 7    // pin 11 on 74HC595 (CLK)
 #define GREEN_LED_PWM -1   // pin 13 on 74HC595
 
+//RoxLed UPPER_LED;
+
 byte ccType = 0;  //(EEPROM)
 
 #include "Settings.h"
@@ -112,6 +114,8 @@ void setup() {
   setupDisplay();
   setUpSettings();
   setupHardware();
+  //UPPER_LED.begin();
+  //UPPER_LED.setMode(ROX_DEFAULT);
   //setUpLEDS();
 
   LEDintensity = getLEDintensity();
@@ -208,6 +212,7 @@ void setup() {
   midiOutCh = getMIDIOutCh();
 
   sr.writePin(UPPER_LED, HIGH);
+  //UPPER_LED.on();
 
   // sr.writePin(LEAD_VCO2_WAVE_LED, HIGH);
   // Blank the split display
@@ -222,11 +227,26 @@ void myNoteOn(byte channel, byte note, byte velocity) {
     learningNote = note;
     noteArrived = true;
   }
+
+
+
   if (!learning) {
     MIDI.sendNoteOn(note, velocity, channel);
     if (sendNotes) {
       usbMIDI.sendNoteOn(note, velocity, channel);
     }
+  }
+
+  if (chordMemoryWaitL) {
+    chordMemoryWaitL = false;
+    sr.writePin(CHORD_MEMORY_LED, LOW);
+    green.writePin(GREEN_CHORD_MEMORY_LED, HIGH);
+  }
+
+  if (chordMemoryWaitU) {
+    chordMemoryWaitU = false;
+    sr.writePin(CHORD_MEMORY_LED, HIGH);
+    green.writePin(GREEN_CHORD_MEMORY_LED, LOW);
   }
 }
 
@@ -1436,10 +1456,10 @@ void updatelfo2FreqAcc() {
 void updatelfo2InitFrequency() {
   if (!recallPatchFlag) {
     if (lfo2SyncSW) {
-        showCurrentParameterPage("LFO2 SYNC", String(lfo2InitFrequencystring));
-      } else {
-        showCurrentParameterPage("LFO2 Freq", String(lfo2InitFrequencystr) + " Hz");
-      }
+      showCurrentParameterPage("LFO2 SYNC", String(lfo2InitFrequencystring));
+    } else {
+      showCurrentParameterPage("LFO2 Freq", String(lfo2InitFrequencystr) + " Hz");
+    }
   }
   midiCCOut(MIDIlfo2InitFrequency, lfo2InitFrequency);
 }
@@ -2286,14 +2306,20 @@ void updatelayerSoloSW() {
       sr.writePin(LAYER_SOLO_LED, HIGH);
     }
     if (!recallPatchFlag) {
-      showCurrentParameterPage("Layer Solo", "Lower On");
+      showCurrentParameterPage("Layer Solo", "On");
     }
   }
   if (!layerSoloSW) {
     green.writePin(GREEN_LAYER_SOLO_LED, LOW);
     sr.writePin(LAYER_SOLO_LED, LOW);
     if (!recallPatchFlag) {
-      showCurrentParameterPage("Layer Solo", "Lower Off");
+      showCurrentParameterPage("Layer Solo", "Off");
+    }
+    if (upperSW) {
+      sr.writePin(UPPER_LED, HIGH);
+    }
+    if (lowerSW) {
+      sr.writePin(LOWER_LED, HIGH);
     }
   }
 
@@ -2319,6 +2345,9 @@ void updateLowerSW() {
     sr.writePin(LOWER_LED, HIGH);
     sr.writePin(UPPER_LED, LOW);
     upperSW = 0;
+    if (layerSoloSW) {
+      lower_timer = millis();
+    }
     midiCCOut(MIDIpanel, 100);
     switchLEDs();
   }
@@ -2332,6 +2361,9 @@ void updateUpperSW() {
     sr.writePin(LOWER_LED, LOW);
     sr.writePin(UPPER_LED, HIGH);
     lowerSW = 0;
+    if (layerSoloSW) {
+      upper_timer = millis();
+    }
     midiCCOut(MIDIpanel, 50);
     switchLEDs();
   }
@@ -4833,6 +4865,52 @@ void updatemultiTriggerSW() {
   }
 }
 
+void updatechordMemorySW() {
+
+  if (chordMemorySWL && lowerSW) {
+    green.writePin(GREEN_CHORD_MEMORY_LED, HIGH);
+    sr.writePin(CHORD_MEMORY_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Chord Memory", "Waiting");
+      chordMemoryWaitL = true;
+      chord_timerL = millis();
+    }
+    midiCCOut(MIDIchordMemoryL, 127);
+    chordMemorySW = 1;
+  }
+  if (!chordMemorySWL && lowerSW) {
+    green.writePin(GREEN_CHORD_MEMORY_LED, LOW);
+    sr.writePin(CHORD_MEMORY_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Chord Memory", "Off");
+      midiCCOut(MIDIchordMemoryL, 127);
+      chordMemoryWaitL = false;
+    }
+    chordMemorySW = 0;
+  }
+  if (chordMemorySWU && upperSW) {
+    sr.writePin(CHORD_MEMORY_LED, HIGH);
+    green.writePin(GREEN_CHORD_MEMORY_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Chord Memory", "Waiting");
+      chordMemoryWaitU = true;
+      chord_timerU = millis();
+    }
+    midiCCOut(MIDIchordMemoryU, 127);
+    chordMemorySW = 1;
+  }
+  if (!chordMemorySWU && upperSW) {
+    sr.writePin(CHORD_MEMORY_LED, LOW);
+    green.writePin(GREEN_CHORD_MEMORY_LED, LOW);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Chord Memory", "Off");
+      midiCCOut(MIDIchordMemoryU, 127);
+      chordMemoryWaitU = false;
+    }
+    chordMemorySW = 0;
+  }
+}
+
 void updatesingleSW() {
   if (singleSW == 1) {
     if (!recallPatchFlag) {
@@ -7227,6 +7305,16 @@ void myControlChange(byte channel, byte control, int value) {
       updatemultiTriggerSW();
       break;
 
+    case CCchordMemorySW:
+      if (lowerSW) {
+        value > 0 ? chordMemorySWL = 1 : chordMemorySWL = 0;
+      }
+      if (upperSW) {
+        value > 0 ? chordMemorySWU = 1 : chordMemorySWU = 0;
+      }
+      updatechordMemorySW();
+      break;
+
     case CCsingleSW:
       value > 0 ? singleSW = 1 : singleSW = 0;
       updatesingleSW();
@@ -8354,8 +8442,8 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
   // to check if a specific button was pressed
 
   if (btnIndex == LIMITER_SW && btnType == ROX_PRESSED) {
-      limiterSW = !limiterSW;
-      myControlChange(midiChannel, CClimiterSW, limiterSW);
+    limiterSW = !limiterSW;
+    myControlChange(midiChannel, CClimiterSW, limiterSW);
   }
 
   if (btnIndex == LOWER_SW && btnType == ROX_PRESSED) {
@@ -8754,6 +8842,17 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
     if (lowerSW) {
       multiTriggerSWL = !multiTriggerSWL;
       myControlChange(midiChannel, CCmultiTriggerSW, multiTriggerSWL);
+    }
+  }
+
+  if (btnIndex == CHORD_MEMORY_SW && btnType == ROX_PRESSED) {
+    if (upperSW) {
+      chordMemorySWU = !chordMemorySWU;
+      myControlChange(midiChannel, CCchordMemorySW, chordMemorySWU);
+    }
+    if (lowerSW) {
+      chordMemorySWL = !chordMemorySWL;
+      myControlChange(midiChannel, CCchordMemorySW, chordMemorySWL);
     }
   }
 
@@ -9296,6 +9395,24 @@ void midiCCOut(byte cc, byte value) {
               MIDI.sendNoteOff(110, 0, midiOutCh);   //MIDI USB is set to Out
               break;
 
+            case MIDIchordMemoryU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(109, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(109, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(109, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(109, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIchordMemoryL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(108, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(108, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(108, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(108, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
             default:
               if (updateParams) {
 
@@ -9588,20 +9705,52 @@ void checkEEPROM() {
 }
 
 void stopLEDs() {
-  // if ((polywave_timer > 0) && (millis() - polywave_timer > 150)) {
-  //   sr.writePin(POLY_WAVE_LED, HIGH);
-  //   polywave_timer = 0;
-  // }
+  unsigned long currentMillis = millis();
 
-  // if ((vco1wave_timer > 0) && (millis() - vco1wave_timer > 150)) {
-  //   sr.writePin(LEAD_VCO1_WAVE_LED, HIGH);
-  //   vco1wave_timer = 0;
-  // }
+  if (layerSoloSW && upperSW) {
+    if (currentMillis - upper_timer >= interval) {
+      upper_timer = currentMillis;
+      if (sr.readPin(UPPER_LED) == HIGH) {
+        sr.writePin(UPPER_LED, LOW);
+      } else {
+        sr.writePin(UPPER_LED, HIGH);
+      }
+    }
+  }
 
-  // if ((vco2wave_timer > 0) && (millis() - vco2wave_timer > 150)) {
-  //   sr.writePin(LEAD_VCO2_WAVE_LED, HIGH);
-  //   vco2wave_timer = 0;
-  // }
+  if (layerSoloSW && lowerSW) {
+    if (currentMillis - lower_timer >= interval) {
+      lower_timer = currentMillis;
+      if (sr.readPin(LOWER_LED) == HIGH) {
+        sr.writePin(LOWER_LED, LOW);
+      } else {
+        sr.writePin(LOWER_LED, HIGH);
+      }
+    }
+  }
+
+  if (chordMemoryWaitU) {
+    if (currentMillis - chord_timerU >= interval) {
+      chord_timerU = currentMillis;
+      if (sr.readPin(CHORD_MEMORY_LED) == HIGH) {
+        sr.writePin(CHORD_MEMORY_LED, LOW);
+      } else {
+        sr.writePin(CHORD_MEMORY_LED, HIGH);
+      }
+    }
+  }
+
+  if (chordMemoryWaitL) {
+    if (currentMillis - chord_timerL >= interval) {
+      chord_timerL = currentMillis;
+      if (green.readPin(GREEN_CHORD_MEMORY_LED) == HIGH) {
+        green.writePin(GREEN_CHORD_MEMORY_LED, LOW);
+      } else {
+        green.writePin(GREEN_CHORD_MEMORY_LED, HIGH);
+      }
+    }
+  }
+
 }
 
 void flashLearnLED(int displayNumber) {
@@ -9659,7 +9808,7 @@ void loop() {
   midi1.read();  //USB HOST MIDI Class Compliant
   MIDI.read(midiChannel);
   usbMIDI.read(midiChannel);
-
+  //UPPER_LED.update();
   checkEEPROM();                         // check anything that may have changed form the initial startup
   stopLEDs();                            // blink the wave LEDs once when pressed
   flashLearnLED(learningDisplayNumber);  // Flash the corresponding learn LED display when button pressed

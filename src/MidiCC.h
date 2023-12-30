@@ -174,3 +174,5 @@
 #define MIDIlfo1seqRateU 168
 #define MIDIlfo1seqRateL 169
 #define MIDImaxVoicesSW 170
+#define MIDIchordMemoryL 171
+#define MIDIchordMemoryU 172

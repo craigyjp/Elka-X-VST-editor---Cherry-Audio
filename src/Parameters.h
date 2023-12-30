@@ -8,10 +8,12 @@ int oldSLIDERintensity;
 int learningDisplayNumber = 0;
 int learningNote = 0;
 
-static unsigned long polywave_timer = 0;
-static unsigned long vco1wave_timer = 0;
-static unsigned long vco2wave_timer = 0;
+static unsigned long lower_timer = 0;
+static unsigned long upper_timer = 0;
+static unsigned long chord_timerU = 0;
+static unsigned long chord_timerL = 0;
 static unsigned long learn_timer = 0;
+const long interval = 250;
 
 int readresdivider = 32;
 int resolutionFrig = 5;
@@ -532,6 +534,11 @@ int maxVoicesSW = 0;
 int layerSoloSW = 0;
 int layerSoloSWU = 0;
 int layerSoloSWL = 0;
+int chordMemorySW = 0;
+int chordMemorySWL = 0;
+int chordMemorySWU = 0;
+boolean chordMemoryWaitL = false;
+boolean chordMemoryWaitU = false;
 
 // End Synthex Switches
 
