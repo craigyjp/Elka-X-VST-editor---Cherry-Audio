@@ -2337,6 +2337,22 @@ void updateUpperSW() {
   }
 }
 
+void updatelimiterSW() {
+  if (limiterSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Limiter", "On");
+    }
+    sr.writePin(LIMITER_LED, HIGH);
+    midiCCOut(MIDIlimiter, 127);
+  }
+  if (!limiterSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Limiter", "Off");
+    }
+    sr.writePin(LIMITER_LED, LOW);
+    midiCCOut(MIDIlimiter, 127);
+  }
+}
 void updateUtilitySW() {
   // if (utilitySW == 1) {
   //   if (!recallPatchFlag) {
@@ -7426,6 +7442,11 @@ void myControlChange(byte channel, byte control, int value) {
       updatemaxVoicesSW();
       break;
 
+    case CClimiterSW:
+      value > 0 ? limiterSW = 1 : limiterSW = 0;
+      updatelimiterSW();
+      break;
+
     case CClowerSW:
       value > 0 ? lowerSW = 1 : lowerSW = 0;
       updateLowerSW();
@@ -7744,7 +7765,7 @@ void setCurrentPatchData(String data[]) {
   lfo1triangleSWL = data[261].toInt();
   lfo1triangleSWU = data[262].toInt();
   layerPanL = data[263].toInt();
-
+  limiterSW = data[264].toInt();
 
   //Pots
 
@@ -8023,6 +8044,7 @@ void setCurrentPatchData(String data[]) {
   updatelfo2ToFilter();
   updatebendToFilter();
   updatemasterTune();
+  updatelimiterSW();
   updatemasterVolume();
   updateLowerSW();
   updateUpperSW();
@@ -8082,7 +8104,7 @@ String getCurrentPatchData() {
          + "," + String(lfo1osc2SWL) + "," + String(lfo1osc2SWU) + "," + String(lfo1pw1SWL) + "," + String(lfo1pw1SWU) + "," + String(lfo1pw2SWL) + "," + String(lfo1pw2SWU)
          + "," + String(lfo1filtSWL) + "," + String(lfo1filtSWU) + "," + String(lfo1ampSWL) + "," + String(lfo1ampSWU) + "," + String(lfo1seqRateSWL) + "," + String(lfo1seqRateSWU)
          + "," + String(lfo1squareUniSWL) + "," + String(lfo1squareUniSWU) + "," + String(lfo1squareBipSWL) + "," + String(lfo1squareBipSWU) + "," + String(lfo1sawUpSWL) + "," + String(lfo1sawUpSWU)
-         + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU) + "," + String(layerPanL);
+         + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU) + "," + String(layerPanL) + "," + String(limiterSW);
 }
 
 void checkMux() {
@@ -8332,10 +8354,8 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
   // to check if a specific button was pressed
 
   if (btnIndex == LIMITER_SW && btnType == ROX_PRESSED) {
-    if (!limiterSW) {
       limiterSW = !limiterSW;
       myControlChange(midiChannel, CClimiterSW, limiterSW);
-    }
   }
 
   if (btnIndex == LOWER_SW && btnType == ROX_PRESSED) {
