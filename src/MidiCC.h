@@ -104,8 +104,8 @@
 #define MIDIosc1WaveL 103
 #define MIDIosc2WaveU 104
 #define MIDIosc2WaveL 105
-#define MIDIkeyboard 106
-#define MIDIpanel 107
+#define MIDIkeyboard 106 // sets the keyboard mode single/double/split
+#define MIDIpanel 107    // sets the upper or lower sections, single will recall upper
 #define MIDIlfo1WaveU 108
 #define MIDIlfo1WaveL 109
 #define MIDIfilterU 110

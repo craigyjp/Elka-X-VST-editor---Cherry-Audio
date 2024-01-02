@@ -12,7 +12,8 @@ static unsigned long lower_timer = 0;
 static unsigned long upper_timer = 0;
 static unsigned long chord_timerU = 0;
 static unsigned long chord_timerL = 0;
-static unsigned long learn_timer = 0;
+//static unsigned long learn_timer = 0;
+static unsigned long split_timer = 0;
 const long interval = 250;
 
 int readresdivider = 32;
@@ -530,6 +531,7 @@ int limiterSW = 0;
 int singleSW = 0;
 int doubleSW = 0;
 int splitSW = 0;
+int splitNote= 1;
 int maxVoicesSW = 0;
 int layerSoloSW = 0;
 int layerSoloSWU = 0;

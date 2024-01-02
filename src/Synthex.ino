@@ -129,13 +129,13 @@ void setup() {
 
   setLEDDisplay0();
   display0.begin();                     // initializes the display
-  display0.setBacklight(LEDintensity);  // set the brightness to intensity
+  display0.setBacklight(0);  // set the brightness to intensity
   display0.print(" 127");               // display INIT on the display
   delay(10);
 
   setLEDDisplay1();
   display1.begin();                     // initializes the display
-  display1.setBacklight(LEDintensity);  // set the brightness to intensity
+  display1.setBacklight(0);  // set the brightness to intensity
   display1.print("   0");               // display INIT on the display
   delay(10);
 
@@ -228,8 +228,6 @@ void myNoteOn(byte channel, byte note, byte velocity) {
     noteArrived = true;
   }
 
-
-
   if (!learning) {
     MIDI.sendNoteOn(note, velocity, channel);
     if (sendNotes) {
@@ -261,75 +259,19 @@ void myNoteOff(byte channel, byte note, byte velocity) {
 
 void convertIncomingNote() {
 
-  // if (learning && noteArrived) {
-  //   switch (learningDisplayNumber) {
+  if (learning && noteArrived) {
+    splitNote = learningNote;
+    learning = false;
+    noteArrived = false;
+    sr.writePin(SPLIT_LED, HIGH);
+    setLEDDisplay2();
+    display2.setBacklight(LEDintensity);
+    displayLEDNumber(2, splitNote);
 
-  //     case 1:
-  //       leadBottomNote = learningNote;
-  //       setLEDDisplay1();
-  //       display1.setBacklight(LEDintensity);
-  //       displayLEDNumber(1, leadBottomNote);
-  //       //updateleadTopNote();
-  //       break;
+    MIDI.sendNoteOn(splitNote, 127, 1);
+    MIDI.sendNoteOff(splitNote, 0, 1);
+  }
 
-  //     case 0:
-  //       leadTopNote = learningNote;
-  //       leadLearn = 0;
-  //       //updateleadLearn();
-  //       //refreshLeadNotes();
-  //       learning = false;
-  //       break;
-
-  //       // case 3:
-  //       //   polyBottomNote = learningNote;
-  //       //   setLEDDisplay3();
-  //       //   display3.setBacklight(LEDintensity);
-  //       //   displayLEDNumber(3, polyBottomNote);
-  //       //   //updatepolyTopNote();
-  //       //   break;
-
-  //     case 2:
-  //       polyTopNote = learningNote;
-  //       polyLearn = 0;
-  //       //updatepolyLearn();
-  //       //refreshPolyNotes();
-  //       learning = false;
-  //       break;
-
-  //       // case 5:
-  //       //   stringsBottomNote = learningNote;
-  //       //   setLEDDisplay5();
-  //       //   display5.setBacklight(LEDintensity);
-  //       //   displayLEDNumber(5, stringsBottomNote);
-  //       //   //updatestringsTopNote();
-  //       //   break;
-
-  //     case 4:
-  //       stringsTopNote = learningNote;
-  //       stringsLearn = 0;
-  //       //updatestringsLearn();
-  //       //refreshStringNotes();
-  //       learning = false;
-  //       break;
-
-  //       // case 7:
-  //       //   bassBottomNote = learningNote;
-  //       //   setLEDDisplay7();
-  //       //   display7.setBacklight(LEDintensity);
-  //       //   displayLEDNumber(7, bassBottomNote);
-  //       //   //updatebassTopNote();
-  //       //   break;
-
-  //     case 6:
-  //       bassTopNote = learningNote;
-  //       bassLearn = 0;
-  //       //updatebassLearn();
-  //       //refreshBassNotes();
-  //       learning = false;
-  //       break;
-  //   }
-  //   noteArrived = false;
-  // }
 }
 
 void myConvertControlChange(byte channel, byte number, byte value) {
@@ -4930,9 +4872,10 @@ void updatesingleSW() {
     upperSW = 1;
     lowerSW = 0;
     recallPatchFlag = true;
+    learning = false;
     updateUpperSW();
     recallPatchFlag = false;
-    midiCCOut(MIDIkeyboard, 82);
+    midiCCOut(MIDIkeyboard, 69);
   }
 }
 
@@ -4949,24 +4892,36 @@ void updatedoubleSW() {
     display2.setBacklight(0);
     singleSW = 0;
     splitSW = 0;
+    learning = false;
     midiCCOut(MIDIkeyboard, 74);
   }
 }
 
 void updatesplitSW() {
-  if (splitSW == 1) {
+  if (splitSW && !learning) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Split", "On");
     }
     sr.writePin(SINGLE_LED, LOW);
     sr.writePin(DOUBLE_LED, LOW);
     sr.writePin(SPLIT_LED, HIGH);
-    // Blank the split display
     setLEDDisplay2();
     display2.setBacklight(LEDintensity);
+    displayLEDNumber(2, splitNote);
     singleSW = 0;
     doubleSW = 0;
-    midiCCOut(MIDIkeyboard, 69);
+    midiCCOut(MIDIkeyboard, 82);
+  }
+}
+
+void updatesplitLearn() {
+    if (splitSW && learning) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Split", "Learn");
+    }
+    split_timer = millis();
+    midiCCOut(MIDIkeyboard, 82);
+
   }
 }
 
@@ -6064,43 +6019,6 @@ void myControlChange(byte channel, byte control, int value) {
       }
       break;
 
-      // case CClfoSpeed:
-      //   lfoSpeed = value;
-      //   if (lfoSync < 63) {
-      //     lfoSpeedstr = QUADRALFO[value];
-      //   } else {
-      //     lfoSpeedmap = map(lfoSpeed, 0, 127, 0, 19);
-      //     lfoSpeedstring = QUADRAARPSYNC[lfoSpeedmap];
-      //   }
-      //   updatelfoSpeed();
-      //   break;
-
-
-      // case CCechoTime:
-      //   echoTime = value;
-      //   if (echoSync < 63) {
-      //     echoTimestr = QUADRAECHOTIME[value];
-      //   }
-      //   if (echoSync > 63) {
-      //     echoTimemap = map(echoTime, 0, 127, 0, 19);
-      //     echoTimestring = QUADRAECHOSYNC[echoTimemap];
-      //   }
-      //   updateechoTime();
-      //   break;
-
-
-      // case CCarpSpeed:
-      //   arpSpeed = value;
-      //   if (arpSync < 63) {
-      //     arpSpeedstr = QUADRAARPSPEED[value];
-      //   } else {
-      //     arpSpeedmap = map(arpSpeed, 0, 127, 0, 19);
-      //     arpSpeedstring = QUADRAARPSYNC[arpSpeedmap];
-      //   }
-      //   updatearpSpeed();
-      //   break;
-
-
     case CCmasterVolume:
       masterVolume = value;
       masterVolumestr = QUADRA100[value];
@@ -6584,7 +6502,7 @@ void myControlChange(byte channel, byte control, int value) {
         lfo2InitFrequencymap = map(lfo2InitFrequency, 0, 127, 0, 19);
         lfo2InitFrequencystring = SYNTHEXSYNC[lfo2InitFrequencymap];
       } else {
-        lfo2InitFrequencystr = QUADRA100[value];
+        lfo2InitFrequencystr = SYNTHEXLFO2[value];
       }
       updatelfo2InitFrequency();
       break;
@@ -6620,7 +6538,7 @@ void myControlChange(byte channel, byte control, int value) {
           lfo1FrequencymapL = map(lfo1FrequencyL, 0, 127, 0, 19);
           lfo1Frequencystring = SYNTHEXSYNC[lfo1FrequencymapL];
         } else {
-          lfo1Frequencystr = QUADRA100[value];
+          lfo1Frequencystr = SYNTHEXLFO1[value];
         }
       }
       if (upperSW) {
@@ -6629,7 +6547,7 @@ void myControlChange(byte channel, byte control, int value) {
           lfo1FrequencymapU = map(lfo1FrequencyU, 0, 127, 0, 19);
           lfo1Frequencystring = SYNTHEXSYNC[lfo1FrequencymapU];
         } else {
-          lfo1Frequencystr = QUADRA100[value];
+          lfo1Frequencystr = SYNTHEXLFO1[value];
         }
       }
       updatelfo1Frequency();
@@ -6642,7 +6560,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         lfo1DepthAU = value;
       }
-      lfo1DepthAstr = QUADRA100[value];
+      lfo1DepthAstr = SYNTHEX100[value];
       updatelfo1DepthA();
       break;
 
@@ -6666,7 +6584,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         lfo1DepthBU = value;
       }
-      lfo1DepthBstr = QUADRA100[value];
+      lfo1DepthBstr = SYNTHEX100[value];
       updatelfo1DepthB();
       break;
 
@@ -7330,6 +7248,11 @@ void myControlChange(byte channel, byte control, int value) {
       updatesplitSW();
       break;
 
+    case CCsplitLearning:
+      value > 0 ? splitSW = 1 : splitSW = 0;
+      updatesplitLearn();
+      break;
+
     case CCpolySW:
       if (lowerSW) {
         polySWL = 1;
@@ -7854,6 +7777,7 @@ void setCurrentPatchData(String data[]) {
   lfo1triangleSWU = data[262].toInt();
   layerPanL = data[263].toInt();
   limiterSW = data[264].toInt();
+  splitNote = data[265].toInt();
 
   //Pots
 
@@ -8192,7 +8116,8 @@ String getCurrentPatchData() {
          + "," + String(lfo1osc2SWL) + "," + String(lfo1osc2SWU) + "," + String(lfo1pw1SWL) + "," + String(lfo1pw1SWU) + "," + String(lfo1pw2SWL) + "," + String(lfo1pw2SWU)
          + "," + String(lfo1filtSWL) + "," + String(lfo1filtSWU) + "," + String(lfo1ampSWL) + "," + String(lfo1ampSWU) + "," + String(lfo1seqRateSWL) + "," + String(lfo1seqRateSWU)
          + "," + String(lfo1squareUniSWL) + "," + String(lfo1squareUniSWU) + "," + String(lfo1squareBipSWL) + "," + String(lfo1squareBipSWU) + "," + String(lfo1sawUpSWL) + "," + String(lfo1sawUpSWU)
-         + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU) + "," + String(layerPanL) + "," + String(limiterSW);
+         + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU) + "," + String(layerPanL) + "," + String(limiterSW)
+         + "," + String(splitNote);
 }
 
 void checkMux() {
@@ -8857,18 +8782,25 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
   }
 
   if (btnIndex == SINGLE_SW && btnType == ROX_PRESSED) {
-    singleSW = !singleSW;
+    singleSW = 1;
     myControlChange(midiChannel, CCsingleSW, singleSW);
   }
 
   if (btnIndex == DOUBLE_SW && btnType == ROX_PRESSED) {
-    doubleSW = !doubleSW;
+    doubleSW = 1;
     myControlChange(midiChannel, CCdoubleSW, doubleSW);
   }
 
-  if (btnIndex == SPLIT_SW && btnType == ROX_PRESSED) {
-    splitSW = !splitSW;
+  if (btnIndex == SPLIT_SW && btnType == ROX_RELEASED) {
+    splitSW = 1;
     myControlChange(midiChannel, CCsplitSW, splitSW);
+  } else {
+    if (btnIndex == SPLIT_SW && btnType == ROX_HELD) {
+      if (splitSW) {
+        learning = true;
+        myControlChange(midiChannel, CCsplitLearning, learning);
+      }
+    }
   }
 
   if (btnIndex == POLY_SW && btnType == ROX_PRESSED) {
@@ -9413,6 +9345,15 @@ void midiCCOut(byte cc, byte value) {
               MIDI.sendNoteOff(108, 0, midiOutCh);   //MIDI USB is set to Out
               break;
 
+            // case MIDIkeyboard:
+            //   if (updateParams) {
+            //     usbMIDI.sendNoteOn(36, 127, midiOutCh);  //MIDI USB is set to Out
+            //     //usbMIDI.sendNoteOff(108, 0, midiOutCh);   //MIDI USB is set to Out
+            //   }
+            //   MIDI.sendNoteOn(36, 127, midiOutCh);  //MIDI DIN is set to Out
+            //   //MIDI.sendNoteOff(108, 0, midiOutCh);   //MIDI USB is set to Out
+            //   break;
+
             default:
               if (updateParams) {
 
@@ -9751,46 +9692,17 @@ void stopLEDs() {
     }
   }
 
-}
-
-void flashLearnLED(int displayNumber) {
-
-  if (learning) {
-    if ((learn_timer > 0) && (millis() - learn_timer >= 1000)) {
-      switch (displayNumber) {
-        case 0:
-          setLEDDisplay0();
-          display0.setBacklight(LEDintensity);
-          break;
-
-        case 1:
-          setLEDDisplay1();
-          display1.setBacklight(LEDintensity);
-          break;
-
-        case 2:
-          setLEDDisplay2();
-          display2.setBacklight(LEDintensity);
-          break;
-      }
-
-      learn_timer = millis();
-    } else if ((learn_timer > 0) && (millis() - learn_timer >= 500)) {
-      switch (displayNumber) {
-        case 0:
-          setLEDDisplay0();
-          display0.setBacklight(0);
-          break;
-
-        case 1:
-          setLEDDisplay1();
-          display1.setBacklight(0);
-          break;
-
-        case 2:
-          setLEDDisplay2();
-          display2.setBacklight(0);
-          break;
+    if (learning) {
+    if (currentMillis - split_timer >= interval) {
+      split_timer = currentMillis;
+      if (sr.readPin(SPLIT_LED) == HIGH) {
+        sr.writePin(SPLIT_LED, LOW);
+        setLEDDisplay2();
+        display2.setBacklight(0);
+      } else {
+        sr.writePin(SPLIT_LED, HIGH);
+        setLEDDisplay2();
+        display2.setBacklight(LEDintensity);
       }
     }
   }
@@ -9811,6 +9723,5 @@ void loop() {
   //UPPER_LED.update();
   checkEEPROM();                         // check anything that may have changed form the initial startup
   stopLEDs();                            // blink the wave LEDs once when pressed
-  flashLearnLED(learningDisplayNumber);  // Flash the corresponding learn LED display when button pressed
   convertIncomingNote();                 // read a note when in learn mode and use it to set the values
 }
