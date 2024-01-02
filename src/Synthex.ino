@@ -6021,13 +6021,13 @@ void myControlChange(byte channel, byte control, int value) {
 
     case CCmasterVolume:
       masterVolume = value;
-      masterVolumestr = QUADRA100[value];
+      masterVolumestr = SYNTHEXAMOUNT[value];
       updatemasterVolume();
       break;
 
     case CCmasterTune:
       masterTune = value;
-      masterTunestr = QUADRAETUNE[value];
+      masterTunestr = SYNTHEXTUNE[value];
       updatemasterTune();
       break;
 
@@ -6038,7 +6038,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         layerPanU = value;
       }
-      layerVolumestr = QUADRA100[value];
+      layerPanstr = SYNTHEXPAN[value];
       updatelayerPan();
       break;
 
@@ -6049,7 +6049,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         layerVolumeU = value;
       }
-      layerVolumestr = QUADRA100[value];
+      layerVolumestr = SYNTHEXLAYERVOL[value];
       updatelayerVolume();
       break;
 
@@ -6060,7 +6060,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         reverbLevelU = value;
       }
-      reverbLevelstr = QUADRA100[value];
+      reverbLevelstr = SYNTHEXAMOUNT[value];
       updatereverbLevel();
       break;
 
@@ -6071,7 +6071,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         reverbDecayU = value;
       }
-      reverbDecaystr = QUADRA100[value];
+      reverbDecaystr = SYNTHEXAMOUNT[value];
       updatereverbDecay();
       break;
 
@@ -6115,7 +6115,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         ampVelocityU = value;
       }
-      ampVelocitystr = QUADRA100[value];
+      ampVelocitystr = SYNTHEXAMOUNT[value];
       updateampVelocity();
       break;
 
@@ -6126,7 +6126,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         filterVelocityU = value;
       }
-      filterVelocitystr = QUADRA100[value];
+      filterVelocitystr = SYNTHEXAMOUNT[value];
       updatefilterVelocity();
       break;
 
@@ -6181,7 +6181,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         filterKeyboardU = value;
       }
-      filterKeyboardstr = QUADRA100[value];
+      filterKeyboardstr = SYNTHEXAMOUNT[value];
       updatefilterKeyboard();
       break;
 
@@ -6203,7 +6203,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         osc2VolumeU = value;
       }
-      osc2Volumestr = QUADRA100[value];
+      osc2Volumestr = SYNTHEXAMOUNT[value];
       updateosc2Volume();
       break;
 
@@ -6236,7 +6236,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         osc1VolumeU = value;
       }
-      osc1Volumestr = QUADRA100[value];
+      osc1Volumestr = SYNTHEXAMOUNT[value];
       updateosc1Volume();
       break;
 
@@ -6258,7 +6258,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         filterEnvAmountU = value;
       }
-      filterEnvAmountstr = QUADRA100[value];
+      filterEnvAmountstr = SYNTHEXAMOUNT[value];
       updatefilterEnvAmount();
       break;
 
@@ -6324,7 +6324,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         echoLevelU = value;
       }
-      echoLevelstr = QUADRA100[value];
+      echoLevelstr = SYNTHEXAMOUNT[value];
       updateechoLevel();
       break;
 
@@ -6335,7 +6335,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         echoFeedbackU = value;
       }
-      echoFeedbackstr = QUADRA100[value];
+      echoFeedbackstr = SYNTHEXAMOUNT[value];
       updateechoFeedback();
       break;
 
@@ -6346,7 +6346,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         echoSpreadU = value;
       }
-      echoSpreadstr = QUADRA100[value];
+      echoSpreadstr = SYNTHEXAMOUNT[value];
       updateechoSpread();
       break;
 
@@ -6429,7 +6429,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         noiseLevelU = value;
       }
-      noiseLevelstr = QUADRA100[value];
+      noiseLevelstr = SYNTHEXAMOUNT[value];
       updatenoiseLevel();
       break;
 
@@ -6468,13 +6468,13 @@ void myControlChange(byte channel, byte control, int value) {
 
     case CCbendToFilter:
       bendToFilter = value;
-      bendToFilterstr = QUADRA100[value];
+      bendToFilterstr = SYNTHEXAMOUNT[value];
       updatebendToFilter();
       break;
 
     case CClfo2ToFilter:
       lfo2ToFilter = value;
-      lfo2ToFilterstr = QUADRA100[value];
+      lfo2ToFilterstr = SYNTHEXAMOUNT[value];
       updatelfo2ToFilter();
       break;
 
@@ -6486,7 +6486,7 @@ void myControlChange(byte channel, byte control, int value) {
 
     case CClfo2ToOsc:
       lfo2ToOsc = value;
-      lfo2ToOscstr = QUADRA100[value];
+      lfo2ToOscstr = SYNTHEXAMOUNT[value];
       updatelfo2ToOsc();
       break;
 
@@ -6509,7 +6509,7 @@ void myControlChange(byte channel, byte control, int value) {
 
     case CClfo2InitAmount:
       lfo2InitAmount = value;
-      lfo2InitAmountstr = QUADRA100[value];
+      lfo2InitAmountstr = SYNTHEXAMOUNT[value];
       updatelfo2InitAmount();
       break;
 
