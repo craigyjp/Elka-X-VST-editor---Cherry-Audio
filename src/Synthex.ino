@@ -6082,7 +6082,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         reverbEQU = value;
       }
-      reverbEQstr = QUADRA100[value];
+      reverbEQstr = SYNTHEXEQ[value];
       updatereverbEQ();
       break;
 
@@ -6313,7 +6313,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         echoEQU = value;
       }
-      echoEQstr = QUADRA100[value];
+      echoEQstr = SYNTHEXEQ[value];
       updateechoEQ();
       break;
 
