@@ -296,392 +296,6 @@ void myAfterTouch(byte channel, byte pressure) {
 void allNotesOff() {
 }
 
-// void updatetrillUp() {
-//   if (trillUp == 1) {
-//     trillValue++;
-//     if (trillValue > 60) {
-//       trillValue = 60;
-//     }
-//     if (trillValue == 0) {
-//       trillValue = 1;
-//     }
-//     displayLEDNumber(8, trillValue);
-//     midiCCOut(CCtrillUp, 127);
-//     trillUp = 0;
-//   } else {
-//     displayLEDNumber(8, trillValue);
-//   }
-// }
-
-// void updateTrills() {
-//   displayLEDNumber(8, trillValue);
-//   if (trillValue > 0) {
-//     for (int i = 1; i < trillValue; i++) {
-//       midiCCOut(CCtrillUp, 127);
-//     }
-//   }
-//   if (trillValue < 0) {
-//     int negativetrillValue = abs(trillValue);
-//     for (int i = 0; i < negativetrillValue; i++) {
-//       midiCCOut(CCtrillDown, 127);
-//     }
-//   }
-// }
-
-// void updatetrillDown() {
-//   if (trillDown == 1) {
-//     trillValue = trillValue - 1;
-//     if (trillValue < -60) {
-//       trillValue = -60;
-//     }
-//     if (trillValue == 0) {
-//       trillValue = -1;
-//     }
-//     displayLEDNumber(8, trillValue);
-//     midiCCOut(CCtrillDown, 127);
-//     trillDown = 0;
-//   } else {
-//     displayLEDNumber(8, trillValue);
-//   }
-// }
-
-// void updatemodWheel() {
-//   if (modWheel > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Wheel", String("On"));
-//     }
-//     sr.writePin(MOD_WHEEL_LED, HIGH);
-//     midiCCOut(CCmodWheel, CC_ON);
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Wheel", String("Off"));
-//     }
-//     sr.writePin(MOD_WHEEL_LED, LOW);
-//     midiCCOut(CCmodWheel, 0);
-//   }
-// }
-
-// void updateleadMix() {
-//   if (!recallPatchFlag) {
-//     showCurrentParameterPage("Lead Mix", String(leadMixstr) + " dB");
-//   }
-//   midiCCOut(CCleadMix, leadMix);
-// }
-
-// void updatephaserSpeed() {
-//   if (modSourcePhaser == 2) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Sweep Speed", String(phaserSpeedstr) + " Hz");
-//     }
-//     midiCCOut(CCphaserSpeed, phaserSpeed);
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Sweep Speed", String("Inactive"));
-//     }
-//   }
-// }
-
-// void updatechorusFlange() {
-//   if (chorusFlange > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Mode", String("Flange"));
-//     }
-//     midiCCOut(CCchorusFlange, CC_ON);
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Mode", String("Chorus"));
-//     }
-//     midiCCOut(CCchorusFlange, 0);
-//   }
-// }
-
-// void updatechorusSpeed() {
-//   if (chorusFlange > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Flanger Speed", String(chorusSpeedstr) + " Hz");
-//     }
-//     midiCCOut(CCchorusSpeed, chorusSpeed);
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Chorus Speed", String(chorusSpeedstr) + " Hz");
-//     }
-//     midiCCOut(CCchorusSpeed, chorusSpeed);
-//   }
-// }
-
-// void updatelfoDelay() {
-//   if (lfoDelay > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Delay", String("On"));
-//     }
-//     sr.writePin(LFO_DELAY_LED, HIGH);
-//     midiCCOut(CClfoDelay, CC_ON);
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Delay", String("Off"));
-//     }
-//     sr.writePin(LFO_DELAY_LED, LOW);
-//     midiCCOut(CClfoDelay, 0);
-//   }
-// }
-
-// void updatechorusDepth() {
-//   if (chorusFlange > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Flanger Depth", String(chorusDepthstr) + " %");
-//     }
-//     midiCCOut(CCchorusDepth, chorusDepth);
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Chorus Depth", String(chorusDepthstr) + " %");
-//     }
-//     midiCCOut(CCchorusDepth, chorusDepth);
-//   }
-// }
-
-// void updatechorusRes() {
-//   if (chorusFlange > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Flanger Res", String(chorusResstr) + " %");
-//     }
-//     midiCCOut(CCchorusRes, chorusRes);
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Flanger Res", String("Inactive"));
-//     }
-//   }
-// }
-
-// void updatelfoSync() {
-//   if (lfoSync > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Sync", String("On"));
-//     }
-//     sr.writePin(LFO_SYNC_LED, HIGH);
-//     midiCCOut(CClfoSync, CC_ON);
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Sync", String("Off"));
-//     }
-//     sr.writePin(LFO_SYNC_LED, LOW);
-//     midiCCOut(CClfoSync, 0);
-//   }
-// }
-
-// void updateshSource() {
-//   if (shSource > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("S/H Source", String("VCO 2"));
-//     }
-//     midiCCOut(CCshSource, CC_ON);
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("S/H Source", String("Noise"));
-//     }
-//     midiCCOut(CCshSource, 0);
-//   }
-// }
-
-// void updatestringOctave() {
-//   switch (stringOctave) {
-//     case 2:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("String Octave", String("Octave Up"));
-//       }
-//       midiCCOut(CCstringOctave, CC_ON);
-//       break;
-//     case 1:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("String Octave", String("Normal"));
-//       }
-//       midiCCOut(CCstringOctave, 64);
-//       break;
-//     case 0:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("String Octave", String("Octave Down"));
-//       }
-//       midiCCOut(CCstringOctave, 0);
-//       break;
-//   }
-// }
-
-// void updatebassOctave() {
-//   switch (bassOctave) {
-//     case 2:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Bass Octave", String("Octave Up"));
-//       }
-//       midiCCOut(CCbassOctave, CC_ON);
-//       break;
-//     case 1:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Bass Octave", String("Normal"));
-//       }
-//       midiCCOut(CCbassOctave, 64);
-//       break;
-//     case 0:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Bass Octave", String("Octave Down"));
-//       }
-//       midiCCOut(CCbassOctave, 0);
-//       break;
-//   }
-// }
-
-// void updatelfoSpeed() {
-//   if (lfoSync < 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Speed", String(lfoSpeedstr) + " Hz");
-//     }
-//   }
-//   if (lfoSync > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("LFO Speed", String(lfoSpeedstring));
-//     }
-//   }
-//   midiCCOut(CClfoSpeed, lfoSpeed);
-// }
-
-// void updateechoTime() {
-//   if (echoSync < 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Echo Time", String(echoTimestr) + " ms");
-//     }
-//   }
-//   if (echoSync > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Echo Time", String(echoTimestring));
-//     }
-//   }
-//   midiCCOut(CCechoTime, echoTime);
-// }
-
-// void updatereverbType() {
-//   switch (reverbType) {
-//     case 0:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Reverb Type", String("Hall"));
-//       }
-//       midiCCOut(CCreverbType, 0);
-//       break;
-//     case 1:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Reverb Type", String("Plate"));
-//       }
-//       midiCCOut(CCreverbType, 64);
-//       break;
-//     case 2:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Reverb Type", String("Spring"));
-//       }
-//       midiCCOut(CCreverbType, 127);
-//       break;
-//   }
-// }
-
-
-// void updatearpSync() {
-//   if (arpSync > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Arp Sync", String("On"));
-//     }
-//     sr.writePin(ARP_SYNC_LED, HIGH);
-//     midiCCOut(CCarpSync, CC_ON);
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Arp Sync", String("Off"));
-//     }
-//     sr.writePin(ARP_SYNC_LED, LOW);
-//     midiCCOut(CCarpSync, 0);
-//   }
-// }
-
-// void updatearpSpeed() {
-//   if (arpSync < 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Arp Speed", String(arpSpeedstr) + " Hz");
-//     }
-//   }
-//   if (arpSync > 63) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Arp Speed", String(arpSpeedstring));
-//     }
-//   }
-//   midiCCOut(CCarpSpeed, arpSpeed);
-// }
-
-// void updatearpRange() {
-//   switch (arpRange) {
-//     case 0:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Arp Range", String("1"));
-//       }
-//       midiCCOut(CCarpRange, 0);
-//       break;
-//     case 1:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Arp Range", String("2"));
-//       }
-//       midiCCOut(CCarpRange, 64);
-//       break;
-//     case 2:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Arp Range", String("3"));
-//       }
-//       midiCCOut(CCarpRange, CC_ON);
-//       break;
-//   }
-// }
-
-// void updatestringRelease() {
-//   if (stringReleasestr < 1000) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("String Release", String(stringReleasestr) + " ms");
-//     }
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("String Release", String(stringReleasestr * 0.001) + " s");
-//     }
-//   }
-//   midiCCOut(CCstringRelease, stringRelease);
-// }
-
-// void updatestringAttack() {
-//   if (stringAttackstr < 1000) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("String Attack", String(stringAttackstr) + " ms");
-//     }
-//   } else {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("String Attack", String(stringAttackstr * 0.001) + " s");
-//     }
-//   }
-//   midiCCOut(CCstringAttack, stringAttack);
-// }
-
-// void updatemodSourcePhaser() {
-//   switch (modSourcePhaser) {
-//     case 0:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Mod Source", String("ENV"));
-//       }
-//       midiCCOut(CCmodSourcePhaser, 0);
-//       break;
-//     case 1:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Mod Source", String("S & H"));
-//       }
-//       midiCCOut(CCmodSourcePhaser, 64);
-//       break;
-//     case 2:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Mod Source", String("LFO"));
-//       }
-//       midiCCOut(CCmodSourcePhaser, CC_ON);
-//       break;
-//   }
-// }
-
 void updatemasterTune() {
   if (!recallPatchFlag) {
     showCurrentParameterPage("Tune", String(masterTunestr) + " Semi");
@@ -843,10 +457,10 @@ void updatefilterVelocity() {
 void updateampRelease() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Amp Release", String(ampReleasestr) + " %");
+      showCurrentParameterPage("Amp Release", String(ampReleasestr) + " mS");
     }
     if (upperSW) {
-      showCurrentParameterPage("Amp Release", String(ampReleasestr) + " %");
+      showCurrentParameterPage("Amp Release", String(ampReleasestr) + " mS");
     }
   }
   if (lowerSW) {
@@ -860,10 +474,10 @@ void updateampRelease() {
 void updateampSustain() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Amp Sustain", String(ampSustainstr) + " %");
+      showCurrentParameterPage("Amp Sustain", String(ampSustainstr) + " mS");
     }
     if (upperSW) {
-      showCurrentParameterPage("Amp Sustain", String(ampSustainstr) + " %");
+      showCurrentParameterPage("Amp Sustain", String(ampSustainstr) + " mS");
     }
   }
   if (lowerSW) {
@@ -877,10 +491,10 @@ void updateampSustain() {
 void updateampDecay() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Amp Decay", String(ampDecaystr) + " %");
+      showCurrentParameterPage("Amp Decay", String(ampDecaystr) + " mS");
     }
     if (upperSW) {
-      showCurrentParameterPage("Amp Decay", String(ampDecaystr) + " %");
+      showCurrentParameterPage("Amp Decay", String(ampDecaystr) + " mS");
     }
   }
   if (lowerSW) {
@@ -894,10 +508,10 @@ void updateampDecay() {
 void updateampAttack() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Amp Attack", String(ampAttackstr) + " %");
+      showCurrentParameterPage("Amp Attack", String(ampAttackstr) + " mS");
     }
     if (upperSW) {
-      showCurrentParameterPage("Amp Attack", String(ampAttackstr) + " %");
+      showCurrentParameterPage("Amp Attack", String(ampAttackstr) + " mS");
     }
   }
   if (lowerSW) {
@@ -911,10 +525,10 @@ void updateampAttack() {
 void updatefilterKeyboard() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Keyboard Tracl", String(filterKeyboardstr) + " %");
+      showCurrentParameterPage("Key Track", String(filterKeyboardstr) + " %");
     }
     if (upperSW) {
-      showCurrentParameterPage("KeyBoard Track", String(filterKeyboardstr) + " %");
+      showCurrentParameterPage("Key Track", String(filterKeyboardstr) + " %");
     }
   }
   if (lowerSW) {
@@ -1013,10 +627,10 @@ void updateosc1Volume() {
 void updatefilterCutoff() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Cutoff", String(filterCutoffstr) + " %");
+      showCurrentParameterPage("Filter Cutoff", String(filterCutoffstr) + " Hz");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Cutoff", String(filterCutoffstr) + " %");
+      showCurrentParameterPage("Filter Cutoff", String(filterCutoffstr) + " Hz");
     }
   }
   if (lowerSW) {
@@ -1047,10 +661,10 @@ void updatefilterEnvAmount() {
 void updatefilterAttack() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Attack", String(filterAttackstr) + " %");
+      showCurrentParameterPage("Filter Attack", String(filterAttackstr) + " mS");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Attack", String(filterAttackstr) + " %");
+      showCurrentParameterPage("Filter Attack", String(filterAttackstr) + " mS");
     }
   }
   if (lowerSW) {
@@ -1064,10 +678,10 @@ void updatefilterAttack() {
 void updatefilterDecay() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Decay", String(filterDecaystr) + " %");
+      showCurrentParameterPage("Filter Decay", String(filterDecaystr) + " mS");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Decay", String(filterDecaystr) + " %");
+      showCurrentParameterPage("Filter Decay", String(filterDecaystr) + " mS");
     }
   }
   if (lowerSW) {
@@ -1081,10 +695,10 @@ void updatefilterDecay() {
 void updatefilterSustain() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Sustain", String(filterSustainstr) + " %");
+      showCurrentParameterPage("Filter Sustain", String(filterSustainstr) + " mS");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Sustain", String(filterSustainstr) + " %");
+      showCurrentParameterPage("Filter Sustain", String(filterSustainstr) + " mS");
     }
   }
   if (lowerSW) {
@@ -1098,10 +712,10 @@ void updatefilterSustain() {
 void updatefilterRelease() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Filter Release", String(filterReleasestr) + " %");
+      showCurrentParameterPage("Filter Release", String(filterReleasestr) + " mS");
     }
     if (upperSW) {
-      showCurrentParameterPage("Filter Release", String(filterReleasestr) + " %");
+      showCurrentParameterPage("Filter Release", String(filterReleasestr) + " mS");
     }
   }
   if (lowerSW) {
@@ -1244,10 +858,10 @@ void updateunisonDetune() {
 void updateglideSpeed() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Glide Speed", String(glideSpeedstr) + " %");
+      showCurrentParameterPage("Glide Speed", String(glideSpeedstr) + " mS");
     }
     if (upperSW) {
-      showCurrentParameterPage("Glide Speed", String(glideSpeedstr) + " %");
+      showCurrentParameterPage("Glide Speed", String(glideSpeedstr) + " mS");
     }
   }
   if (lowerSW) {
@@ -1261,10 +875,10 @@ void updateglideSpeed() {
 void updateosc1Transpose() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("OSC1 Trans", String(osc1Transposestr) + " %");
+      showCurrentParameterPage("OSC1 Trans", String(osc1Transposestr) + " Semi");
     }
     if (upperSW) {
-      showCurrentParameterPage("OSC1 Trans", String(osc1Transposestr) + " %");
+      showCurrentParameterPage("OSC1 Trans", String(osc1Transposestr) + " Semi");
     }
   }
   if (lowerSW) {
@@ -1278,10 +892,10 @@ void updateosc1Transpose() {
 void updateosc2Transpose() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("OSC2 Trans", String(osc2Transposestr) + " %");
+      showCurrentParameterPage("OSC2 Trans", String(osc2Transposestr) + " Semi");
     }
     if (upperSW) {
-      showCurrentParameterPage("OSC2 Trans", String(osc2Transposestr) + " %");
+      showCurrentParameterPage("OSC2 Trans", String(osc2Transposestr) + " Semi");
     }
   }
   if (lowerSW) {
@@ -1312,10 +926,10 @@ void updatenoiseLevel() {
 void updateglideAmount() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("Glide Amount", String(glideAmountstr) + " %");
+      showCurrentParameterPage("Glide Amount", String(glideAmountstr) + " Cents");
     }
     if (upperSW) {
-      showCurrentParameterPage("Glide Amount", String(glideAmountstr) + " %");
+      showCurrentParameterPage("Glide Amount", String(glideAmountstr) + " Cents");
     }
   }
   if (lowerSW) {
@@ -1329,10 +943,10 @@ void updateglideAmount() {
 void updateosc1Tune() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("OSC1 Tune", String(osc1Tunestr) + " %");
+      showCurrentParameterPage("OSC1 Tune", String(osc1Tunestr) + " Cents");
     }
     if (upperSW) {
-      showCurrentParameterPage("OSC1 Tune", String(osc1Tunestr) + " %");
+      showCurrentParameterPage("OSC1 Tune", String(osc1Tunestr) + " Cents");
     }
   }
   if (lowerSW) {
@@ -1346,10 +960,10 @@ void updateosc1Tune() {
 void updateosc2Tune() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("OSC2 Tune", String(osc2Tunestr) + " %");
+      showCurrentParameterPage("OSC2 Tune", String(osc2Tunestr) + " Cents");
     }
     if (upperSW) {
-      showCurrentParameterPage("OSC2 Tune", String(osc2Tunestr) + " %");
+      showCurrentParameterPage("OSC2 Tune", String(osc2Tunestr) + " Cents");
     }
   }
   if (lowerSW) {
@@ -1376,7 +990,7 @@ void updatelfo2ToFilter() {
 
 void updatebendToOsc() {
   if (!recallPatchFlag) {
-    showCurrentParameterPage("Bend to OSC", String(bendToOscstr) + " %");
+    showCurrentParameterPage("Bend to OSC", String(bendToOscstr) + " Semi");
   }
   midiCCOut(MIDIbendToOsc, bendToOsc);
 }
@@ -1487,10 +1101,10 @@ void updatelfo1DepthA() {
 void updatelfo1Delay() {
   if (!recallPatchFlag) {
     if (lowerSW) {
-      showCurrentParameterPage("LFO1 Delay", String(lfo1Delaystr) + " %");
+      showCurrentParameterPage("LFO1 Delay", String(lfo1Delaystr) + " mS");
     }
     if (upperSW) {
-      showCurrentParameterPage("LFO1 Delay", String(lfo1Delaystr) + " %");
+      showCurrentParameterPage("LFO1 Delay", String(lfo1Delaystr) + " mS");
     }
   }
   if (lowerSW) {
@@ -6093,7 +5707,7 @@ void myControlChange(byte channel, byte control, int value) {
           arpFrequencymapL = map(arpFrequencyL, 0, 127, 0, 19);
           arpFrequencystring = SYNTHEXSYNC[arpFrequencymapL];
         } else {
-          arpFrequencystr = QUADRA100[value];
+          arpFrequencystr = SYNTHEXARPSPEED[value];
         }
       }
       if (upperSW) {
@@ -6102,7 +5716,7 @@ void myControlChange(byte channel, byte control, int value) {
           arpFrequencymapU = map(arpFrequencyU, 0, 127, 0, 19);
           arpFrequencystring = SYNTHEXSYNC[arpFrequencymapU];
         } else {
-          arpFrequencystr = QUADRA100[value];
+          arpFrequencystr = SYNTHEXARPSPEED[value];
         }
       }
       updatearpFrequency();
@@ -6137,7 +5751,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         ampReleaseU = value;
       }
-      ampReleasestr = QUADRA100[value];
+      ampReleasestr = SYNTHEXRELEASE[value];
       updateampRelease();
       break;
 
@@ -6148,7 +5762,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         ampSustainU = value;
       }
-      ampSustainstr = QUADRA100[value];
+      ampSustainstr = SYNTHEXAMOUNT[value];
       updateampSustain();
       break;
 
@@ -6159,7 +5773,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         ampDecayU = value;
       }
-      ampDecaystr = QUADRA100[value];
+      ampDecaystr = SYNTHEXRELEASE[value];
       updateampDecay();
       break;
 
@@ -6170,7 +5784,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         ampAttackU = value;
       }
-      ampAttackstr = QUADRA100[value];
+      ampAttackstr = SYNTHEXATTACK[value];
       updateampAttack();
       break;
 
@@ -6192,7 +5806,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         filterResonanceU = value;
       }
-      filterResonancestr = QUADRA100[value];
+      filterResonancestr = SYNTHEXRESONANCE[value];
       updatefilterResonance();
       break;
 
@@ -6214,7 +5828,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         osc2PWU = value;
       }
-      osc2PWstr = QUADRA100[value];
+      osc2PWstr = SYNTHEXAMOUNT[value];
       updateosc2PW();
       break;
 
@@ -6225,7 +5839,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         osc1PWU = value;
       }
-      osc1PWstr = QUADRA100[value];
+      osc1PWstr = SYNTHEXAMOUNT[value];
       updateosc1PW();
       break;
 
@@ -6247,7 +5861,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         filterCutoffU = value;
       }
-      filterCutoffstr = QUADRA100[value];
+      filterCutoffstr = SYNTHEXCUTOFF[value];
       updatefilterCutoff();
       break;
 
@@ -6269,7 +5883,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         filterAttackU = value;
       }
-      filterAttackstr = QUADRA100[value];
+      filterAttackstr = SYNTHEXATTACK[value];
       updatefilterAttack();
       break;
 
@@ -6280,7 +5894,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         filterDecayU = value;
       }
-      filterDecaystr = QUADRA100[value];
+      filterDecaystr = SYNTHEXRELEASE[value];
       updatefilterDecay();
       break;
 
@@ -6291,7 +5905,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         filterSustainU = value;
       }
-      filterSustainstr = QUADRA100[value];
+      filterSustainstr = SYNTHEXAMOUNT[value];
       updatefilterSustain();
       break;
 
@@ -6302,7 +5916,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         filterReleaseU = value;
       }
-      filterReleasestr = QUADRA100[value];
+      filterReleasestr = SYNTHEXRELEASE[value];
       updatefilterRelease();
       break;
 
@@ -6357,7 +5971,7 @@ void myControlChange(byte channel, byte control, int value) {
           echoTimemapL = map(echoTimeL, 0, 127, 0, 19);
           echoTimestring = SYNTHEXECHOSYNC[echoTimemapL];
         } else {
-          echoTimestr = QUADRA100[value];
+          echoTimestr = SYNTHEXECHOTIME[value];
         }
       }
       if (upperSW) {
@@ -6366,7 +5980,7 @@ void myControlChange(byte channel, byte control, int value) {
           echoTimemapU = map(echoTimeU, 0, 127, 0, 19);
           echoTimestring = SYNTHEXECHOSYNC[echoTimemapU];
         } else {
-          echoTimestr = QUADRA100[value];
+          echoTimestr = SYNTHEXECHOTIME[value];
         }
       }
       updateechoTime();
@@ -6385,7 +5999,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         unisonDetuneU = value;
       }
-      unisonDetunestr = QUADRA100[value];
+      unisonDetunestr = SYNTHEXAMOUNT[value];
       updateunisonDetune();
       break;
 
@@ -6396,7 +6010,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         glideSpeedU = value;
       }
-      glideSpeedstr = QUADRA100[value];
+      glideSpeedstr = SYNTHEXGLIDE[value];
       updateglideSpeed();
       break;
 
@@ -6407,7 +6021,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         osc1TransposeU = value;
       }
-      osc1Transposestr = QUADRA100[value];
+      osc1Transposestr = SYNTHEXTRANSPOSE[value];
       updateosc1Transpose();
       break;
 
@@ -6418,7 +6032,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         osc2TransposeU = value;
       }
-      osc2Transposestr = QUADRA100[value];
+      osc2Transposestr = SYNTHEXTRANSPOSE[value];
       updateosc2Transpose();
       break;
 
@@ -6440,7 +6054,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         glideAmountU = value;
       }
-      glideAmountstr = QUADRA100[value];
+      glideAmountstr = SYNTHEXGLIDEAMOUNT[value];
       updateglideAmount();
       break;
 
@@ -6451,7 +6065,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         osc1TuneU = value;
       }
-      osc1Tunestr = QUADRA100[value];
+      osc1Tunestr = SYNTHEXOSCTUNE[value];
       updateosc1Tune();
       break;
 
@@ -6462,7 +6076,7 @@ void myControlChange(byte channel, byte control, int value) {
       if (upperSW) {
         osc2TuneU = value;
       }
-      osc2Tunestr = QUADRA100[value];
+      osc2Tunestr = SYNTHEXOSCTUNE[value];
       updateosc2Tune();
       break;
 
@@ -6480,7 +6094,7 @@ void myControlChange(byte channel, byte control, int value) {
 
     case CCbendToOsc:
       bendToOsc = value;
-      bendToOscstr = QUADRA100[value];
+      bendToOscstr = SYNTHEXBENDTOOSC[value];
       updatebendToOsc();
       break;
 
@@ -6492,7 +6106,7 @@ void myControlChange(byte channel, byte control, int value) {
 
     case CClfo2FreqAcc:
       lfo2FreqAcc = value;
-      lfo2FreqAccstr = QUADRA100[value];
+      lfo2FreqAccstr = SYNTHEXLFO2ACCEL[value];
       updatelfo2FreqAcc();
       break;
 
@@ -6521,13 +6135,13 @@ void myControlChange(byte channel, byte control, int value) {
 
     case CCseqRate:
       seqRate = value;
-      seqRatestr = QUADRA100[value];
+      seqRatestr = value;
       updateseqRate();
       break;
 
     case CCseqGate:
       seqGate = value;
-      seqGatestr = QUADRA100[value];
+      seqGatestr = value;
       updateseqGate();
       break;
 
@@ -6567,12 +6181,12 @@ void myControlChange(byte channel, byte control, int value) {
     case CClfo1Delay:
       if (lowerSW && !lfo1modWheelSWL) {
         lfo1DelayL = value;
-        lfo1Delaystr = QUADRA100[value];
+        lfo1Delaystr = SYNTHEXLFO1DELAY[value];
         updatelfo1Delay();
       }
       if (upperSW && !lfo1modWheelSWU) {
         lfo1DelayU = value;
-        lfo1Delaystr = QUADRA100[value];
+        lfo1Delaystr = SYNTHEXLFO1DELAY[value];
         updatelfo1Delay();
       }
       break;
