@@ -1,4 +1,4 @@
-# VST hardware editor of the mythical or magical Elka Synth (Elka-X) by Cherry Audio. 
+# VST hardware editor of the mythical or magical Elka Synthex (Elka-X) by Cherry Audio. 
 
 ![Synth](photos/synth.jpg)
 
