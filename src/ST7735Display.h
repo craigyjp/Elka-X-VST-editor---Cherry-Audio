@@ -93,51 +93,6 @@ void renderCurrentPatchPage()
     tft.println("CLK");
   }
 
-//  tft.drawRect(115, 28, 12, 12, ST7735_BLUE);
-//  tft.drawRect(130, 28, 12, 12, ST7735_BLUE);
-//  tft.drawRect(145, 28, 12, 12, ST7735_BLUE);
-//  tft.drawRect(115, 43, 12, 12, ST7735_BLUE);
-//  tft.drawRect(130, 43, 12, 12, ST7735_BLUE);
-//  tft.drawRect(145, 43, 12, 12, ST7735_BLUE);
-
-
-//  if (voiceOn[0])
-//  {
-//    tft.fillRect(115, 28, 12, 12, ST7735_BLUE);
-//    tft.setCursor(120, 36);
-//    tft.println("1");
-//  }
-//  if (voiceOn[1])
-//  {
-//    tft.fillRect(130, 28, 12, 12, ST7735_BLUE);
-//    tft.setCursor(133, 36);
-//    tft.println("2");
-//  }
-//  if (voiceOn[2])
-//  {
-//    tft.fillRect(145, 28, 12, 12, ST7735_BLUE);
-//    tft.setCursor(148, 36);
-//    tft.println("3");
-//  }
-//  if (voiceOn[3])
-//  {
-//    tft.fillRect(115, 43, 12, 12, ST7735_BLUE);
-//    tft.setCursor(118, 51);
-//    tft.println("4");
-//  }
-//  if (voiceOn[4])
-//  {
-//    tft.fillRect(130, 43, 12, 12, ST7735_BLUE);
-//    tft.setCursor(133, 51);
-//    tft.println("5");
-//  }
-//  if (voiceOn[5])
-//  {
-//    tft.fillRect(145, 43, 12, 12, ST7735_BLUE);
-//    tft.setCursor(148, 51);
-//    tft.println("6");
-//  }
-
   tft.drawFastHLine(10, 62, tft.width() - 20, ST7735_RED);
   tft.setFont(&FreeSans12pt7b);
   tft.setTextColor(ST7735_YELLOW);
@@ -146,37 +101,12 @@ void renderCurrentPatchPage()
   tft.println(currentPatchName);
 }
 
-void renderPulseWidth(float value)
-{
-  tft.drawFastHLine(108, 74, 15 + (value * 13), ST7735_CYAN);
-  tft.drawFastVLine(123 + (value * 13), 74, 20, ST7735_CYAN);
-  tft.drawFastHLine(123 + (value * 13), 94, 16 - (value * 13), ST7735_CYAN);
-  if (value < 0)
-  {
-    tft.drawFastVLine(108, 74, 21, ST7735_CYAN);
-  }
-  else
-  {
-    tft.drawFastVLine(138, 74, 21, ST7735_CYAN);
-  }
-}
-
-void renderVarTriangle(float value)
-{
-  tft.drawLine(110, 94, 123 + (value * 13), 74, ST7735_CYAN);
-  tft.drawLine(123 + (value * 13), 74, 136, 94, ST7735_CYAN);
-}
-
 void renderEnv(float att, float dec, float sus, float rel)
 {
   tft.drawLine(100, 94, 100 + (att * 60), 74, ST7735_CYAN);
   tft.drawLine(100 + (att * 60), 74.0, 100 + ((att + dec) * 60), 94 - (sus / 52), ST7735_CYAN);
   tft.drawFastHLine(100 + ((att + dec) * 60), 94 - (sus / 52), 40 - ((att + dec) * 60), ST7735_CYAN);
   tft.drawLine(139, 94 - (sus / 52), 139 + (rel * 60), 94, ST7735_CYAN);
-//  tft.drawLine(100, 94, 100 + (att * 15), 74, ST7735_CYAN);
-//  tft.drawLine(100 + (att * 15), 74.0, 100 + ((att + dec) * 15), 94 - (sus / 52), ST7735_CYAN);
-//  tft.drawFastHLine(100 + ((att + dec) * 15 ), 94 - (sus / 52), 40 - ((att + dec) * 15), ST7735_CYAN);
-//  tft.drawLine(139, 94 - (sus / 52), 139 + (rel * 15), 94, ST7735_CYAN);
 }
 
 void renderCurrentParameterPage()
@@ -201,12 +131,6 @@ void renderCurrentParameterPage()
       tft.println(currentValue);
       switch (paramType)
       {
-        case PULSE:
-          renderPulseWidth(currentFloatValue);
-          break;
-        case VAR_TRI:
-          renderVarTriangle(currentFloatValue);
-          break;
         case FILTER_ENV:
           if (lowerSW) {
           renderEnv(filterAttackL * 0.0001, filterDecayL * 0.0001, filterSustainL, filterReleaseL * 0.0001);
@@ -460,7 +384,7 @@ void displayThread()
 void setupDisplay()
 {
   tft.useFrameBuffer(true);
-  tft.initR(INITR_BLACKTAB);
+  tft.initR(INITR_18BLACKTAB);
   tft.setRotation(3);
   tft.invertDisplay(false);
   renderBootUpPage();

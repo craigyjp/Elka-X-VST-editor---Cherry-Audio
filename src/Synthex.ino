@@ -4524,6 +4524,7 @@ void updatesplitSW() {
     displayLEDNumber(2, splitNote);
     singleSW = 0;
     doubleSW = 0;
+    learning = false;
     midiCCOut(MIDIkeyboard, 82);
   }
 }
@@ -7678,7 +7679,6 @@ void setCurrentPatchData(String data[]) {
   updatedoubleSW();
   updatesplitSW();
 
-
   //Patchname
   updatePatchname();
 
@@ -7689,7 +7689,7 @@ void setCurrentPatchData(String data[]) {
 String getCurrentPatchData() {
   return patchName + "," + String(masterVolume) + "," + String(masterTune) + "," + String(layerPanU) + "," + String(layerVolumeL) + "," + String(layerVolumeU) + "," + String(reverbLevelL)
          + "," + String(reverbLevelU) + "," + String(reverbDecayL) + "," + String(reverbDecayU) + "," + String(reverbEQL) + "," + String(reverbEQU) + "," + String(arpFrequencyL)
-         + "," + String(arpFrequencyL) + "," + String(ampVelocityL) + "," + String(ampVelocityL) + "," + String(filterVelocityL) + "," + String(filterVelocityU) + "," + String(ampReleaseL)
+         + "," + String(arpFrequencyU) + "," + String(ampVelocityL) + "," + String(ampVelocityU) + "," + String(filterVelocityL) + "," + String(filterVelocityU) + "," + String(ampReleaseL)
          + "," + String(ampReleaseU) + "," + String(ampSustainL) + "," + String(ampSustainU) + "," + String(ampDecayL) + "," + String(ampDecayU) + "," + String(ampAttackL)
          + "," + String(ampAttackU) + "," + String(filterKeyboardL) + "," + String(filterKeyboardU) + "," + String(filterResonanceL) + "," + String(filterResonanceU) + "," + String(osc2VolumeL)
          + "," + String(osc2VolumeU) + "," + String(osc2PWL) + "," + String(osc2PWU) + "," + String(osc1PWL) + "," + String(osc1PWU) + "," + String(osc1VolumeL)
@@ -8405,16 +8405,9 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
     myControlChange(midiChannel, CCdoubleSW, doubleSW);
   }
 
-  if (btnIndex == SPLIT_SW && btnType == ROX_RELEASED) {
+  if (btnIndex == SPLIT_SW && btnType == ROX_PRESSED) {
     splitSW = 1;
     myControlChange(midiChannel, CCsplitSW, splitSW);
-  } else {
-    if (btnIndex == SPLIT_SW && btnType == ROX_HELD) {
-      if (splitSW) {
-        learning = true;
-        myControlChange(midiChannel, CCsplitLearning, learning);
-      }
-    }
   }
 
   if (btnIndex == POLY_SW && btnType == ROX_PRESSED) {
@@ -8752,32 +8745,7 @@ void midiCCOut(byte cc, byte value) {
               MIDI.sendNoteOff(20, 0, midiOutCh);   //MIDI USB is set to Out
               break;
 
-            case MIDIlayerSolo:
-              if (updateParams) {
-                usbMIDI.sendNoteOn(21, 127, midiOutCh);  //MIDI USB is set to Out
-                usbMIDI.sendNoteOff(21, 0, midiOutCh);   //MIDI USB is set to Out
-              }
-              MIDI.sendNoteOn(21, 127, midiOutCh);  //MIDI DIN is set to Out
-              MIDI.sendNoteOff(21, 0, midiOutCh);   //MIDI USB is set to Out
-              break;
-
-            case MIDIlfo1SyncU:
-              if (updateParams) {
-                usbMIDI.sendNoteOn(22, 127, midiOutCh);  //MIDI USB is set to Out
-                usbMIDI.sendNoteOff(22, 0, midiOutCh);   //MIDI USB is set to Out
-              }
-              MIDI.sendNoteOn(22, 127, midiOutCh);  //MIDI DIN is set to Out
-              MIDI.sendNoteOff(22, 0, midiOutCh);   //MIDI USB is set to Out
-              break;
-
-            case MIDIlfo1SyncL:
-              if (updateParams) {
-                usbMIDI.sendNoteOn(23, 127, midiOutCh);  //MIDI USB is set to Out
-                usbMIDI.sendNoteOff(23, 0, midiOutCh);   //MIDI USB is set to Out
-              }
-              MIDI.sendNoteOn(23, 127, midiOutCh);  //MIDI DIN is set to Out
-              MIDI.sendNoteOff(23, 0, midiOutCh);   //MIDI USB is set to Out
-              break;
+            // lowest note on a 76 note keybed
 
             case MIDIlfo1modWheelU:
               if (updateParams) {
@@ -8959,14 +8927,34 @@ void midiCCOut(byte cc, byte value) {
               MIDI.sendNoteOff(108, 0, midiOutCh);   //MIDI USB is set to Out
               break;
 
-            // case MIDIkeyboard:
-            //   if (updateParams) {
-            //     usbMIDI.sendNoteOn(36, 127, midiOutCh);  //MIDI USB is set to Out
-            //     //usbMIDI.sendNoteOff(108, 0, midiOutCh);   //MIDI USB is set to Out
-            //   }
-            //   MIDI.sendNoteOn(36, 127, midiOutCh);  //MIDI DIN is set to Out
-            //   //MIDI.sendNoteOff(108, 0, midiOutCh);   //MIDI USB is set to Out
-            //   break;
+              case MIDIlayerSolo:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(107, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(107, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(107, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(107, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1SyncU:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(106, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(106, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(106, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(106, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            case MIDIlfo1SyncL:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(105, 127, midiOutCh);  //MIDI USB is set to Out
+                usbMIDI.sendNoteOff(105, 0, midiOutCh);   //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(105, 127, midiOutCh);  //MIDI DIN is set to Out
+              MIDI.sendNoteOff(105, 0, midiOutCh);   //MIDI USB is set to Out
+              break;
+
+            // Down to 97 available
 
             default:
               if (updateParams) {
