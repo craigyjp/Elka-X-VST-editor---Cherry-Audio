@@ -94,7 +94,6 @@ byte ccType = 0;  //(EEPROM)
 #include "Settings.h"
 
 int count = 0;  //For MIDI Clk Sync
-int DelayForSH3 = 12;
 int patchNo = 1;               //Current patch no
 int voiceToReturn = -1;        //Initialise
 long earliestTime = millis();  //For voice allocation - initialise to now
@@ -212,9 +211,8 @@ void setup() {
   midiOutCh = getMIDIOutCh();
 
   sr.writePin(UPPER_LED, HIGH);
-  //UPPER_LED.on();
+  sr.writePin(SEQ_STOP_LED, HIGH);
 
-  // sr.writePin(LEAD_VCO2_WAVE_LED, HIGH);
   // Blank the split display
   setLEDDisplay2();
   display2.setBacklight(0);
@@ -223,10 +221,10 @@ void setup() {
 }
 
 void myNoteOn(byte channel, byte note, byte velocity) {
-  if (learning) {
-    learningNote = note;
-    noteArrived = true;
-  }
+  // if (learning) {
+  //   learningNote = note;
+  //   noteArrived = true;
+  // }
 
   if (!learning) {
     MIDI.sendNoteOn(note, velocity, channel);
@@ -1131,463 +1129,6 @@ void updatelfo1DepthB() {
     midiCCOut(MIDIlfo1DepthBU, lfo1DepthBU);
   }
 }
-
-
-// void updateleadNPhigh() {
-//   if (!lead2ndVoice) {
-//     if (leadNPhigh == 1) {
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Note Priority", "High");
-//       }
-//       sr.writePin(LEAD_NP_HIGH_LED, HIGH);
-//       sr.writePin(LEAD_NP_LOW_LED, LOW);
-//       sr.writePin(LEAD_NP_LAST_LED, LOW);
-//       leadNPlow = 0;
-//       leadNPlast = 0;
-//       midiCCOut(CCleadNPhigh, CC_ON);
-//     }
-//   }
-// }
-
-// void updateleadNPlast() {
-//   if (!lead2ndVoice) {
-//     if (leadNPlast == 1) {
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Note Priority", "Last");
-//       }
-//       sr.writePin(LEAD_NP_HIGH_LED, LOW);
-//       sr.writePin(LEAD_NP_LOW_LED, LOW);
-//       sr.writePin(LEAD_NP_LAST_LED, HIGH);
-//       leadNPlow = 0;
-//       leadNPhigh = 0;
-//       midiCCOut(CCleadNPlast, CC_ON);
-//     }
-//   }
-// }
-
-// void updateleadNoteTrigger() {
-//   if (leadNoteTrigger == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Note Trigger", "Single");
-//     }
-//     sr.writePin(LEAD_NOTE_TRIGGER_RED_LED, HIGH);
-//     sr.writePin(LEAD_NOTE_TRIGGER_GREEN_LED, LOW);
-//     midiCCOut(CCleadNoteTrigger, CC_ON);
-//     midiCCOut(CCleadNoteTrigger, 0);
-//   } else {
-//     sr.writePin(LEAD_NOTE_TRIGGER_GREEN_LED, HIGH);
-//     sr.writePin(LEAD_NOTE_TRIGGER_RED_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Note Trigger", "Multi");
-//       midiCCOut(CCleadNoteTrigger, 127);
-//       midiCCOut(CCleadNoteTrigger, 0);
-//     }
-//   }
-// }
-
-// void updateVCO2KBDTrk() {
-//   if (vco2KBDTrk == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Keyboard Trk", "On");
-//     }
-//     sr.writePin(LEAD_VCO2_KBD_TRK_LED, HIGH);  // LED on
-//     midiCCOut(CCvco2KBDTrk, CC_ON);
-//     midiCCOut(CCvco2KBDTrk, 0);
-//   } else {
-//     sr.writePin(LEAD_VCO2_KBD_TRK_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Keyboard Trk", "Off");
-//       midiCCOut(CCvco2KBDTrk, 127);
-//       midiCCOut(CCvco2KBDTrk, 0);
-//     }
-//   }
-// }
-
-// void updatelead2ndVoice() {
-//   if (lead2ndVoice == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("2nd Voice", "On");
-//     }
-//     sr.writePin(LEAD_SECOND_VOICE_LED, HIGH);  // LED on
-//     sr.writePin(LEAD_NP_HIGH_LED, LOW);        // LED on
-//     sr.writePin(LEAD_NP_LOW_LED, LOW);         // LED on
-//     sr.writePin(LEAD_NP_LAST_LED, LOW);        // LED on
-//     midiCCOut(CClead2ndVoice, 127);
-//     midiCCOut(CClead2ndVoice, 0);
-//     prevleadNPlow = leadNPlow;
-//     prevleadNPhigh = leadNPhigh;
-//     prevleadNPlast = leadNPlast;
-//   } else {
-//     sr.writePin(LEAD_SECOND_VOICE_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("2nd Voice", "Off");
-//       if (!recallPatchFlag) {
-
-//         leadNPlow = prevleadNPlow;
-//         leadNPhigh = prevleadNPhigh;
-//         leadNPlast = prevleadNPlast;
-
-//         updateleadNPlow();
-//         updateleadNPhigh();
-//         updateleadNPlast();
-//       }
-//       midiCCOut(CClead2ndVoice, 127);
-//       midiCCOut(CClead2ndVoice, 0);
-//     }
-//   }
-// }
-
-// void updateleadTrill() {
-//   if (leadTrill == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Trill", "On");
-//     }
-//     sr.writePin(LEAD_TRILL_LED, HIGH);  // LED on
-//     midiCCOut(CCleadTrill, 127);
-//     midiCCOut(CCleadTrill, 0);
-//   } else {
-//     sr.writePin(LEAD_TRILL_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Trill", "Off");
-//       midiCCOut(CCleadTrill, 127);
-//       midiCCOut(CCleadTrill, 0);
-//     }
-//   }
-// }
-
-// void updateleadVCO1wave() {
-//   switch (leadVCO1wave) {
-//     case 1:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO1 Wave", "Square");
-//       }
-//       midiCCOut(CCleadVCO1wave, 127);
-//       midiCCOut(CCleadVCO1wave, 0);
-//       break;
-
-//     case 2:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO1 Wave", "Sine");
-//       }
-//       midiCCOut(CCleadVCO1wave, 127);
-//       midiCCOut(CCleadVCO1wave, 0);
-//       break;
-
-//     case 3:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO1 Wave", "Triangle");
-//       }
-//       midiCCOut(CCleadVCO1wave, 127);
-//       midiCCOut(CCleadVCO1wave, 0);
-//       break;
-
-//     case 4:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO1 Wave", "Noise");
-//       }
-//       midiCCOut(CCleadVCO1wave, 127);
-//       midiCCOut(CCleadVCO1wave, 0);
-//       break;
-
-//     case 5:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO1 Wave", "Saw Up");
-//       }
-//       midiCCOut(CCleadVCO1wave, 127);
-//       midiCCOut(CCleadVCO1wave, 0);
-//       break;
-//   }
-// }
-
-// void updateVCOWaves() {
-//   for (int i = 0; i < leadVCO1wave; i++) {
-//     midiCCOut(CCleadVCO1wave, 127);
-//     midiCCOut(CCleadVCO1wave, 0);
-//   }
-//   for (int i = 0; i < leadVCO2wave; i++) {
-//     midiCCOut(CCleadVCO2wave, 127);
-//     midiCCOut(CCleadVCO2wave, 0);
-//   }
-//   for (int i = 0; i < polyWave; i++) {
-//     midiCCOut(CCpolyWave, 127);
-//     midiCCOut(CCpolyWave, 0);
-//   }
-// }
-
-// void updateleadVCO2wave() {
-//   switch (leadVCO2wave) {
-//     case 1:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO2 Wave", "Saw Up");
-//       }
-//       midiCCOut(CCleadVCO2wave, 127);
-//       midiCCOut(CCleadVCO2wave, 0);
-//       break;
-
-//     case 2:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO2 Wave", "Square");
-//       }
-//       midiCCOut(CCleadVCO2wave, 127);
-//       midiCCOut(CCleadVCO2wave, 0);
-//       break;
-
-//     case 3:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO2 Wave", "Sine");
-//       }
-//       midiCCOut(CCleadVCO2wave, 127);
-//       midiCCOut(CCleadVCO2wave, 0);
-//       break;
-
-//     case 4:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO2 Wave", "Triangle");
-//       }
-//       midiCCOut(CCleadVCO2wave, 127);
-//       midiCCOut(CCleadVCO2wave, 0);
-//       break;
-
-//     case 5:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO2 Wave", "Noise");
-//       }
-//       midiCCOut(CCleadVCO2wave, 127);
-//       midiCCOut(CCleadVCO2wave, 0);
-//       break;
-
-//     case 6:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("VCO2 Wave", "Saw Down");
-//       }
-//       midiCCOut(CCleadVCO2wave, 127);
-//       midiCCOut(CCleadVCO2wave, 0);
-//       break;
-//   }
-// }
-
-// void updatepolyWave() {
-//   switch (polyWave) {
-//     case 1:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Poly Wave", "Square");
-//       }
-//       midiCCOut(CCpolyWave, 127);
-//       midiCCOut(CCpolyWave, 0);
-//       break;
-
-//     case 2:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Poly Wave", "Triangle");
-//       }
-//       midiCCOut(CCpolyWave, 127);
-//       midiCCOut(CCpolyWave, 0);
-//       break;
-
-//     case 3:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Poly Wave", "Sine");
-//       }
-//       midiCCOut(CCpolyWave, 127);
-//       midiCCOut(CCpolyWave, 0);
-//       break;
-
-//     case 4:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Poly Wave", "Tri-Saw");
-//       }
-//       midiCCOut(CCpolyWave, 127);
-//       midiCCOut(CCpolyWave, 0);
-//       break;
-
-//     case 5:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Poly Wave", "Lumpy");
-//       }
-//       midiCCOut(CCpolyWave, 127);
-//       midiCCOut(CCpolyWave, 0);
-//       break;
-
-//     case 6:
-//       if (!recallPatchFlag) {
-//         showCurrentParameterPage("Poly Wave", "Sawtooth");
-//       }
-//       midiCCOut(CCpolyWave, 127);
-//       midiCCOut(CCpolyWave, 0);
-//       break;
-//   }
-// }
-
-// void updatepolyPWMSW() {
-//   if (polyPWMSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("PWM Mod", "ADSR");
-//     }
-//     sr.writePin(POLY_PWM_RED_LED, HIGH);
-//     sr.writePin(POLY_PWM_GREEN_LED, LOW);
-//     midiCCOut(CCpolyPWMSW, 127);
-//     midiCCOut(CCpolyPWMSW, 0);
-//   } else {
-//     sr.writePin(POLY_PWM_GREEN_LED, HIGH);
-//     sr.writePin(POLY_PWM_RED_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("PWM Mod", "LFO");
-//       midiCCOut(CCpolyPWMSW, 127);
-//       midiCCOut(CCpolyPWMSW, 0);
-//     }
-//   }
-// }
-
-// void updatepolyNoteTrigger() {
-//   if (polyNoteTrigger == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Note Trigger", "Single");
-//     }
-//     sr.writePin(POLY_NOTE_TRIGGER_RED_LED, HIGH);
-//     sr.writePin(POLY_NOTE_TRIGGER_GREEN_LED, LOW);
-//     midiCCOut(CCpolyNoteTrigger, 127);
-//     midiCCOut(CCpolyNoteTrigger, 0);
-//   } else {
-//     sr.writePin(POLY_NOTE_TRIGGER_GREEN_LED, HIGH);
-//     sr.writePin(POLY_NOTE_TRIGGER_RED_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Note Trigger", "Multi");
-//       midiCCOut(CCpolyNoteTrigger, 127);
-//       midiCCOut(CCpolyNoteTrigger, 0);
-//     }
-//   }
-// }
-
-// void updatepolyVelAmp() {
-//   if (polyVelAmp == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Amp velocity", "On");
-//     }
-//     sr.writePin(POLY_VEL_AMP_LED, HIGH);  // LED on
-//     midiCCOut(CCpolyVelAmp, 127);
-//     midiCCOut(CCpolyVelAmp, 0);
-//   } else {
-//     sr.writePin(POLY_VEL_AMP_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Amp Velocity", "Off");
-//       midiCCOut(CCpolyVelAmp, 127);
-//       midiCCOut(CCpolyVelAmp, 0);
-//     }
-//   }
-// }
-
-
-
-// void updatepolyPitchSW() {
-//   if (polyPitchSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Pitch PB", "On");
-//     }
-//     sr.writePin(POLY_PITCH_LED, HIGH);  // LED on
-//     midiCCOut(CCpolyPitchSW, 127);
-//     midiCCOut(CCpolyPitchSW, 0);
-//   } else {
-//     sr.writePin(POLY_PITCH_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly Pitch PB", "Off");
-//       midiCCOut(CCpolyPitchSW, 127);
-//       midiCCOut(CCpolyPitchSW, 0);
-//     }
-//   }
-// }
-
-// void updatepolyVCFSW() {
-//   if (polyVCFSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly VCF PB", "On");
-//     }
-//     sr.writePin(POLY_VCF_LED, HIGH);  // LED on
-//     midiCCOut(CCpolyVCFSW, 127);
-//     midiCCOut(CCpolyVCFSW, 0);
-//   } else {
-//     sr.writePin(POLY_VCF_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly VCF PB", "Off");
-//       midiCCOut(CCpolyVCFSW, 127);
-//       midiCCOut(CCpolyVCFSW, 0);
-//     }
-//   }
-// }
-
-// void updateleadVCFSW() {
-//   if (leadVCFSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead VCF PB", "On");
-//     }
-//     sr.writePin(LEAD_VCF_LED, HIGH);  // LED on
-//     midiCCOut(CCleadVCFSW, 127);
-//     midiCCOut(CCleadVCFSW, 0);
-//   } else {
-//     sr.writePin(LEAD_VCF_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead VCF PB", "Off");
-//       midiCCOut(CCleadVCFSW, 127);
-//       midiCCOut(CCleadVCFSW, 0);
-//     }
-//   }
-// }
-
-// void updatepolyAfterSW() {
-//   if (polyAfterSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly AfterT", "Vol / Brill");
-//     }
-//     sr.writePin(POLY_TOUCH_DEST_RED_LED, HIGH);
-//     sr.writePin(POLY_TOUCH_DEST_GREEN_LED, LOW);
-//     midiCCOut(CCpolyAfterSW, 127);
-//     midiCCOut(CCpolyAfterSW, 0);
-//   } else {
-//     sr.writePin(POLY_TOUCH_DEST_GREEN_LED, HIGH);
-//     sr.writePin(POLY_TOUCH_DEST_RED_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Poly AfterT", "PitchBend");
-//       midiCCOut(CCpolyAfterSW, 127);
-//       midiCCOut(CCpolyAfterSW, 0);
-//     }
-//   }
-// }
-
-// void updateleadAfterSW() {
-//   if (leadAfterSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead AfterT", "Vol / Brill");
-//     }
-//     sr.writePin(LEAD_TOUCH_DEST_RED_LED, HIGH);
-//     sr.writePin(LEAD_TOUCH_DEST_GREEN_LED, LOW);
-//     midiCCOut(CCleadAfterSW, 127);
-//     midiCCOut(CCleadAfterSW, 0);
-//   } else {
-//     sr.writePin(LEAD_TOUCH_DEST_GREEN_LED, HIGH);
-//     sr.writePin(LEAD_TOUCH_DEST_RED_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Lead AfterT", "PitchBend");
-//       midiCCOut(CCleadAfterSW, 127);
-//       midiCCOut(CCleadAfterSW, 0);
-//     }
-//   }
-// }
-
-
-// void updatearpOnSW() {
-//   if (arpOnSW == 1) {
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Arpeggiator", "On");
-//     }
-//     sr.writePin(ARP_ON_OFF_LED, HIGH);  // LED on
-//     midiCCOut(CCarpOnSW, 127);
-//   } else {
-//     sr.writePin(ARP_ON_OFF_LED, LOW);  // LED off
-//     if (!recallPatchFlag) {
-//       showCurrentParameterPage("Arpeggiator", "Off");
-//       midiCCOut(CCarpOnSW, 0);
-//     }
-//   }
-// }
 
 void updatearpRange4SW() {
   if (!recallPatchFlag) {
@@ -4489,7 +4030,7 @@ void updatesingleSW() {
     learning = false;
     updateUpperSW();
     recallPatchFlag = false;
-    midiCCOut(MIDIkeyboard, 69);
+    midiCCOut(MIDIsingleSW, 69);
   }
 }
 
@@ -4507,7 +4048,7 @@ void updatedoubleSW() {
     singleSW = 0;
     splitSW = 0;
     learning = false;
-    midiCCOut(MIDIkeyboard, 74);
+    midiCCOut(MIDIdoubleSW, 74);
   }
 }
 
@@ -4525,7 +4066,7 @@ void updatesplitSW() {
     singleSW = 0;
     doubleSW = 0;
     learning = false;
-    midiCCOut(MIDIkeyboard, 82);
+    midiCCOut(MIDIsplitSW, 82);
   }
 }
 
@@ -8954,11 +8495,31 @@ void midiCCOut(byte cc, byte value) {
               MIDI.sendNoteOff(105, 0, midiOutCh);   //MIDI USB is set to Out
               break;
 
+            case MIDIsingleSW:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(104, 127, midiOutCh);  //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(104, 127, midiOutCh);  //MIDI DIN is set to Out
+            break;
+
+            case MIDIdoubleSW:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(103, 127, midiOutCh);  //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(103, 127, midiOutCh);  //MIDI DIN is set to Out
+            break;
+
+            case MIDIsplitSW:
+              if (updateParams) {
+                usbMIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI USB is set to Out
+              }
+              MIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI DIN is set to Out
+            break;
+
             // Down to 97 available
 
             default:
               if (updateParams) {
-
                 usbMIDI.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
               }
               MIDI.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
@@ -9311,19 +8872,17 @@ void stopLEDs() {
 }
 
 void loop() {
+  myusb.Task();
+  midi1.read();  //USB HOST MIDI Class Compliant
+  MIDI.read(midiChannel);
+  usbMIDI.read(midiChannel);
   checkMux();           // Read the sliders and switches
   checkSwitches();      // Read the buttons for the program menus etc
   checkEncoder();       // check the encoder status
   octoswitch.update();  // read all the buttons for the Synthex
   sr.update();          // update all the RED LEDs in the buttons
   green.update();       // update all the GREEN LEDs in the buttons
-  // Read all the MIDI ports
-  myusb.Task();
-  midi1.read();  //USB HOST MIDI Class Compliant
-  MIDI.read(midiChannel);
-  usbMIDI.read(midiChannel);
-  //UPPER_LED.update();
   checkEEPROM();                         // check anything that may have changed form the initial startup
   stopLEDs();                            // blink the wave LEDs once when pressed
-  convertIncomingNote();                 // read a note when in learn mode and use it to set the values
+  //convertIncomingNote();                 // read a note when in learn mode and use it to set the values
 }

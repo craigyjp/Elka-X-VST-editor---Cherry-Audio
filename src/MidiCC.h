@@ -176,3 +176,6 @@
 #define MIDImaxVoicesSW 170
 #define MIDIchordMemoryL 171
 #define MIDIchordMemoryU 172
+#define MIDIsingleSW 173
+#define MIDIdoubleSW 174
+#define MIDIsplitSW 175
