@@ -1164,10 +1164,10 @@ void updatearpRange4SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && arpRange4SWU) {
-      midiCCOut(MIDIarpRangeU, 69);
+      midiCCOut(MIDIarpRangeU, 65);
     }
     if (lowerSW && arpRange4SWL) {
-      midiCCOut(MIDIarpRangeL, 69);
+      midiCCOut(MIDIarpRangeL, 65);
     }
   }
 }
@@ -1205,10 +1205,10 @@ void updatearpRange3SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && arpRange3SWU) {
-      midiCCOut(MIDIarpRangeU, 74);
+      midiCCOut(MIDIarpRangeU, 75);
     }
     if (lowerSW && arpRange3SWL) {
-      midiCCOut(MIDIarpRangeL, 74);
+      midiCCOut(MIDIarpRangeL, 75);
     }
   }
 }
@@ -1246,10 +1246,10 @@ void updatearpRange2SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && arpRange2SWU) {
-      midiCCOut(MIDIarpRangeU, 82);
+      midiCCOut(MIDIarpRangeU, 85);
     }
     if (lowerSW && arpRange2SWL) {
-      midiCCOut(MIDIarpRangeL, 82);
+      midiCCOut(MIDIarpRangeL, 85);
     }
   }
 }
@@ -1287,10 +1287,10 @@ void updatearpRange1SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && arpRange1SWU) {
-      midiCCOut(MIDIarpRangeU, 93);
+      midiCCOut(MIDIarpRangeU, 97);
     }
     if (lowerSW && arpRange1SWL) {
-      midiCCOut(MIDIarpRangeL, 93);
+      midiCCOut(MIDIarpRangeL, 97);
     }
   }
 }
@@ -1526,10 +1526,10 @@ void updatearpRandSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && arpRandSWU) {
-      midiCCOut(MIDIarpDirectionU, 69);
+      midiCCOut(MIDIarpDirectionU, 65);
     }
     if (lowerSW && arpRandSWL) {
-      midiCCOut(MIDIarpDirectionL, 69);
+      midiCCOut(MIDIarpDirectionL, 65);
     }
   }
 }
@@ -1569,10 +1569,10 @@ void updatearpUpDownSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && arpUpDownSWU) {
-      midiCCOut(MIDIarpDirectionU, 74);
+      midiCCOut(MIDIarpDirectionU, 75);
     }
     if (lowerSW && arpUpDownSWL) {
-      midiCCOut(MIDIarpDirectionL, 74);
+      midiCCOut(MIDIarpDirectionL, 75);
     }
   }
 }
@@ -1612,10 +1612,10 @@ void updatearpDownSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && arpDownSWU) {
-      midiCCOut(MIDIarpDirectionU, 82);
+      midiCCOut(MIDIarpDirectionU, 85);
     }
     if (lowerSW && arpDownSWL) {
-      midiCCOut(MIDIarpDirectionL, 82);
+      midiCCOut(MIDIarpDirectionL, 85);
     }
   }
 }
@@ -1655,10 +1655,10 @@ void updatearpUpSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && arpUpSWU) {
-      midiCCOut(MIDIarpDirectionU, 93);
+      midiCCOut(MIDIarpDirectionU, 97);
     }
     if (lowerSW && arpUpSWL) {
-      midiCCOut(MIDIarpDirectionL, 93);
+      midiCCOut(MIDIarpDirectionL, 97);
     }
   }
 }
@@ -1698,10 +1698,10 @@ void updatearpOffSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && arpOffSWU) {
-      midiCCOut(MIDIarpDirectionU, 117);
+      midiCCOut(MIDIarpDirectionU, 120);
     }
     if (lowerSW && arpOffSWL) {
-      midiCCOut(MIDIarpDirectionL, 117);
+      midiCCOut(MIDIarpDirectionL, 120);
     }
   }
 }
@@ -1793,10 +1793,10 @@ void updatefilterHPSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && filterHPSWU) {
-      midiCCOut(MIDIfilterU, 64);
+      midiCCOut(MIDIfilterU, 65);
     }
     if (lowerSW && filterHPSWL) {
-      midiCCOut(MIDIfilterL, 64);
+      midiCCOut(MIDIfilterL, 65);
     }
   }
 }
@@ -1840,10 +1840,10 @@ void updatefilterBP2SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && filterBP2SWU) {
-      midiCCOut(MIDIfilterU, 74);
+      midiCCOut(MIDIfilterU, 75);
     }
     if (lowerSW && filterBP2SWL) {
-      midiCCOut(MIDIfilterL, 74);
+      midiCCOut(MIDIfilterL, 75);
     }
   }
 }
@@ -1887,10 +1887,10 @@ void updatefilterBP1SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && filterBP1SWU) {
-      midiCCOut(MIDIfilterU, 82);
+      midiCCOut(MIDIfilterU, 85);
     }
     if (lowerSW && filterBP1SWL) {
-      midiCCOut(MIDIfilterL, 82);
+      midiCCOut(MIDIfilterL, 85);
     }
   }
 }
@@ -1934,10 +1934,10 @@ void updatefilterLP2SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && filterLP2SWU) {
-      midiCCOut(MIDIfilterU, 93);
+      midiCCOut(MIDIfilterU, 97);
     }
     if (lowerSW && filterLP2SWL) {
-      midiCCOut(MIDIfilterL, 93);
+      midiCCOut(MIDIfilterL, 97);
     }
   }
 }
@@ -1981,10 +1981,10 @@ void updatefilterLP1SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && filterLP1SWU) {
-      midiCCOut(MIDIfilterU, 117);
+      midiCCOut(MIDIfilterU, 120);
     }
     if (lowerSW && filterLP1SWL) {
-      midiCCOut(MIDIfilterL, 117);
+      midiCCOut(MIDIfilterL, 120);
     }
   }
 }
@@ -2024,10 +2024,10 @@ void updaterevGLTCSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && revGLTCSWU) {
-      midiCCOut(MIDIreverbU, 69);
+      midiCCOut(MIDIreverbU, 65);
     }
     if (lowerSW && revGLTCSWL) {
-      midiCCOut(MIDIreverbL, 69);
+      midiCCOut(MIDIreverbL, 65);
     }
   }
 }
@@ -2067,10 +2067,10 @@ void updaterevHallSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && revHallSWU) {
-      midiCCOut(MIDIreverbU, 74);
+      midiCCOut(MIDIreverbU, 75);
     }
     if (lowerSW && revHallSWL) {
-      midiCCOut(MIDIreverbL, 74);
+      midiCCOut(MIDIreverbL, 75);
     }
   }
 }
@@ -2110,10 +2110,10 @@ void updaterevPlateSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && revPlateSWU) {
-      midiCCOut(MIDIreverbU, 82);
+      midiCCOut(MIDIreverbU, 85);
     }
     if (lowerSW && revPlateSWL) {
-      midiCCOut(MIDIreverbL, 82);
+      midiCCOut(MIDIreverbL, 85);
     }
   }
 }
@@ -2153,10 +2153,10 @@ void updaterevRoomSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && revRoomSWU) {
-      midiCCOut(MIDIreverbU, 93);
+      midiCCOut(MIDIreverbU, 97);
     }
     if (lowerSW && revRoomSWL) {
-      midiCCOut(MIDIreverbL, 93);
+      midiCCOut(MIDIreverbL, 97);
     }
   }
 }
@@ -2196,10 +2196,10 @@ void updaterevOffSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && revOffSWU) {
-      midiCCOut(MIDIreverbU, 117);
+      midiCCOut(MIDIreverbU, 120);
     }
     if (lowerSW && revOffSWL) {
-      midiCCOut(MIDIreverbL, 117);
+      midiCCOut(MIDIreverbL, 120);
     }
   }
 }
@@ -2227,10 +2227,10 @@ void updatenoisePinkSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && noisePinkSWU) {
-      midiCCOut(MIDInoiseU, 82);
+      midiCCOut(MIDInoiseU, 85);
     }
     if (lowerSW && noisePinkSWL) {
-      midiCCOut(MIDInoiseL, 82);
+      midiCCOut(MIDInoiseL, 85);
     }
   }
 }
@@ -2258,10 +2258,10 @@ void updatenoiseWhiteSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && noiseWhiteSWU) {
-      midiCCOut(MIDInoiseU, 74);
+      midiCCOut(MIDInoiseU, 75);
     }
     if (lowerSW && noiseWhiteSWL) {
-      midiCCOut(MIDInoiseL, 74);
+      midiCCOut(MIDInoiseL, 75);
     }
   }
 }
@@ -2289,10 +2289,10 @@ void updatenoiseOffSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && noiseOffSWU) {
-      midiCCOut(MIDInoiseU, 69);
+      midiCCOut(MIDInoiseU, 65);
     }
     if (lowerSW && noiseOffSWL) {
-      midiCCOut(MIDInoiseL, 69);
+      midiCCOut(MIDInoiseL, 65);
     }
   }
 }
@@ -2480,10 +2480,10 @@ void updateosc1_osc2PWMSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc1_osc2PWMSWU) {
-      midiCCOut(MIDIosc1WaveU, 117);
+      midiCCOut(MIDIosc1WaveU, 120);
     }
     if (lowerSW && osc1_osc2PWMSWL) {
-      midiCCOut(MIDIosc1WaveL, 69);
+      midiCCOut(MIDIosc1WaveL, 65);
     }
   }
 }
@@ -2527,10 +2527,10 @@ void updateosc1pulseSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc1pulseSWU) {
-      midiCCOut(MIDIosc1WaveU, 93);
+      midiCCOut(MIDIosc1WaveU, 97);
     }
     if (lowerSW && osc1pulseSWL) {
-      midiCCOut(MIDIosc1WaveL, 74);
+      midiCCOut(MIDIosc1WaveL, 75);
     }
   }
 }
@@ -2574,10 +2574,10 @@ void updateosc1squareSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc1squareSWU) {
-      midiCCOut(MIDIosc1WaveU, 82);
+      midiCCOut(MIDIosc1WaveU, 85);
     }
     if (lowerSW && osc1squareSWL) {
-      midiCCOut(MIDIosc1WaveL, 82);
+      midiCCOut(MIDIosc1WaveL, 85);
     }
   }
 }
@@ -2621,10 +2621,10 @@ void updateosc1sawSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc1sawSWU) {
-      midiCCOut(MIDIosc1WaveU, 74);
+      midiCCOut(MIDIosc1WaveU, 75);
     }
     if (lowerSW && osc1sawSWL) {
-      midiCCOut(MIDIosc1WaveL, 93);
+      midiCCOut(MIDIosc1WaveL, 97);
     }
   }
 }
@@ -2668,10 +2668,10 @@ void updateosc1triangleSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc1triangleSWU) {
-      midiCCOut(MIDIosc1WaveU, 69);
+      midiCCOut(MIDIosc1WaveU, 65);
     }
     if (lowerSW && osc1triangleSWL) {
-      midiCCOut(MIDIosc1WaveL, 117);
+      midiCCOut(MIDIosc1WaveL, 120);
     }
   }
 }
@@ -2715,10 +2715,10 @@ void updateosc2_osc1PWMSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc2_osc1PWMSWU) {
-      midiCCOut(MIDIosc2WaveU, 69);
+      midiCCOut(MIDIosc2WaveU, 65);
     }
     if (lowerSW && osc2_osc1PWMSWL) {
-      midiCCOut(MIDIosc2WaveL, 69);
+      midiCCOut(MIDIosc2WaveL, 65);
     }
   }
 }
@@ -2762,10 +2762,10 @@ void updateosc2pulseSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc2pulseSWU) {
-      midiCCOut(MIDIosc2WaveU, 74);
+      midiCCOut(MIDIosc2WaveU, 75);
     }
     if (lowerSW && osc2pulseSWL) {
-      midiCCOut(MIDIosc2WaveL, 74);
+      midiCCOut(MIDIosc2WaveL, 75);
     }
   }
 }
@@ -2809,10 +2809,10 @@ void updateosc2squareSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc2squareSWU) {
-      midiCCOut(MIDIosc2WaveU, 82);
+      midiCCOut(MIDIosc2WaveU, 85);
     }
     if (lowerSW && osc2squareSWL) {
-      midiCCOut(MIDIosc2WaveL, 82);
+      midiCCOut(MIDIosc2WaveL, 85);
     }
   }
 }
@@ -2856,10 +2856,10 @@ void updateosc2sawSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc2sawSWU) {
-      midiCCOut(MIDIosc2WaveU, 93);
+      midiCCOut(MIDIosc2WaveU, 97);
     }
     if (lowerSW && osc2sawSWL) {
-      midiCCOut(MIDIosc2WaveL, 93);
+      midiCCOut(MIDIosc2WaveL, 97);
     }
   }
 }
@@ -2903,10 +2903,10 @@ void updateosc2triangleSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc2triangleSWU) {
-      midiCCOut(MIDIosc2WaveU, 117);
+      midiCCOut(MIDIosc2WaveU, 120);
     }
     if (lowerSW && osc2triangleSWL) {
-      midiCCOut(MIDIosc2WaveL, 117);
+      midiCCOut(MIDIosc2WaveL, 120);
     }
   }
 }
@@ -2940,10 +2940,10 @@ void updateechoPingPongSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && echoPingPongSWU) {
-      midiCCOut(MIDIechoU, 69);
+      midiCCOut(MIDIechoU, 65);
     }
     if (lowerSW && echoPingPongSWL) {
-      midiCCOut(MIDIechoL, 69);
+      midiCCOut(MIDIechoL, 65);
     }
   }
 }
@@ -2977,10 +2977,10 @@ void updateechoTapeSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && echoTapeSWU) {
-      midiCCOut(MIDIechoU, 74);
+      midiCCOut(MIDIechoU, 75);
     }
     if (lowerSW && echoTapeSWL) {
-      midiCCOut(MIDIechoL, 74);
+      midiCCOut(MIDIechoL, 75);
     }
   }
 }
@@ -3014,10 +3014,10 @@ void updateechoSTDSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && echoSTDSWU) {
-      midiCCOut(MIDIechoU, 82);
+      midiCCOut(MIDIechoU, 85);
     }
     if (lowerSW && echoSTDSWL) {
-      midiCCOut(MIDIechoL, 82);
+      midiCCOut(MIDIechoL, 85);
     }
   }
 }
@@ -3051,10 +3051,10 @@ void updateechoOffSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && echoOffSWU) {
-      midiCCOut(MIDIechoU, 93);
+      midiCCOut(MIDIechoU, 97);
     }
     if (lowerSW && echoOffSWL) {
-      midiCCOut(MIDIechoL, 93);
+      midiCCOut(MIDIechoL, 97);
     }
   }
 }
@@ -3088,10 +3088,10 @@ void updatechorus3SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && chorus3SWU) {
-      midiCCOut(MIDIchorusU, 69);
+      midiCCOut(MIDIchorusU, 65);
     }
     if (lowerSW && chorus3SWL) {
-      midiCCOut(MIDIchorusL, 69);
+      midiCCOut(MIDIchorusL, 65);
     }
   }
 }
@@ -3125,10 +3125,10 @@ void updatechorus2SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && chorus2SWU) {
-      midiCCOut(MIDIchorusU, 74);
+      midiCCOut(MIDIchorusU, 75);
     }
     if (lowerSW && chorus2SWL) {
-      midiCCOut(MIDIchorusL, 74);
+      midiCCOut(MIDIchorusL, 75);
     }
   }
 }
@@ -3162,10 +3162,10 @@ void updatechorus1SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && chorus1SWU) {
-      midiCCOut(MIDIchorusU, 82);
+      midiCCOut(MIDIchorusU, 85);
     }
     if (lowerSW && chorus1SWL) {
-      midiCCOut(MIDIchorusL, 82);
+      midiCCOut(MIDIchorusL, 85);
     }
   }
 }
@@ -3199,10 +3199,10 @@ void updatechorusOffSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && chorusOffSWU) {
-      midiCCOut(MIDIchorusU, 93);
+      midiCCOut(MIDIchorusU, 97);
     }
     if (lowerSW && chorusOffSWL) {
-      midiCCOut(MIDIchorusL, 93);
+      midiCCOut(MIDIchorusL, 97);
     }
   }
 }
@@ -3246,10 +3246,10 @@ void updateosc1_1SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc1_1SWU) {
-      midiCCOut(MIDIosc1FootU, 69);
+      midiCCOut(MIDIosc1FootU, 65);
     }
     if (lowerSW && osc1_1SWL) {
-      midiCCOut(MIDIosc1FootL, 69);
+      midiCCOut(MIDIosc1FootL, 65);
     }
   }
 }
@@ -3293,10 +3293,10 @@ void updateosc1_2SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc1_2SWU) {
-      midiCCOut(MIDIosc1FootU, 74);
+      midiCCOut(MIDIosc1FootU, 75);
     }
     if (lowerSW && osc1_2SWL) {
-      midiCCOut(MIDIosc1FootL, 74);
+      midiCCOut(MIDIosc1FootL, 75);
     }
   }
 }
@@ -3340,10 +3340,10 @@ void updateosc1_4SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc1_4SWU) {
-      midiCCOut(MIDIosc1FootU, 82);
+      midiCCOut(MIDIosc1FootU, 85);
     }
     if (lowerSW && osc1_4SWL) {
-      midiCCOut(MIDIosc1FootL, 82);
+      midiCCOut(MIDIosc1FootL, 85);
     }
   }
 }
@@ -3387,10 +3387,10 @@ void updateosc1_8SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc1_8SWU) {
-      midiCCOut(MIDIosc1FootU, 93);
+      midiCCOut(MIDIosc1FootU, 97);
     }
     if (lowerSW && osc1_8SWL) {
-      midiCCOut(MIDIosc1FootL, 93);
+      midiCCOut(MIDIosc1FootL, 97);
     }
   }
 }
@@ -3434,10 +3434,10 @@ void updateosc1_16SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc1_16SWU) {
-      midiCCOut(MIDIosc1FootU, 117);
+      midiCCOut(MIDIosc1FootU, 120);
     }
     if (lowerSW && osc1_16SWL) {
-      midiCCOut(MIDIosc1FootL, 117);
+      midiCCOut(MIDIosc1FootL, 120);
     }
   }
 }
@@ -3481,10 +3481,10 @@ void updateosc2_1SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc2_1SWU) {
-      midiCCOut(MIDIosc2FootU, 69);
+      midiCCOut(MIDIosc2FootU, 65);
     }
     if (lowerSW && osc2_1SWL) {
-      midiCCOut(MIDIosc2FootL, 69);
+      midiCCOut(MIDIosc2FootL, 65);
     }
   }
 }
@@ -3528,10 +3528,10 @@ void updateosc2_2SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc2_2SWU) {
-      midiCCOut(MIDIosc2FootU, 74);
+      midiCCOut(MIDIosc2FootU, 75);
     }
     if (lowerSW && osc2_2SWL) {
-      midiCCOut(MIDIosc2FootL, 74);
+      midiCCOut(MIDIosc2FootL, 75);
     }
   }
 }
@@ -3575,10 +3575,10 @@ void updateosc2_4SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc2_4SWU) {
-      midiCCOut(MIDIosc2FootU, 82);
+      midiCCOut(MIDIosc2FootU, 85);
     }
     if (lowerSW && osc2_4SWL) {
-      midiCCOut(MIDIosc2FootL, 82);
+      midiCCOut(MIDIosc2FootL, 85);
     }
   }
 }
@@ -3622,10 +3622,10 @@ void updateosc2_8SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc2_8SWU) {
-      midiCCOut(MIDIosc2FootU, 93);
+      midiCCOut(MIDIosc2FootU, 97);
     }
     if (lowerSW && osc2_8SWL) {
-      midiCCOut(MIDIosc2FootL, 93);
+      midiCCOut(MIDIosc2FootL, 97);
     }
   }
 }
@@ -3669,10 +3669,10 @@ void updateosc2_16SW() {
 
   if (!layerPatchFlag) {
     if (upperSW && osc2_16SWU) {
-      midiCCOut(MIDIosc2FootU, 117);
+      midiCCOut(MIDIosc2FootU, 120);
     }
     if (lowerSW && osc2_16SWL) {
-      midiCCOut(MIDIosc2FootL, 117);
+      midiCCOut(MIDIosc2FootL, 120);
     }
   }
 }
@@ -3796,10 +3796,10 @@ void updateportSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && portSWU) {
-      midiCCOut(MIDIglideU, 82);
+      midiCCOut(MIDIglideU, 85);
     }
     if (lowerSW && portSWL) {
-      midiCCOut(MIDIglideL, 69);
+      midiCCOut(MIDIglideL, 65);
     }
   }
 }
@@ -3827,10 +3827,10 @@ void updateglideSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && glideSWU) {
-      midiCCOut(MIDIglideU, 74);
+      midiCCOut(MIDIglideU, 75);
     }
     if (lowerSW && glideSWL) {
-      midiCCOut(MIDIglideL, 74);
+      midiCCOut(MIDIglideL, 75);
     }
   }
 }
@@ -3858,10 +3858,10 @@ void updateglideOffSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && glideOffSWU) {
-      midiCCOut(MIDIglideU, 69);
+      midiCCOut(MIDIglideU, 65);
     }
     if (lowerSW && glideOffSWL) {
-      midiCCOut(MIDIglideL, 82);
+      midiCCOut(MIDIglideL, 85);
     }
   }
 }
@@ -4030,7 +4030,7 @@ void updatesingleSW() {
     learning = false;
     updateUpperSW();
     recallPatchFlag = false;
-    midiCCOut(MIDIsingleSW, 69);
+    midiCCOut(MIDIsingleSW, 65);
   }
 }
 
@@ -4048,7 +4048,7 @@ void updatedoubleSW() {
     singleSW = 0;
     splitSW = 0;
     learning = false;
-    midiCCOut(MIDIdoubleSW, 74);
+    midiCCOut(MIDIdoubleSW, 75);
   }
 }
 
@@ -4066,7 +4066,7 @@ void updatesplitSW() {
     singleSW = 0;
     doubleSW = 0;
     learning = false;
-    midiCCOut(MIDIsplitSW, 82);
+    midiCCOut(MIDIsplitSW, 85);
   }
 }
 
@@ -4076,7 +4076,7 @@ void updatesplitLearn() {
       showCurrentParameterPage("Split", "Learn");
     }
     split_timer = millis();
-    midiCCOut(MIDIkeyboard, 82);
+    midiCCOut(MIDIkeyboard, 85);
 
   }
 }
@@ -4108,10 +4108,10 @@ void updatepolySW() {
 
   if (!layerPatchFlag) {
     if (upperSW && polySWU) {
-      midiCCOut(MIDIpolyMonoU, 82);
+      midiCCOut(MIDIpolyMonoU, 85);
     }
     if (lowerSW && polySWL) {
-      midiCCOut(MIDIpolyMonoL, 82);
+      midiCCOut(MIDIpolyMonoL, 85);
     }
   }
 }
@@ -4143,10 +4143,10 @@ void updatesingleMonoSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && singleMonoSWU) {
-      midiCCOut(MIDIpolyMonoU, 74);
+      midiCCOut(MIDIpolyMonoU, 75);
     }
     if (lowerSW && singleMonoSWL) {
-      midiCCOut(MIDIpolyMonoL, 74);
+      midiCCOut(MIDIpolyMonoL, 75);
     }
   }
 }
@@ -4178,10 +4178,10 @@ void updateunisonMonoSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && unisonMonoSWU) {
-      midiCCOut(MIDIpolyMonoU, 69);
+      midiCCOut(MIDIpolyMonoU, 65);
     }
     if (lowerSW && unisonMonoSWL) {
-      midiCCOut(MIDIpolyMonoL, 69);
+      midiCCOut(MIDIpolyMonoL, 65);
     }
   }
 }
@@ -4349,10 +4349,10 @@ void updatelfo1randSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && lfo1randSWU) {
-      midiCCOut(MIDIlfo1WaveU, 108);
+      midiCCOut(MIDIlfo1WaveU, 120);
     }
     if (lowerSW && lfo1randSWL) {
-      midiCCOut(MIDIlfo1WaveL, 69);
+      midiCCOut(MIDIlfo1WaveL, 65);
     }
   }
 }
@@ -4402,10 +4402,10 @@ void updatelfo1squareUniSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && lfo1squareUniSWU) {
-      midiCCOut(MIDIlfo1WaveU, 103);
+      midiCCOut(MIDIlfo1WaveU, 100);
     }
     if (lowerSW && lfo1squareUniSWL) {
-      midiCCOut(MIDIlfo1WaveL, 74);
+      midiCCOut(MIDIlfo1WaveL, 72);
     }
   }
 }
@@ -4455,10 +4455,10 @@ void updatelfo1squareBipSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && lfo1squareBipSWU) {
-      midiCCOut(MIDIlfo1WaveU, 91);
+      midiCCOut(MIDIlfo1WaveU, 88);
     }
     if (lowerSW && lfo1squareBipSWL) {
-      midiCCOut(MIDIlfo1WaveL, 82);
+      midiCCOut(MIDIlfo1WaveL, 80);
     }
   }
 }
@@ -4508,10 +4508,10 @@ void updatelfo1sawUpSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && lfo1sawUpSWU) {
-      midiCCOut(MIDIlfo1WaveU, 82);
+      midiCCOut(MIDIlfo1WaveU, 80);
     }
     if (lowerSW && lfo1sawUpSWL) {
-      midiCCOut(MIDIlfo1WaveL, 91);
+      midiCCOut(MIDIlfo1WaveL, 88);
     }
   }
 }
@@ -4561,10 +4561,10 @@ void updatelfo1sawDnSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && lfo1sawDnSWU) {
-      midiCCOut(MIDIlfo1WaveU, 74);
+      midiCCOut(MIDIlfo1WaveU, 72);
     }
     if (lowerSW && lfo1sawDnSWL) {
-      midiCCOut(MIDIlfo1WaveL, 103);
+      midiCCOut(MIDIlfo1WaveL, 100);
     }
   }
 }
@@ -4614,10 +4614,10 @@ void updatelfo1triangleSW() {
 
   if (!layerPatchFlag) {
     if (upperSW && lfo1triangleSWU) {
-      midiCCOut(MIDIlfo1WaveU, 69);
+      midiCCOut(MIDIlfo1WaveU, 65);
     }
     if (lowerSW && lfo1triangleSWL) {
-      midiCCOut(MIDIlfo1WaveL, 108);
+      midiCCOut(MIDIlfo1WaveL, 120);
     }
   }
 }
@@ -6935,7 +6935,9 @@ void setCurrentPatchData(String data[]) {
   limiterSW = data[264].toInt();
   splitNote = data[265].toInt();
 
+
   //Pots
+  delay(5);
 
   lowerSW = 1;
   upperSW = 0;
@@ -6950,7 +6952,7 @@ void setCurrentPatchData(String data[]) {
   updatelfo1Frequency();
   updatelfo1Delay();
   updatelfo1DepthA();
-  updatelfo1DepthA();
+  updatelfo1DepthB();
   updateunisonDetune();
   updateosc1Transpose();
   updateosc1Tune();
@@ -7014,16 +7016,7 @@ void setCurrentPatchData(String data[]) {
   updateechoSyncSW();
   updateosc1ringModSW();
   updateosc2ringModSW();
-  updateosc1_osc2PWMSW();
-  updateosc1pulseSW();
-  updateosc1squareSW();
-  updateosc1sawSW();
-  updateosc1triangleSW();
-  updateosc2_osc1PWMSW();
-  updateosc2pulseSW();
-  updateosc2squareSW();
-  updateosc2sawSW();
-  updateosc2triangleSW();
+
   updateechoPingPongSW();
   updateechoTapeSW();
   updateechoSTDSW();
@@ -7068,6 +7061,18 @@ void setCurrentPatchData(String data[]) {
   updatelfo1filtSW();
   updatelfo1ampSW();
   updatelfo1seqRateSW();
+
+  updateosc1_osc2PWMSW();
+  updateosc1pulseSW();
+  updateosc1squareSW();
+  updateosc1sawSW();
+  updateosc1triangleSW();
+
+  updateosc2_osc1PWMSW();
+  updateosc2pulseSW();
+  updateosc2squareSW();
+  updateosc2sawSW();
+  updateosc2triangleSW();
 
   lowerSW = 0;
   upperSW = 1;
@@ -7082,7 +7087,7 @@ void setCurrentPatchData(String data[]) {
   updatelfo1Frequency();
   updatelfo1Delay();
   updatelfo1DepthA();
-  updatelfo1DepthA();
+  updatelfo1DepthB();
   updateunisonDetune();
   updateosc1Transpose();
   updateosc1Tune();
@@ -7146,16 +7151,7 @@ void setCurrentPatchData(String data[]) {
   updateechoSyncSW();
   updateosc1ringModSW();
   updateosc2ringModSW();
-  updateosc1_osc2PWMSW();
-  updateosc1pulseSW();
-  updateosc1squareSW();
-  updateosc1sawSW();
-  updateosc1triangleSW();
-  updateosc2_osc1PWMSW();
-  updateosc2pulseSW();
-  updateosc2squareSW();
-  updateosc2sawSW();
-  updateosc2triangleSW();
+
   updateechoPingPongSW();
   updateechoTapeSW();
   updateechoSTDSW();
@@ -7201,7 +7197,21 @@ void setCurrentPatchData(String data[]) {
   updatelfo1ampSW();
   updatelfo1seqRateSW();
 
+  updateosc1_osc2PWMSW();
+  updateosc1pulseSW();
+  updateosc1squareSW();
+  updateosc1sawSW();
+  updateosc1triangleSW();
+
+  updateosc2_osc1PWMSW();
+  updateosc2pulseSW();
+  updateosc2squareSW();
+  updateosc2sawSW();
+  updateosc2triangleSW();
+
   // common controls
+  upperSW = 1;
+  delay(5);
 
   updatelfo2SyncSW();
   updatelfo2InitAmount();
