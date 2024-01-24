@@ -2,7 +2,7 @@
 
 ![Synth](photos/synth.jpg)
 
-I have tried to recreate the front panel of the Cherry Audio Elka-X VST to the best of my ability, I'm sure I can get at least 90% of the functions working, but how I handle some things such as the Utility button and sequencer will have to be decided.
+I have tried to recreate the front panel of the Cherry Audio Elka-X VST to the best of my ability, I'm sure I can get at least 90% of the functions working, but how I handle some things such as the Utility button and sequencer will have to be decided. Also setting the split position doesn't work yet.
 
 A few quirks with the VST MIDI control, I thought that simply changing between layers would allow the same pot/button/slider to control either parameter on either layer depending which layer was selected. But Cherry Audio decided that each parameter would have an upper MIDI control and a lower MIDI control, so they could each independently edited with layer switching. MIDI CC messages have a range of 0-127 and several of them are reserved such as modulation and sustain and that leaves 125 available messages. If you count up the message requirements of the Synthex it is over 350 different MIDI messages. Obviously Cherry never thought anyone would be crazy enough to want to edit every parameter all at once.
 
