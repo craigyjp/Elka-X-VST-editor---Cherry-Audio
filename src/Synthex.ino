@@ -310,12 +310,7 @@ void updatemasterVolume() {
 
 void updatelayerPan() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Layer Pan", String(layerPanstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Layer Pan", String(layerPanstr) + " %");
-    }
   }
   if (upperSW) {
     midiCCOut(MIDIlayerPanU, layerPanU);
@@ -327,12 +322,7 @@ void updatelayerPan() {
 
 void updatelayerVolume() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Layer Volume", String(layerVolumestr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Layer Volume", String(layerVolumestr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIlayerVolumeL, layerVolumeL);
@@ -344,12 +334,7 @@ void updatelayerVolume() {
 
 void updatereverbLevel() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Reverb Level", String(reverbLevelstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Reverb Level", String(reverbLevelstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIreverbLevelL, reverbLevelL);
@@ -361,12 +346,7 @@ void updatereverbLevel() {
 
 void updatereverbDecay() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Reverb Decay", String(reverbDecaystr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Reverb Decay", String(reverbDecaystr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIreverbDecayL, reverbDecayL);
@@ -378,12 +358,7 @@ void updatereverbDecay() {
 
 void updatereverbEQ() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Reverb EQ", String(reverbEQstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Reverb EQ", String(reverbEQstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIreverbEQL, reverbEQL);
@@ -410,6 +385,7 @@ void updatearpFrequency() {
       }
     }
   }
+
   if (lowerSW) {
     midiCCOut(MIDIarpFrequencyL, arpFrequencyL);
   }
@@ -420,12 +396,7 @@ void updatearpFrequency() {
 
 void updateampVelocity() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Amp Velocity", String(ampVelocitystr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Amp Velocity", String(ampVelocitystr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIampVelocityL, ampVelocityL);
@@ -437,12 +408,7 @@ void updateampVelocity() {
 
 void updatefilterVelocity() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Filter Velocity", String(filterVelocitystr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Filter Velocity", String(filterVelocitystr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterVelocityL, filterVelocityL);
@@ -454,12 +420,7 @@ void updatefilterVelocity() {
 
 void updateampRelease() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Amp Release", String(ampReleasestr) + " mS");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Amp Release", String(ampReleasestr) + " mS");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIampReleaseL, ampReleaseL);
@@ -471,12 +432,7 @@ void updateampRelease() {
 
 void updateampSustain() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Amp Sustain", String(ampSustainstr) + " mS");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Amp Sustain", String(ampSustainstr) + " mS");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIampSustainL, ampSustainL);
@@ -488,12 +444,7 @@ void updateampSustain() {
 
 void updateampDecay() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Amp Decay", String(ampDecaystr) + " mS");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Amp Decay", String(ampDecaystr) + " mS");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIampDecayU, ampDecayL);
@@ -505,12 +456,7 @@ void updateampDecay() {
 
 void updateampAttack() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Amp Attack", String(ampAttackstr) + " mS");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Amp Attack", String(ampAttackstr) + " mS");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIampAttackL, ampAttackL);
@@ -522,12 +468,7 @@ void updateampAttack() {
 
 void updatefilterKeyboard() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Key Track", String(filterKeyboardstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Key Track", String(filterKeyboardstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterKeyboardU, filterKeyboardL);
@@ -539,12 +480,7 @@ void updatefilterKeyboard() {
 
 void updatefilterResonance() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Filter Res", String(filterResonancestr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Filter Res", String(filterResonancestr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterResonanceL, filterResonanceL);
@@ -556,12 +492,7 @@ void updatefilterResonance() {
 
 void updateosc2Volume() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Osc2 Volume", String(osc2Volumestr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Osc2 Volume", String(osc2Volumestr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIosc2VolumeL, osc2VolumeL);
@@ -573,12 +504,7 @@ void updateosc2Volume() {
 
 void updateosc2PW() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Osc2 PW", String(osc2PWstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Osc2 PW", String(osc2PWstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIosc2PWL, osc2PWL);
@@ -590,12 +516,7 @@ void updateosc2PW() {
 
 void updateosc1PW() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Osc1 PW", String(osc1PWstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Osc1 PW", String(osc1PWstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIosc1PWL, osc1PWL);
@@ -607,12 +528,7 @@ void updateosc1PW() {
 
 void updateosc1Volume() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Osc1 Volume", String(osc1Volumestr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Osc1 Volume", String(osc1Volumestr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIosc1VolumeL, osc1VolumeL);
@@ -624,12 +540,7 @@ void updateosc1Volume() {
 
 void updatefilterCutoff() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Filter Cutoff", String(filterCutoffstr) + " Hz");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Filter Cutoff", String(filterCutoffstr) + " Hz");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterCutoffL, filterCutoffL);
@@ -641,12 +552,7 @@ void updatefilterCutoff() {
 
 void updatefilterEnvAmount() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Filter Envelope", String(filterEnvAmountstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Filter Envelope", String(filterEnvAmountstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterEnvAmountL, filterEnvAmountL);
@@ -658,12 +564,7 @@ void updatefilterEnvAmount() {
 
 void updatefilterAttack() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Filter Attack", String(filterAttackstr) + " mS");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Filter Attack", String(filterAttackstr) + " mS");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterAttackL, filterAttackL);
@@ -675,12 +576,7 @@ void updatefilterAttack() {
 
 void updatefilterDecay() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Filter Decay", String(filterDecaystr) + " mS");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Filter Decay", String(filterDecaystr) + " mS");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterDecayL, filterDecayL);
@@ -692,12 +588,7 @@ void updatefilterDecay() {
 
 void updatefilterSustain() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Filter Sustain", String(filterSustainstr) + " mS");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Filter Sustain", String(filterSustainstr) + " mS");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterSustainL, filterSustainL);
@@ -709,12 +600,7 @@ void updatefilterSustain() {
 
 void updatefilterRelease() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Filter Release", String(filterReleasestr) + " mS");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Filter Release", String(filterReleasestr) + " mS");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterReleaseU, filterReleaseL);
@@ -726,12 +612,7 @@ void updatefilterRelease() {
 
 void updateechoEQ() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Echo EQ", String(echoEQstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Echo EQ", String(echoEQstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIechoEQL, echoEQL);
@@ -743,12 +624,7 @@ void updateechoEQ() {
 
 void updateechoLevel() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Echo Level", String(echoLevelstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Echo Level", String(echoLevelstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIechoLevelL, echoLevelL);
@@ -760,12 +636,7 @@ void updateechoLevel() {
 
 void updateechoFeedback() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Echo Feedbck", String(echoFeedbackstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Echo Feedbck", String(echoFeedbackstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIechoFeedbackL, echoFeedbackL);
@@ -777,12 +648,7 @@ void updateechoFeedback() {
 
 void updateechoSpread() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Echo Spread", String(echoSpreadstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Echo Spread", String(echoSpreadstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIechoSpreadL, echoSpreadL);
@@ -838,12 +704,7 @@ void updatelfo2Destination() {
 
 void updateunisonDetune() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Unison Detune", String(unisonDetunestr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Unison Detune", String(unisonDetunestr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIunisonDetuneL, unisonDetuneL);
@@ -855,12 +716,7 @@ void updateunisonDetune() {
 
 void updateglideSpeed() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Glide Speed", String(glideSpeedstr) + " mS");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Glide Speed", String(glideSpeedstr) + " mS");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIglideSpeedL, glideSpeedL);
@@ -872,12 +728,7 @@ void updateglideSpeed() {
 
 void updateosc1Transpose() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("OSC1 Trans", String(osc1Transposestr) + " Semi");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("OSC1 Trans", String(osc1Transposestr) + " Semi");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIosc1TransposeL, osc1TransposeL);
@@ -889,12 +740,7 @@ void updateosc1Transpose() {
 
 void updateosc2Transpose() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("OSC2 Trans", String(osc2Transposestr) + " Semi");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("OSC2 Trans", String(osc2Transposestr) + " Semi");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIosc2TransposeL, osc2TransposeL);
@@ -906,12 +752,7 @@ void updateosc2Transpose() {
 
 void updatenoiseLevel() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Noise Level", String(noiseLevelstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Noise Level", String(noiseLevelstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDInoiseLevelL, noiseLevelL);
@@ -923,12 +764,7 @@ void updatenoiseLevel() {
 
 void updateglideAmount() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("Glide Amount", String(glideAmountstr) + " Cents");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("Glide Amount", String(glideAmountstr) + " Cents");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIglideAmountL, glideAmountL);
@@ -940,12 +776,7 @@ void updateglideAmount() {
 
 void updateosc1Tune() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("OSC1 Tune", String(osc1Tunestr) + " Cents");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("OSC1 Tune", String(osc1Tunestr) + " Cents");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIosc1TuneL, osc1TuneL);
@@ -957,12 +788,7 @@ void updateosc1Tune() {
 
 void updateosc2Tune() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("OSC2 Tune", String(osc2Tunestr) + " Cents");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("OSC2 Tune", String(osc2Tunestr) + " Cents");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIosc2TuneL, osc2TuneL);
@@ -1081,12 +907,7 @@ void updatelfo1Frequency() {
 
 void updatelfo1DepthA() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("LFO1 Depth A", String(lfo1DepthAstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("LFO1 Depth A", String(lfo1DepthAstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIlfo1DepthAL, lfo1DepthAL);
@@ -1098,12 +919,7 @@ void updatelfo1DepthA() {
 
 void updatelfo1Delay() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("LFO1 Delay", String(lfo1Delaystr) + " mS");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("LFO1 Delay", String(lfo1Delaystr) + " mS");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIlfo1DelayL, lfo1DelayL);
@@ -1115,12 +931,7 @@ void updatelfo1Delay() {
 
 void updatelfo1DepthB() {
   if (!recallPatchFlag) {
-    if (lowerSW) {
       showCurrentParameterPage("LFO1 Depth B", String(lfo1DepthBstr) + " %");
-    }
-    if (upperSW) {
-      showCurrentParameterPage("LFO1 Depth B", String(lfo1DepthBstr) + " %");
-    }
   }
   if (lowerSW) {
     midiCCOut(MIDIlfo1DepthBL, lfo1DepthBL);
@@ -1522,10 +1333,10 @@ void updateUtilitySW() {
   }
 }
 
-void swap(int &a, int &b) {
-    temp = a;
-    a = b;
-    b = temp;
+void swap(int &lowerVal, int &upperVal) {
+    temp = lowerVal;
+    lowerVal = upperVal;
+    upperVal = temp;
 }
 
 void updateUtilityAction() {
@@ -7814,144 +7625,8 @@ String getCurrentPatchData() {
 void updateEverything() {
   //Pots
 
-  lowerSW = 1;
-  upperSW = 0;
-
-  updatemasterTune();
-  updatelayerPan();
-  updatelayerVolume();
-  updatefilterCutoff();
-  updatefilterResonance();
-  updatefilterEnvAmount();
-  updatefilterKeyboard();
-  updatelfo1Frequency();
-  updatelfo1Delay();
-  updatelfo1DepthA();
-  updatelfo1DepthB();
-  updateunisonDetune();
-  updateosc1Transpose();
-  updateosc1Tune();
-  updateosc1PW();
-  updateosc1Volume();
-  updateosc2Transpose();
-  updateosc2Tune();
-  updateosc2PW();
-  updateosc2Volume();
-  updatefilterAttack();
-  updatefilterDecay();
-  updatefilterSustain();
-  updatefilterRelease();
-  updatefilterVelocity();
-  updateampAttack();
-  updateampDecay();
-  updateampSustain();
-  updateampRelease();
-  updateampVelocity();
-  updatenoiseLevel();
-  updateglideSpeed();
-  updateglideAmount();
-  updatearpFrequency();
-  updateechoTime();
-  updateechoFeedback();
-  updateechoEQ();
-  updateechoSpread();
-  updateechoLevel();
-  updatereverbDecay();
-  updatereverbEQ();
-  updatereverbLevel();
-
-  //Switches
-
-  updatearpRange4SW();
-  updatearpRange3SW();
-  updatearpRange2SW();
-  updatearpRange1SW();
-  updatearpSyncSW();
-  updatearpHoldSW();
-  updatelayerSoloSW();
-  updatearpRandSW();
-  updatearpUpDownSW();
-  updatearpDownSW();
-  updatearpUpSW();
-  updatearpOffSW();
-  updateenvInvSW();
-  updatefilterHPSW();
-  updatefilterBP2SW();
-  updatefilterBP1SW();
-  updatefilterLP2SW();
-  updatefilterLP1SW();
-  updaterevGLTCSW();
-  updaterevHallSW();
-  updaterevPlateSW();
-  updaterevRoomSW();
-  updaterevOffSW();
-  updatenoisePinkSW();
-  updatenoiseWhiteSW();
-  updatenoiseOffSW();
-  updateechoSyncSW();
-  updateosc1ringModSW();
-  updateosc2ringModSW();
-
-  updateechoPingPongSW();
-  updateechoTapeSW();
-  updateechoSTDSW();
-  updateechoOffSW();
-  updatechorus3SW();
-  updatechorus2SW();
-  updatechorus1SW();
-  updatechorusOffSW();
-  updateosc1_1SW();
-  updateosc1_2SW();
-  updateosc1_4SW();
-  updateosc1_8SW();
-  updateosc1_16SW();
-  updateosc2_1SW();
-  updateosc2_2SW();
-  updateosc2_4SW();
-  updateosc2_8SW();
-  updateosc2_16SW();
-  updateosc1glideSW();
-  updateosc2glideSW();
-  updateportSW();
-  updateglideSW();
-  updateglideOffSW();
-  updateosc2SyncSW();
-  updatemultiTriggerSW();
-  updatepolySW();
-  updatesingleMonoSW();
-  updateunisonMonoSW();
-  updatelfo1SyncSW();
-  updatelfo1modWheelSW();
-  updatelfo1randSW();
-  updatelfo1squareUniSW();
-  updatelfo1squareBipSW();
-  updatelfo1sawUpSW();
-  updatelfo1sawDnSW();
-  updatelfo1triangleSW();
-  updatelfo1resetSW();
-  updatelfo1osc1SW();
-  updatelfo1osc2SW();
-  updatelfo1pw1SW();
-  updatelfo1pw2SW();
-  updatelfo1filtSW();
-  updatelfo1ampSW();
-  updatelfo1seqRateSW();
-
-  updateosc1_osc2PWMSW();
-  updateosc1pulseSW();
-  updateosc1squareSW();
-  updateosc1sawSW();
-  updateosc1triangleSW();
-
-  updateosc2_osc1PWMSW();
-  updateosc2pulseSW();
-  updateosc2squareSW();
-  updateosc2sawSW();
-  updateosc2triangleSW();
-
-  lowerSW = 0;
-  upperSW = 1;
-  delay(5);
+  lowerSW = true;
+  upperSW = false;
 
   updatelayerPan();
   updatelayerVolume();
@@ -8015,26 +7690,11 @@ void updateEverything() {
   updatefilterBP1SW();
   updatefilterLP2SW();
   updatefilterLP1SW();
-  updaterevGLTCSW();
-  updaterevHallSW();
-  updaterevPlateSW();
-  updaterevRoomSW();
-  updaterevOffSW();
   updatenoisePinkSW();
   updatenoiseWhiteSW();
   updatenoiseOffSW();
-  updateechoSyncSW();
   updateosc1ringModSW();
   updateosc2ringModSW();
-
-  updateechoPingPongSW();
-  updateechoTapeSW();
-  updateechoSTDSW();
-  updateechoOffSW();
-  updatechorus3SW();
-  updatechorus2SW();
-  updatechorus1SW();
-  updatechorusOffSW();
   updateosc1_1SW();
   updateosc1_2SW();
   updateosc1_4SW();
@@ -8071,22 +7731,166 @@ void updateEverything() {
   updatelfo1filtSW();
   updatelfo1ampSW();
   updatelfo1seqRateSW();
-
   updateosc1_osc2PWMSW();
   updateosc1pulseSW();
   updateosc1squareSW();
   updateosc1sawSW();
   updateosc1triangleSW();
-
   updateosc2_osc1PWMSW();
   updateosc2pulseSW();
   updateosc2squareSW();
   updateosc2sawSW();
   updateosc2triangleSW();
+  updateechoSyncSW();
+  updateechoPingPongSW();
+  updateechoTapeSW();
+  updateechoSTDSW();
+  updateechoOffSW();
+  updatechorus3SW();
+  updatechorus2SW();
+  updatechorus1SW();
+  updatechorusOffSW();
+  updaterevGLTCSW();
+  updaterevHallSW();
+  updaterevPlateSW();
+  updaterevRoomSW();
+  updaterevOffSW();
+
+  lowerSW = false;
+  upperSW = true;
+  delay(10);
+
+  updatelayerPan();
+  updatelayerVolume();
+  updatefilterCutoff();
+  updatefilterResonance();
+  updatefilterEnvAmount();
+  updatefilterKeyboard();
+  updatelfo1Frequency();
+  updatelfo1Delay();
+  updatelfo1DepthA();
+  updatelfo1DepthB();
+  updateunisonDetune();
+  updateosc1Transpose();
+  updateosc1Tune();
+  updateosc1PW();
+  updateosc1Volume();
+  updateosc2Transpose();
+  updateosc2Tune();
+  updateosc2PW();
+  updateosc2Volume();
+  updatefilterAttack();
+  updatefilterDecay();
+  updatefilterSustain();
+  updatefilterRelease();
+  updatefilterVelocity();
+  updateampAttack();
+  updateampDecay();
+  updateampSustain();
+  updateampRelease();
+  updateampVelocity();
+  updatenoiseLevel();
+  updateglideSpeed();
+  updateglideAmount();
+  updatearpFrequency();
+  updateechoTime();
+  updateechoFeedback();
+  updateechoEQ();
+  updateechoSpread();
+  updateechoLevel();
+  updatereverbDecay();
+  updatereverbEQ();
+  updatereverbLevel();
+
+  delay(10);
+  //Switches
+
+  updatearpRange4SW();
+  updatearpRange3SW();
+  updatearpRange2SW();
+  updatearpRange1SW();
+  updatearpSyncSW();
+  updatearpHoldSW();
+  updatelayerSoloSW();
+  updatearpRandSW();
+  updatearpUpDownSW();
+  updatearpDownSW();
+  updatearpUpSW();
+  updatearpOffSW();
+  updateenvInvSW();
+  updatefilterHPSW();
+  updatefilterBP2SW();
+  updatefilterBP1SW();
+  updatefilterLP2SW();
+  updatefilterLP1SW();
+  updatenoisePinkSW();
+  updatenoiseWhiteSW();
+  updatenoiseOffSW();
+  updateosc1ringModSW();
+  updateosc2ringModSW();
+  updateosc1_1SW();
+  updateosc1_2SW();
+  updateosc1_4SW();
+  updateosc1_8SW();
+  updateosc1_16SW();
+  updateosc2_1SW();
+  updateosc2_2SW();
+  updateosc2_4SW();
+  updateosc2_8SW();
+  updateosc2_16SW();
+  updateosc1glideSW();
+  updateosc2glideSW();
+  updateportSW();
+  updateglideSW();
+  updateglideOffSW();
+  updateosc2SyncSW();
+  updatemultiTriggerSW();
+  updatepolySW();
+  updatesingleMonoSW();
+  updateunisonMonoSW();
+  updatelfo1SyncSW();
+  updatelfo1modWheelSW();
+  updatelfo1randSW();
+  updatelfo1squareUniSW();
+  updatelfo1squareBipSW();
+  updatelfo1sawUpSW();
+  updatelfo1sawDnSW();
+  updatelfo1triangleSW();
+  updatelfo1resetSW();
+  updatelfo1osc1SW();
+  updatelfo1osc2SW();
+  updatelfo1pw1SW();
+  updatelfo1pw2SW();
+  updatelfo1filtSW();
+  updatelfo1ampSW();
+  updatelfo1seqRateSW();
+  updateosc1_osc2PWMSW();
+  updateosc1pulseSW();
+  updateosc1squareSW();
+  updateosc1sawSW();
+  updateosc1triangleSW();
+  updateosc2_osc1PWMSW();
+  updateosc2pulseSW();
+  updateosc2squareSW();
+  updateosc2sawSW();
+  updateosc2triangleSW();
+  updateechoSyncSW();
+  updateechoPingPongSW();
+  updateechoTapeSW();
+  updateechoSTDSW();
+  updateechoOffSW();
+  updatechorus3SW();
+  updatechorus2SW();
+  updatechorus1SW();
+  updatechorusOffSW();
+  updaterevGLTCSW();
+  updaterevHallSW();
+  updaterevPlateSW();
+  updaterevRoomSW();
+  updaterevOffSW();
 
   // common controls
-  upperSW = 1;
-  delay(5);
+  delay(10);
 
   updatelfo2SyncSW();
   updatelfo2InitAmount();
@@ -8099,6 +7903,7 @@ void updateEverything() {
   updatemasterTune();
   updatelimiterSW();
   updatemasterVolume();
+  updatemasterTune();
   updateLowerSW();
   updateUpperSW();
   updatesingleSW();
