@@ -93,7 +93,7 @@ byte ccType = 0;  //(EEPROM)
 
 #include "Settings.h"
 
-int count = 0;  //For MIDI Clk Sync
+int count = 0;                 //For MIDI Clk Sync
 int patchNo = 1;               //Current patch no
 int voiceToReturn = -1;        //Initialise
 long earliestTime = millis();  //For voice allocation - initialise to now
@@ -108,6 +108,7 @@ void setup() {
   SPI.begin();
   octoswitch.begin(PIN_DATA, PIN_LOAD, PIN_CLK);
   octoswitch.setCallback(onButtonPress);
+  octoswitch.setIgnoreAfterHold(UTILITY_SW, true);
   sr.begin(LED_DATA, LED_LATCH, LED_CLK, LED_PWM);
   green.begin(GREEN_LED_DATA, GREEN_LED_LATCH, GREEN_LED_CLK, GREEN_LED_PWM);
   setupDisplay();
@@ -127,15 +128,15 @@ void setup() {
   delay(10);
 
   setLEDDisplay0();
-  display0.begin();                     // initializes the display
+  display0.begin();          // initializes the display
   display0.setBacklight(0);  // set the brightness to intensity
-  display0.print(" 127");               // display INIT on the display
+  display0.print(" 127");    // display INIT on the display
   delay(10);
 
   setLEDDisplay1();
-  display1.begin();                     // initializes the display
+  display1.begin();          // initializes the display
   display1.setBacklight(0);  // set the brightness to intensity
-  display1.print("   0");               // display INIT on the display
+  display1.print("   0");    // display INIT on the display
   delay(10);
 
   setLEDDisplay2();
@@ -269,7 +270,6 @@ void convertIncomingNote() {
     MIDI.sendNoteOn(splitNote, 127, 1);
     MIDI.sendNoteOff(splitNote, 0, 1);
   }
-
 }
 
 void myConvertControlChange(byte channel, byte number, byte value) {
@@ -1482,13 +1482,830 @@ void updatelimiterSW() {
     midiCCOut(MIDIlimiter, 127);
   }
 }
+
 void updateUtilitySW() {
-  // if (utilitySW == 1) {
-  //   if (!recallPatchFlag) {
-  //     showCurrentParameterPage("Utility", "On");
-  //   }
-  //   midiCCOut(CCutilitySW, 127);
-  // }
+  switch (utilitySW) {
+    case 1:
+      showCurrentParameterPage("Swap Layers", "Upper - Lower");
+      oldutilitySW = utilitySW;
+      break;
+
+    case 2:
+      showCurrentParameterPage("Copy Upper", "to Lower");
+      oldutilitySW = utilitySW;
+      break;
+
+    case 3:
+      showCurrentParameterPage("Copy Lower", "to Upper");
+      oldutilitySW = utilitySW;
+      break;
+
+    case 4:
+      showCurrentParameterPage("Reset Upper", "to Defaults");
+      oldutilitySW = utilitySW;
+      break;
+
+    case 5:
+      showCurrentParameterPage("Reset Lower", "to Defaults");
+      oldutilitySW = utilitySW;
+      break;
+
+    case 6:
+      showCurrentParameterPage("Copy FX Upper", "to Lower FX");
+      oldutilitySW = utilitySW;
+      break;
+
+    default:
+      showCurrentParameterPage("Copy FX Lower", "to Upper FX");
+      oldutilitySW = 0;
+      break;
+  }
+}
+
+void swap(int &a, int &b) {
+    temp = a;
+    a = b;
+    b = temp;
+}
+
+void updateUtilityAction() {
+  switch (utilitySW) {
+    case 1:
+      //Serial.println("1");
+      recallPatchFlag = true;
+      MIDI.sendProgramChange(0, midiOutCh);
+      delay(20);
+
+      swap(layerPanU, layerPanL);
+      swap(layerVolumeU, layerVolumeL);
+      swap(arpFrequencyU, arpFrequencyL);
+      swap(ampVelocityU, ampVelocityL);
+      swap(filterVelocityU, filterVelocityL);
+
+      swap(ampReleaseL, ampReleaseU);
+      swap(ampSustainL, ampSustainU);
+      swap(ampDecayL, ampDecayU);
+      swap(ampAttackL, ampAttackU);
+      swap(filterKeyboardL, filterKeyboardU);
+      swap(filterResonanceL, filterResonanceU);
+      swap(osc2VolumeL, osc2VolumeU);
+      swap(osc2PWL, osc2PWU);
+      swap(osc1PWL, osc1PWU);
+      swap(osc1VolumeL, osc1VolumeU);
+      swap(filterCutoffL, filterCutoffU);
+      swap(filterEnvAmountL, filterEnvAmountU);
+      swap(filterAttackL, filterAttackU);
+      swap(filterDecayL, filterDecayU);
+      swap(filterSustainL, filterSustainU);
+      swap(filterReleaseL, filterReleaseU);
+      swap(unisonDetuneL, unisonDetuneU);
+      swap(glideSpeedL, glideSpeedU);
+      swap(osc1TransposeL, osc1TransposeU);
+      swap(osc2TransposeL, osc2TransposeU);
+      swap(noiseLevelL, noiseLevelU);
+      swap(glideAmountL, glideAmountU);
+      swap(osc1TuneL, osc1TuneU);
+      swap(osc2TuneL, osc2TuneU);
+      swap(lfo1FrequencyL, lfo1FrequencyU);
+      swap(lfo1DepthAL, lfo1DepthAU);
+      swap(lfo1DepthBL, lfo1DepthBU);
+      swap(lfo1DelayL, lfo1DelayU);
+      swap(arpRange4SWL, arpRange4SWU);
+      swap(arpRange3SWL, arpRange3SWU);
+      swap(arpRange2SWL, arpRange2SWU);
+      swap(arpRange1SWL, arpRange1SWU);
+      swap(arpSyncSWL, arpSyncSWU);
+      swap(arpHoldSWL, arpHoldSWU);
+      swap(arpRandSWL, arpRandSWU);
+      swap(arpUpDownSWL, arpUpDownSWU);
+      swap(arpDownSWL, arpDownSWU);
+      swap(arpUpSWL, arpUpSWU);
+      swap(arpOffSWL, arpOffSWU);
+      swap(envInvSWL, envInvSWU);
+      swap(filterHPSWL, filterHPSWU);
+      swap(filterBP2SWL, filterBP2SWU);
+      swap(filterBP1SWL, filterBP1SWU);
+      swap(filterLP2SWL, filterLP2SWU);
+      swap(filterLP1SWL, filterLP1SWU);
+      swap(noisePinkSWL, noisePinkSWU);
+      swap(noiseWhiteSWL, noiseWhiteSWU);
+      swap(noiseOffSWL, noiseOffSWU);
+      swap(osc1ringModSWL, osc1ringModSWU);
+      swap(osc2ringModSWL, osc2ringModSWU);
+      swap(osc1_osc2PWMSWL, osc1_osc2PWMSWU);
+      swap(osc1squareSWL, osc1squareSWU);
+      swap(osc1pulseSWL, osc1pulseSWU);
+      swap(osc1squareSWL, osc1squareSWU);
+      swap(osc1sawSWL, osc1sawSWU);
+      swap(osc1triangleSWL, osc1triangleSWU);
+      swap(osc2_osc1PWMSWL, osc2_osc1PWMSWU);
+      swap(osc2pulseSWL, osc2pulseSWU);
+      swap(osc2squareSWL, osc2squareSWU);
+      swap(osc2sawSWL, osc2sawSWU);
+      swap(osc2triangleSWL, osc2triangleSWU);
+      swap(osc1_1SWL, osc1_1SWU);
+      swap(osc1_2SWL, osc1_2SWU);
+      swap(osc1_4SWL, osc1_4SWU);
+      swap(osc1_8SWL, osc1_8SWU);
+      swap(osc1_16SWL, osc1_16SWU);
+      swap(osc2_1SWL, osc2_1SWU);
+      swap(osc2_2SWL, osc2_2SWU);
+      swap(osc2_4SWL, osc2_4SWU);
+      swap(osc2_8SWL, osc2_8SWU);
+      swap(osc2_16SWL, osc2_16SWU);
+      swap(osc1glideSWL, osc1glideSWU);
+      swap(osc2glideSWL, osc2glideSWU);
+      swap(portSWL, portSWU);
+      swap(glideSWL, glideSWU);
+      swap(glideOffSWL, glideOffSWU);
+      swap(osc2SyncSWL, osc2SyncSWU);
+      swap(multiTriggerSWL, multiTriggerSWU);
+      swap(polySWL, polySWU);
+      swap(singleMonoSWL, singleMonoSWU);
+      swap(unisonMonoSWL, unisonMonoSWU);
+      swap(lfo1SyncSWL, lfo1SyncSWU);
+      swap(lfo1modWheelSWL, lfo1modWheelSWU);
+      swap(lfo1randSWL, lfo1randSWU);
+      swap(lfo1resetSWL, lfo1resetSWU);
+      swap(lfo1osc1SWL, lfo1osc1SWU);
+      swap(lfo1osc2SWL, lfo1osc2SWU);
+      swap(lfo1pw1SWL, lfo1pw1SWU);
+      swap(lfo1pw2SWL, lfo1pw2SWU);
+      swap(lfo1filtSWL, lfo1filtSWU);
+      swap(lfo1ampSWL, lfo1ampSWU);
+      swap(lfo1seqRateSWL, lfo1seqRateSWU);
+      swap(lfo1squareUniSWL, lfo1squareUniSWU);
+      swap(lfo1squareBipSWL, lfo1squareBipSWU);
+      swap(lfo1sawUpSWL, lfo1sawUpSWU);
+      swap(lfo1sawDnSWL, lfo1sawDnSWU);
+      swap(lfo1triangleSWL, lfo1triangleSWU);
+
+      // effects
+
+      swap(reverbLevelL, reverbLevelU);
+      swap(reverbDecayL, reverbDecayU);
+      swap(reverbEQL, reverbEQU);
+      swap(revGLTCSWL, revGLTCSWU);
+      swap(revHallSWL, revHallSWU);
+      swap(revPlateSWL, revPlateSWU);
+      swap(revRoomSWL, revRoomSWU);
+      swap(revOffSWL, revOffSWU);
+
+      swap(echoEQL, echoEQU);
+      swap(echoLevelL, echoLevelU);
+      swap(echoFeedbackL, echoFeedbackU);
+      swap(echoSpreadL, echoSpreadU);
+      swap(echoTimeL, echoTimeU);
+      swap(echoSyncSWL, echoSyncSWU);
+      swap(echoPingPongSWL, echoPingPongSWU);
+      swap(echoTapeSWL, echoTapeSWU);
+      swap(echoSTDSWL, echoSTDSWU);
+      swap(echoOffSWL, echoOffSWU);
+
+      swap(chorus3SWL, chorus3SWU);
+      swap(chorus2SWL, chorus2SWU);
+      swap(chorus1SWL, chorus1SWU);
+      swap(chorusOffSWL, chorusOffSWU);
+
+      updateEverything();
+
+      showCurrentParameterPage("Layer Swap", "Completed");
+      recallPatchFlag = false;
+      break;
+
+    case 2:
+      //Serial.println("2");
+      recallPatchFlag = true;
+      MIDI.sendProgramChange(0, midiOutCh);
+      delay(20);
+
+      layerPanL = layerPanU;
+      layerVolumeL = layerVolumeU;
+      arpFrequencyL = arpFrequencyU;
+      ampVelocityL = ampVelocityU;
+      filterVelocityL = filterVelocityU;
+      ampReleaseL = ampReleaseU;
+      ampSustainL = ampSustainU;
+      ampDecayL = ampDecayU;
+      ampAttackL = ampAttackU;
+      filterKeyboardL = filterKeyboardU;
+      filterResonanceL = filterResonanceU;
+      osc2VolumeL = osc2VolumeU;
+      osc2PWL = osc2PWU;
+      osc1PWL = osc1PWU;
+      osc1VolumeL = osc1VolumeU;
+      filterCutoffL = filterCutoffU;
+      filterEnvAmountL = filterEnvAmountU;
+      filterAttackL = filterAttackU;
+      filterDecayL = filterDecayU;
+      filterSustainL = filterSustainU;
+      filterReleaseL = filterReleaseU;
+      unisonDetuneL = unisonDetuneU;
+      glideSpeedL = glideSpeedU;
+      osc1TransposeL = osc1TransposeU;
+      osc2TransposeL = osc2TransposeU;
+      noiseLevelL = noiseLevelU;
+      glideAmountL = glideAmountU;
+      osc1TuneL = osc1TuneU;
+      osc2TuneL = osc2TuneU;
+      lfo1FrequencyL = lfo1FrequencyU;
+      lfo1DepthAL = lfo1DepthAU;
+      lfo1DepthBL = lfo1DepthBU;
+      lfo1DelayL = lfo1DelayU;
+      arpRange4SWL = arpRange4SWU;
+      arpRange3SWL = arpRange3SWU;
+      arpRange2SWL = arpRange2SWU;
+      arpRange1SWL = arpRange1SWU;
+      arpSyncSWL = arpSyncSWU;
+      arpHoldSWL = arpHoldSWU;
+      arpRandSWL = arpRandSWU;
+      arpUpDownSWL = arpUpDownSWU;
+      arpDownSWL = arpDownSWU;
+      arpUpSWL = arpUpSWU;
+      arpOffSWL = arpOffSWU;
+      envInvSWL = envInvSWU;
+      filterHPSWL = filterHPSWU;
+      filterBP2SWL = filterBP2SWU;
+      filterBP1SWL = filterBP1SWU;
+      filterLP2SWL = filterLP2SWU;
+      filterLP1SWL = filterLP1SWU;
+      noisePinkSWL = noisePinkSWU;
+      noiseWhiteSWL = noiseWhiteSWU;
+      noiseOffSWL = noiseOffSWU;
+      osc1ringModSWL = osc1ringModSWU;
+      osc2ringModSWL = osc2ringModSWU;
+      osc1_osc2PWMSWL = osc1_osc2PWMSWU;
+      osc1pulseSWL = osc1pulseSWU;
+      osc1squareSWL = osc1squareSWU;
+      osc1sawSWL = osc1sawSWU;
+      osc1triangleSWL = osc1triangleSWU;
+      osc2_osc1PWMSWL = osc2_osc1PWMSWU;
+      osc2pulseSWL = osc2pulseSWU;
+      osc2squareSWL = osc2squareSWU;
+      osc2sawSWL = osc2sawSWU;
+      osc2triangleSWL = osc2triangleSWU;
+      osc1_1SWL = osc1_1SWU;
+      osc1_2SWL = osc1_2SWU;
+      osc1_4SWL = osc1_4SWU;
+      osc1_8SWL = osc1_8SWU;
+      osc1_16SWL = osc1_16SWU;
+      osc2_1SWL = osc2_1SWU;
+      osc2_2SWL = osc2_2SWU;
+      osc2_4SWL = osc2_4SWU;
+      osc2_8SWL = osc2_8SWU;
+      osc2_16SWL = osc2_16SWU;
+      osc1glideSWL = osc1glideSWU;
+      osc2glideSWL = osc2glideSWU;
+      portSWL = portSWU;
+      glideSWL = glideSWU;
+      glideOffSWL = glideOffSWU;
+      osc2SyncSWL = osc2SyncSWU;
+      multiTriggerSWL = multiTriggerSWU;
+      polySWL = polySWU;
+      singleMonoSWL = singleMonoSWU;
+      unisonMonoSWL = unisonMonoSWU;
+      lfo1SyncSWL = lfo1SyncSWU;
+      lfo1modWheelSWL = lfo1modWheelSWU;
+      lfo1randSWL = lfo1randSWU;
+      lfo1resetSWL = lfo1resetSWU;
+      lfo1osc1SWL = lfo1osc1SWU;
+      lfo1osc2SWL = lfo1osc2SWU;
+      lfo1pw1SWL = lfo1pw1SWU;
+      lfo1pw2SWL = lfo1pw2SWU;
+      lfo1filtSWL = lfo1filtSWU;
+      lfo1ampSWL = lfo1ampSWU;
+      lfo1seqRateSWL = lfo1seqRateSWU;
+      lfo1squareUniSWL = lfo1squareUniSWU;
+      lfo1squareBipSWL = lfo1squareBipSWU;
+      lfo1sawUpSWL = lfo1sawUpSWU;
+      lfo1sawDnSWL = lfo1sawDnSWU;
+      lfo1triangleSWL = lfo1triangleSWU;
+
+      // effects
+
+      reverbLevelL = reverbLevelU;
+      reverbDecayL = reverbDecayU;
+      reverbEQL = reverbEQU;
+      revGLTCSWL = revGLTCSWU;
+      revHallSWL = revHallSWU;
+      revPlateSWL = revPlateSWU;
+      revRoomSWL = revRoomSWU;
+      revOffSWL = revOffSWU;
+
+      echoEQL = echoEQU;
+      echoLevelL = echoLevelU;
+      echoFeedbackL = echoFeedbackU;
+      echoSpreadL = echoSpreadU;
+      echoTimeL = echoTimeU;
+      echoSyncSWL = echoSyncSWU;
+      echoPingPongSWL = echoPingPongSWU;
+      echoTapeSWL = echoTapeSWU;
+      echoSTDSWL = echoSTDSWU;
+      echoOffSWL = echoOffSWU;
+
+      chorus3SWL = chorus3SWU;
+      chorus2SWL = chorus2SWU;
+      chorus1SWL = chorus1SWU;
+      chorusOffSWL = chorusOffSWU;
+
+      updateEverything();
+
+      showCurrentParameterPage("Copy to Lower", "Completed");
+      recallPatchFlag = false;
+      break;
+
+    case 3:
+      //Serial.println("3");
+      recallPatchFlag = true;
+      MIDI.sendProgramChange(0, midiOutCh);
+      delay(20);
+      layerPanU = layerPanL;
+      layerVolumeU = layerVolumeL;
+      arpFrequencyU = arpFrequencyL;
+      ampVelocityU = ampVelocityL;
+      filterVelocityU = filterVelocityL;
+      ampReleaseU = ampReleaseL;
+      ampSustainU = ampSustainL;
+      ampDecayU = ampDecayL;
+      ampAttackU = ampAttackL;
+      filterKeyboardU = filterKeyboardL;
+      filterResonanceU = filterResonanceL;
+      osc2VolumeU = osc2VolumeL;
+      osc2PWU = osc2PWL;
+      osc1PWU = osc1PWL;
+      osc1VolumeU = osc1VolumeL;
+      filterCutoffU = filterCutoffL;
+      filterEnvAmountU = filterEnvAmountL;
+      filterAttackU = filterAttackL;
+      filterDecayU = filterDecayL;
+      filterSustainU = filterSustainL;
+      filterReleaseU = filterReleaseL;
+      unisonDetuneU = unisonDetuneL;
+      glideSpeedU = glideSpeedL;
+      osc1TransposeU = osc1TransposeL;
+      osc2TransposeU = osc2TransposeL;
+      noiseLevelU = noiseLevelL;
+      glideAmountU = glideAmountL;
+      osc1TuneU = osc1TuneL;
+      osc2TuneU = osc2TuneL;
+      lfo1FrequencyU = lfo1FrequencyL;
+      lfo1DepthAU = lfo1DepthAL;
+      lfo1DepthBU = lfo1DepthBL;
+      lfo1DelayU = lfo1DelayL;
+      arpRange4SWU = arpRange4SWL;
+      arpRange3SWU = arpRange3SWL;
+      arpRange2SWU = arpRange2SWL;
+      arpRange1SWU = arpRange1SWL;
+      arpSyncSWU = arpSyncSWL;
+      arpHoldSWU = arpHoldSWL;
+      arpRandSWU = arpRandSWL;
+      arpUpDownSWU = arpUpDownSWL;
+      arpDownSWU = arpDownSWL;
+      arpUpSWU = arpUpSWL;
+      arpOffSWU = arpOffSWL;
+      envInvSWU = envInvSWL;
+      filterHPSWU = filterHPSWL;
+      filterBP2SWU = filterBP2SWL;
+      filterBP1SWU = filterBP1SWL;
+      filterLP2SWU = filterLP2SWL;
+      filterLP1SWU = filterLP1SWL;
+      noisePinkSWU = noisePinkSWL;
+      noiseWhiteSWU = noiseWhiteSWL;
+      noiseOffSWU = noiseOffSWL;
+      osc1ringModSWU = osc1ringModSWL;
+      osc2ringModSWU = osc2ringModSWL;
+      osc1_osc2PWMSWU = osc1_osc2PWMSWL;
+      osc1pulseSWU = osc1pulseSWL;
+      osc1squareSWU = osc1squareSWL;
+      osc1sawSWU = osc1sawSWL;
+      osc1triangleSWU = osc1triangleSWL;
+      osc2_osc1PWMSWU = osc2_osc1PWMSWL;
+      osc2pulseSWU = osc2pulseSWL;
+      osc2squareSWU = osc2squareSWL;
+      osc2sawSWU = osc2sawSWL;
+      osc2triangleSWU = osc2triangleSWL;
+      osc1_1SWU = osc1_1SWL;
+      osc1_2SWU = osc1_2SWL;
+      osc1_4SWU = osc1_4SWL;
+      osc1_8SWU = osc1_8SWL;
+      osc1_16SWU = osc1_16SWL;
+      osc2_1SWU = osc2_1SWL;
+      osc2_2SWU = osc2_2SWL;
+      osc2_4SWU = osc2_4SWL;
+      osc2_8SWU = osc2_8SWL;
+      osc2_16SWU = osc2_16SWL;
+      osc1glideSWU = osc1glideSWL;
+      osc2glideSWU = osc2glideSWL;
+      portSWU = portSWL;
+      glideSWU = glideSWL;
+      glideOffSWU = glideOffSWL;
+      osc2SyncSWU = osc2SyncSWL;
+      multiTriggerSWU = multiTriggerSWL;
+      polySWU = polySWL;
+      singleMonoSWU = singleMonoSWL;
+      unisonMonoSWU = unisonMonoSWL;
+      lfo1SyncSWU = lfo1SyncSWL;
+      lfo1modWheelSWU = lfo1modWheelSWL;
+      lfo1randSWU = lfo1randSWL;
+      lfo1resetSWU = lfo1resetSWL;
+      lfo1osc1SWU = lfo1osc1SWL;
+      lfo1osc2SWU = lfo1osc2SWL;
+      lfo1pw1SWU = lfo1pw1SWL;
+      lfo1pw2SWU = lfo1pw2SWL;
+      lfo1filtSWU = lfo1filtSWL;
+      lfo1ampSWU = lfo1ampSWL;
+      lfo1seqRateSWU = lfo1seqRateSWL;
+      lfo1squareUniSWU = lfo1squareUniSWL;
+      lfo1squareBipSWU = lfo1squareBipSWL;
+      lfo1sawUpSWU = lfo1sawUpSWL;
+      lfo1sawDnSWU = lfo1sawDnSWL;
+      lfo1triangleSWU = lfo1triangleSWL;
+
+      reverbLevelU = reverbLevelL;
+      reverbDecayU = reverbDecayL;
+      reverbEQU = reverbEQL;
+      revGLTCSWU = revGLTCSWL;
+      revHallSWU = revHallSWL;
+      revPlateSWU = revPlateSWL;
+      revRoomSWU = revRoomSWL;
+      revOffSWU = revOffSWL;
+
+      echoEQU = echoEQL;
+      echoLevelU = echoLevelL;
+      echoFeedbackU = echoFeedbackL;
+      echoSpreadU = echoSpreadL;
+      echoTimeU = echoTimeL;
+      echoSyncSWU = echoSyncSWL;
+      echoPingPongSWU = echoPingPongSWL;;
+      echoTapeSWU = echoTapeSWL;
+      echoSTDSWU = echoSTDSWL;
+      echoOffSWU = echoOffSWL;
+
+      chorus3SWU = chorus3SWL;
+      chorus2SWU = chorus2SWL;
+      chorus1SWU = chorus1SWL;
+      chorusOffSWU = chorusOffSWL;
+
+      updateEverything();
+
+      showCurrentParameterPage("Copy to Upper", "Completed");
+      recallPatchFlag = false;
+      break;
+
+    case 4:
+      //Serial.println("4");
+      recallPatchFlag = true;
+      MIDI.sendProgramChange(0, midiOutCh);
+      delay(20);
+
+      layerPanU = 63;
+      layerVolumeU = 63;
+      arpFrequencyU = 60;
+      ampVelocityU = 0;
+      filterVelocityU = 0;
+      ampReleaseU = 55;
+      ampSustainU = 127;
+      ampDecayU = 55;
+      ampAttackU = 0;
+      filterKeyboardU = 127;
+      filterResonanceU = 0;
+      osc2VolumeU = 77;
+      osc2PWU = 63;
+      osc1PWU = 63;
+      osc1VolumeU = 77;
+      filterCutoffU = 127;
+      filterEnvAmountU = 0;
+      filterAttackU = 0;
+      filterDecayU = 55;
+      filterSustainU = 127;
+      filterReleaseU = 55;
+      unisonDetuneU = 22;
+      glideSpeedU = 37;
+      osc1TransposeU = 0;
+      osc2TransposeU = 0;
+      noiseLevelU = 0;
+      glideAmountU = 55;
+      osc1TuneU = 63;
+      osc2TuneU = 63;
+      lfo1FrequencyU = 82;
+      lfo1DepthAU = 0;
+      lfo1DepthBU = 0;
+      lfo1DelayU = 0;
+      arpRange4SWU = 0;
+      arpRange3SWU = 0;
+      arpRange2SWU = 1;
+      arpRange1SWU = 0;
+      arpSyncSWU = 0;
+      arpHoldSWU = 0;
+      arpRandSWU = 0;
+      arpUpDownSWU = 0;
+      arpDownSWU = 0;
+      arpUpSWU = 0;
+      arpOffSWU = 1;
+      envInvSWU = 0;
+      filterHPSWU = 0;
+      filterBP2SWU = 0;
+      filterBP1SWU = 0;
+      filterLP2SWU = 0;
+      filterLP1SWU = 1;
+      noisePinkSWU = 0;
+      noiseWhiteSWU = 1;
+      noiseOffSWU = 0;
+      osc1ringModSWU = 0;
+      osc2ringModSWU = 0;
+      osc1_osc2PWMSWU = 0;
+      osc1pulseSWU = 0;
+      osc1squareSWU = 0;
+      osc1sawSWU = 1;
+      osc1triangleSWU = 0;
+      osc2_osc1PWMSWU = 0;
+      osc2pulseSWU = 0;
+      osc2squareSWU = 0;
+      osc2sawSWU = 1;
+      osc2triangleSWU = 0;
+      osc1_1SWU = 0;
+      osc1_2SWU = 0;
+      osc1_4SWU = 0;
+      osc1_8SWU = 1;
+      osc1_16SWU = 0;
+      osc2_1SWU = 0;
+      osc2_2SWU = 0;
+      osc2_4SWU = 0;
+      osc2_8SWU = 1;
+      osc2_16SWU = 0;
+      osc1glideSWU = 1;
+      osc2glideSWU = 1;
+      portSWU = 0;
+      glideSWU = 0;
+      glideOffSWU = 1;
+      osc2SyncSWU = 0;
+      multiTriggerSWU = 1;
+      polySWU = 1;
+      singleMonoSWU = 0;
+      unisonMonoSWU = 0;
+      lfo1SyncSWU = 0;
+      lfo1modWheelSWU = 0;
+      lfo1resetSWU = 0;
+      lfo1osc1SWU = 1;
+      lfo1osc2SWU = 1;
+      lfo1pw1SWU = 0;
+      lfo1pw2SWU = 0;
+      lfo1filtSWU = 1;
+      lfo1ampSWU = 0;
+      lfo1seqRateSWU = 0;
+      lfo1randSWU = 0;
+      lfo1squareUniSWU = 0;
+      lfo1squareBipSWU = 0;
+      lfo1sawUpSWU = 0;;
+      lfo1sawDnSWU = 0;
+      lfo1triangleSWU = 1;
+
+      reverbLevelU = 63;
+      reverbDecayU = 63;
+      reverbEQU = 63;
+      revGLTCSWU = 0;
+      revHallSWU = 0;
+      revPlateSWU = 0;
+      revRoomSWU = 0;
+      revOffSWU = 1;
+
+      echoEQU = 63;
+      echoLevelU = 63;
+      echoFeedbackU = 22;
+      echoSpreadU = 48;
+      echoTimeU = 63;
+      echoSyncSWU = 0;
+      echoPingPongSWU = 0;
+      echoTapeSWU = 0;
+      echoSTDSWU = 0;
+      echoOffSWU = 1;
+
+      chorus3SWU = 0;
+      chorus2SWU = 0;
+      chorus1SWU = 0;
+      chorusOffSWU = 1;
+
+      updateEverything();
+
+      showCurrentParameterPage("Reset Upper", "Completed");
+      recallPatchFlag = false;
+      break;
+
+    case 5:
+      //Serial.println("5");
+      recallPatchFlag = true;
+      MIDI.sendProgramChange(0, midiOutCh);
+      delay(20);
+
+      layerPanL = 63;
+      layerVolumeL = 63;
+      arpFrequencyL = 60;
+      ampVelocityL = 0;
+      filterVelocityL = 0;
+      ampReleaseL = 55;
+      ampSustainL = 127;
+      ampDecayL = 55;
+      ampAttackL = 0;
+      filterKeyboardL = 127;
+      filterResonanceL = 0;
+      osc2VolumeL = 80;
+      osc2PWL = 63;
+      osc1PWL = 63;
+      osc1VolumeL = 80;
+      filterCutoffL = 127;
+      filterEnvAmountL = 0;
+      filterAttackL = 0;
+      filterDecayL = 55;
+      filterSustainL = 127;
+      filterReleaseL = 55;
+      unisonDetuneL = 22;
+      glideSpeedL = 37;
+      osc1TransposeL = 0;
+      osc2TransposeL = 0;
+      noiseLevelL = 0;
+      glideAmountL = 55;
+      osc1TuneL = 63;
+      osc2TuneL = 63;
+      lfo1FrequencyL = 75;
+      lfo1DepthAL = 0;
+      lfo1DepthBL = 0;
+      lfo1DelayL = 0;
+      arpRange4SWL = 0;
+      arpRange3SWL = 0;
+      arpRange2SWL = 1;
+      arpRange1SWL = 0;
+      arpSyncSWL = 0;
+      arpHoldSWL = 0;
+      arpRandSWL = 0;
+      arpUpDownSWL = 0;
+      arpDownSWL = 0;
+      arpUpSWL = 0;
+      arpOffSWL = 1;
+      envInvSWL = 0;
+      filterHPSWL = 0;
+      filterBP2SWL = 0;
+      filterBP1SWL = 0;
+      filterLP2SWL = 0;
+      filterLP1SWL = 1;
+      noisePinkSWL = 0;
+      noiseWhiteSWL = 1;
+      noiseOffSWL = 0;
+      osc1ringModSWL = 0;
+      osc2ringModSWL = 0;
+      osc1_osc2PWMSWL = 0;
+      osc1pulseSWL = 0;
+      osc1squareSWL = 0;
+      osc1sawSWL = 1;
+      osc1triangleSWL = 0;
+      osc2_osc1PWMSWL = 0;
+      osc2pulseSWL = 0;
+      osc2squareSWL = 0;
+      osc2sawSWL = 1;
+      osc2triangleSWL = 0;
+      osc1_1SWL = 0;
+      osc1_2SWL = 0;
+      osc1_4SWL = 0;
+      osc1_8SWL = 1;
+      osc1_16SWL = 0;
+      osc2_1SWL = 0;
+      osc2_2SWL = 0;
+      osc2_4SWL = 0;
+      osc2_8SWL = 1;
+      osc2_16SWL = 0;
+      osc1glideSWL = 1;
+      osc2glideSWL = 1;
+      portSWL = 0;
+      glideSWL = 0;
+      glideOffSWL = 1;
+      osc2SyncSWL = 0;
+      multiTriggerSWL = 1;
+      polySWL = 1;
+      singleMonoSWL = 0;
+      unisonMonoSWL = 0;
+      lfo1SyncSWL = 0;
+      lfo1modWheelSWL = 0;
+      lfo1resetSWL = 0;
+      lfo1osc1SWL = 1;
+      lfo1osc2SWL = 1;
+      lfo1pw1SWL = 0;
+      lfo1pw2SWL = 0;
+      lfo1filtSWL = 1;
+      lfo1ampSWL = 0;
+      lfo1seqRateSWL = 0;
+      lfo1randSWL = 0;
+      lfo1squareUniSWL = 0;
+      lfo1squareBipSWL = 0;
+      lfo1sawUpSWL = 0;
+      lfo1sawDnSWL = 0;
+      lfo1triangleSWL = 1;
+
+      // effects
+
+      reverbLevelL = 63;
+      reverbDecayL = 63;
+      reverbEQL = 63;
+      revGLTCSWL = 0;
+      revHallSWL = 0;
+      revPlateSWL = 0;
+      revRoomSWL = 0;
+      revOffSWL = 1;
+
+      echoEQL = 63;
+      echoLevelL = 63;
+      echoFeedbackL = 22;
+      echoSpreadL = 55;
+      echoTimeL = 63;
+      echoSyncSWL = 0;
+      echoPingPongSWL = 0;
+      echoTapeSWL = 0;
+      echoSTDSWL = 0;
+      echoOffSWL = 1;
+
+      chorus3SWL = 0;
+      chorus2SWL = 0;
+      chorus1SWL = 0;
+      chorusOffSWL = 1;
+
+      updateEverything();
+
+      showCurrentParameterPage("Reset Lower", "Completed");
+      recallPatchFlag = false;
+      break;
+
+    case 6:
+      //Serial.println("6");
+      recallPatchFlag = true;
+      MIDI.sendProgramChange(0, midiOutCh);
+      delay(20);
+
+      reverbLevelL = reverbLevelU;
+      reverbDecayL = reverbDecayU;
+      reverbEQL = reverbEQU;
+      revGLTCSWL = revGLTCSWU;
+      revHallSWL = revHallSWU;
+      revPlateSWL = revPlateSWU;
+      revRoomSWL = revRoomSWU;
+      revOffSWL = revOffSWU;
+
+      echoEQL = echoEQU;
+      echoLevelL = echoLevelU;
+      echoFeedbackL = echoFeedbackU;
+      echoSpreadL = echoSpreadU;
+      echoTimeL = echoTimeU;
+      echoSyncSWL = echoSyncSWU;
+      echoPingPongSWL = echoPingPongSWU;
+      echoTapeSWL = echoTapeSWU;
+      echoSTDSWL = echoSTDSWU;
+      echoOffSWL = echoOffSWU;
+
+      chorus3SWL = chorus3SWU;
+      chorus2SWL = chorus2SWU;
+      chorus1SWL = chorus1SWU;
+      chorusOffSWL = chorusOffSWU;
+
+      updateEverything();
+
+      showCurrentParameterPage("Copy FX Upper", "Completed");
+      recallPatchFlag = false;
+      break;
+
+    default:
+      //Serial.println("Default");
+      recallPatchFlag = true;
+      MIDI.sendProgramChange(0, midiOutCh);
+      delay(20);
+
+      reverbLevelU = reverbLevelL;
+      reverbDecayU = reverbDecayL;
+      reverbEQU = reverbEQL;
+      revGLTCSWU = revGLTCSWL;
+      revHallSWU = revHallSWL;
+      revPlateSWU = revPlateSWL;
+      revRoomSWU = revRoomSWL;
+      revOffSWU = revOffSWL;
+
+      echoEQU = echoEQL;
+      echoLevelU = echoLevelL;
+      echoFeedbackU = echoFeedbackL;
+      echoSpreadU = echoSpreadL;
+      echoTimeU = echoTimeL;
+      echoSyncSWU = echoSyncSWL;
+      echoPingPongSWU = echoPingPongSWL;
+      echoTapeSWU = echoTapeSWL;
+      echoSTDSWU = echoSTDSWL;
+      echoOffSWU = echoOffSWL;
+
+      chorus3SWU = chorus3SWL;
+      chorus2SWU = chorus2SWL;
+      chorus1SWU = chorus1SWL;
+      chorusOffSWU = chorusOffSWL;
+
+      updateEverything();
+
+      showCurrentParameterPage("Copy FX Lower", "Completed");
+      recallPatchFlag = false;
+      break;
+  }
 }
 
 void updatearpRandSW() {
@@ -4071,13 +4888,12 @@ void updatesplitSW() {
 }
 
 void updatesplitLearn() {
-    if (splitSW && learning) {
+  if (splitSW && learning) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Split", "Learn");
     }
     split_timer = millis();
     midiCCOut(MIDIkeyboard, 85);
-
   }
 }
 
@@ -6625,8 +7441,11 @@ void myControlChange(byte channel, byte control, int value) {
       break;
 
     case CCutilitySW:
-      value > 0 ? upperSW = 1 : upperSW = 0;
       updateUtilitySW();
+      break;
+
+    case CCutilityAction:
+      updateUtilityAction();
       break;
 
 
@@ -6935,9 +7754,65 @@ void setCurrentPatchData(String data[]) {
   limiterSW = data[264].toInt();
   splitNote = data[265].toInt();
 
+  updateEverything();
 
+  //Patchname
+  updatePatchname();
+
+  Serial.print("Set Patch: ");
+  Serial.println(patchName);
+}
+
+String getCurrentPatchData() {
+  return patchName + "," + String(masterVolume) + "," + String(masterTune) + "," + String(layerPanU) + "," + String(layerVolumeL) + "," + String(layerVolumeU) + "," + String(reverbLevelL)
+         + "," + String(reverbLevelU) + "," + String(reverbDecayL) + "," + String(reverbDecayU) + "," + String(reverbEQL) + "," + String(reverbEQU) + "," + String(arpFrequencyL)
+         + "," + String(arpFrequencyU) + "," + String(ampVelocityL) + "," + String(ampVelocityU) + "," + String(filterVelocityL) + "," + String(filterVelocityU) + "," + String(ampReleaseL)
+         + "," + String(ampReleaseU) + "," + String(ampSustainL) + "," + String(ampSustainU) + "," + String(ampDecayL) + "," + String(ampDecayU) + "," + String(ampAttackL)
+         + "," + String(ampAttackU) + "," + String(filterKeyboardL) + "," + String(filterKeyboardU) + "," + String(filterResonanceL) + "," + String(filterResonanceU) + "," + String(osc2VolumeL)
+         + "," + String(osc2VolumeU) + "," + String(osc2PWL) + "," + String(osc2PWU) + "," + String(osc1PWL) + "," + String(osc1PWU) + "," + String(osc1VolumeL)
+         + "," + String(osc1VolumeU) + "," + String(filterCutoffL) + "," + String(filterCutoffU) + "," + String(filterEnvAmountL) + "," + String(filterEnvAmountU) + "," + String(filterAttackL)
+         + "," + String(filterAttackU) + "," + String(filterDecayL) + "," + String(filterDecayU) + "," + String(filterSustainL) + "," + String(filterSustainU) + "," + String(filterReleaseL)
+         + "," + String(filterReleaseU) + "," + String(echoEQL) + "," + String(echoEQU) + "," + String(echoLevelL) + "," + String(echoLevelU) + "," + String(echoFeedbackL)
+         + "," + String(echoFeedbackU) + "," + String(echoSpreadL) + "," + String(echoSpreadU) + "," + String(echoTimeL) + "," + String(echoTimeU) + "," + String(lfo2Destination)
+         + "," + String(unisonDetuneL) + "," + String(unisonDetuneU) + "," + String(glideSpeedL) + "," + String(glideSpeedU) + "," + String(osc1TransposeL) + "," + String(osc1TransposeU)
+         + "," + String(osc2TransposeL) + "," + String(osc2TransposeU) + "," + String(noiseLevelL) + "," + String(noiseLevelU) + "," + String(glideAmountL) + "," + String(glideAmountU)
+         + "," + String(osc1TuneL) + "," + String(osc1TuneU) + "," + String(osc2TuneL) + "," + String(osc2TuneU) + "," + String(bendToFilter) + "," + String(lfo2ToFilter)
+         + "," + String(bendToOsc) + "," + String(lfo2ToOsc) + "," + String(lfo2FreqAcc) + "," + String(lfo2InitFrequency) + "," + String(lfo2InitAmount) + "," + String(seqAssign)
+         + "," + String(seqRate) + "," + String(seqGate) + "," + String(lfo1FrequencyL) + "," + String(lfo1FrequencyU) + "," + String(lfo1DepthAL) + "," + String(lfo1DepthAU)
+         + "," + String(lfo1DelayL) + "," + String(lfo1DelayU) + "," + String(lfo1DepthBL) + "," + String(lfo1DepthBU) + "," + String(arpRange4SWL) + "," + String(arpRange4SWU)
+         + "," + String(arpRange3SWL) + "," + String(arpRange3SWU) + "," + String(arpRange2SWL) + "," + String(arpRange2SWU) + "," + String(arpRange1SWL) + "," + String(arpRange1SWU)
+         + "," + String(arpSyncSWL) + "," + String(arpSyncSWU) + "," + String(arpHoldSWL) + "," + String(arpHoldSWU) + "," + String(arpRandSWL) + "," + String(arpRandSWU)
+         + "," + String(arpUpDownSWL) + "," + String(arpUpDownSWU) + "," + String(arpDownSWL) + "," + String(arpDownSWU) + "," + String(arpUpSWL) + "," + String(arpUpSWU)
+         + "," + String(arpOffSWL) + "," + String(arpOffSWU) + "," + String(envInvSWL) + "," + String(envInvSWU) + "," + String(filterHPSWL) + "," + String(filterHPSWU)
+         + "," + String(filterBP2SWL) + "," + String(filterBP2SWU) + "," + String(filterBP1SWL) + "," + String(filterBP1SWU) + "," + String(filterLP2SWL) + "," + String(filterLP2SWU)
+         + "," + String(filterLP1SWL) + "," + String(filterLP1SWU) + "," + String(revGLTCSWL) + "," + String(revGLTCSWU) + "," + String(revHallSWL) + "," + String(revHallSWU)
+         + "," + String(revPlateSWL) + "," + String(revPlateSWU) + "," + String(revRoomSWL) + "," + String(revRoomSWU) + "," + String(revOffSWL) + "," + String(revOffSWU)
+         + "," + String(noisePinkSWL) + "," + String(noisePinkSWU) + "," + String(noiseWhiteSWL) + "," + String(noiseWhiteSWU) + "," + String(noiseOffSWL) + "," + String(noiseOffSWU)
+         + "," + String(echoSyncSWL) + "," + String(echoSyncSWU) + "," + String(osc1ringModSWL) + "," + String(osc1ringModSWU) + "," + String(osc2ringModSWL) + "," + String(osc2ringModSWU)
+         + "," + String(osc1_osc2PWMSWL) + "," + String(osc1_osc2PWMSWU) + "," + String(osc1pulseSWL) + "," + String(osc1pulseSWU) + "," + String(osc1squareSWL) + "," + String(osc1squareSWU)
+         + "," + String(osc1sawSWL) + "," + String(osc1sawSWU) + "," + String(osc1triangleSWL) + "," + String(osc1triangleSWU) + "," + String(osc2_osc1PWMSWL) + "," + String(osc2_osc1PWMSWU)
+         + "," + String(osc2pulseSWL) + "," + String(osc2pulseSWU) + "," + String(osc2squareSWL) + "," + String(osc2squareSWU) + "," + String(osc2sawSWL) + "," + String(osc2sawSWU)
+         + "," + String(osc2triangleSWL) + "," + String(osc2triangleSWU) + "," + String(echoPingPongSWL) + "," + String(echoPingPongSWU) + "," + String(echoTapeSWL) + "," + String(echoTapeSWU)
+         + "," + String(echoSTDSWL) + "," + String(echoSTDSWU) + "," + String(echoOffSWL) + "," + String(echoOffSWU) + "," + String(chorus3SWL) + "," + String(chorus3SWU)
+         + "," + String(chorus2SWL) + "," + String(chorus2SWU) + "," + String(chorus1SWL) + "," + String(chorus1SWU) + "," + String(chorusOffSWL) + "," + String(chorusOffSWU)
+         + "," + String(osc1_1SWL) + "," + String(osc1_1SWU) + "," + String(osc1_2SWL) + "," + String(osc1_2SWU) + "," + String(osc1_4SWL) + "," + String(osc1_4SWU)
+         + "," + String(osc1_8SWL) + "," + String(osc1_8SWU) + "," + String(osc1_16SWL) + "," + String(osc1_16SWU) + "," + String(osc2_1SWL) + "," + String(osc2_1SWU)
+         + "," + String(osc2_2SWL) + "," + String(osc2_2SWU) + "," + String(osc2_4SWL) + "," + String(osc2_4SWU) + "," + String(osc2_8SWL) + "," + String(osc2_8SWU)
+         + "," + String(osc2_16SWL) + "," + String(osc2_16SWU) + "," + String(osc1glideSWL) + "," + String(osc1glideSWU) + "," + String(osc2glideSWL) + "," + String(osc2glideSWU)
+         + "," + String(portSWL) + "," + String(portSWU) + "," + String(glideSWL) + "," + String(glideSWU) + "," + String(glideOffSWL) + "," + String(glideOffSWU)
+         + "," + String(osc2SyncSWL) + "," + String(osc2SyncSWU) + "," + String(multiTriggerSWL) + "," + String(multiTriggerSWU) + "," + String(singleSW) + "," + String(doubleSW)
+         + "," + String(splitSW) + "," + String(polySWL) + "," + String(polySWU) + "," + String(singleMonoSWL) + "," + String(singleMonoSWU) + "," + String(unisonMonoSWL)
+         + "," + String(unisonMonoSWU) + "," + String(lfo1SyncSWL) + "," + String(lfo1SyncSWU) + "," + String(lfo1modWheelSWL) + "," + String(lfo1modWheelSWU) + "," + String(lfo2SyncSW)
+         + "," + String(lfo1randSWL) + "," + String(lfo1randSWU) + "," + String(lfo1resetSWL) + "," + String(lfo1resetSWU) + "," + String(lfo1osc1SWL) + "," + String(lfo1osc1SWU)
+         + "," + String(lfo1osc2SWL) + "," + String(lfo1osc2SWU) + "," + String(lfo1pw1SWL) + "," + String(lfo1pw1SWU) + "," + String(lfo1pw2SWL) + "," + String(lfo1pw2SWU)
+         + "," + String(lfo1filtSWL) + "," + String(lfo1filtSWU) + "," + String(lfo1ampSWL) + "," + String(lfo1ampSWU) + "," + String(lfo1seqRateSWL) + "," + String(lfo1seqRateSWU)
+         + "," + String(lfo1squareUniSWL) + "," + String(lfo1squareUniSWU) + "," + String(lfo1squareBipSWL) + "," + String(lfo1squareBipSWU) + "," + String(lfo1sawUpSWL) + "," + String(lfo1sawUpSWU)
+         + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU) + "," + String(layerPanL) + "," + String(limiterSW)
+         + "," + String(splitNote);
+}
+
+void updateEverything() {
   //Pots
-  delay(5);
 
   lowerSW = 1;
   upperSW = 0;
@@ -7230,59 +8105,6 @@ void setCurrentPatchData(String data[]) {
   updatedoubleSW();
   updatesplitSW();
 
-  //Patchname
-  updatePatchname();
-
-  Serial.print("Set Patch: ");
-  Serial.println(patchName);
-}
-
-String getCurrentPatchData() {
-  return patchName + "," + String(masterVolume) + "," + String(masterTune) + "," + String(layerPanU) + "," + String(layerVolumeL) + "," + String(layerVolumeU) + "," + String(reverbLevelL)
-         + "," + String(reverbLevelU) + "," + String(reverbDecayL) + "," + String(reverbDecayU) + "," + String(reverbEQL) + "," + String(reverbEQU) + "," + String(arpFrequencyL)
-         + "," + String(arpFrequencyU) + "," + String(ampVelocityL) + "," + String(ampVelocityU) + "," + String(filterVelocityL) + "," + String(filterVelocityU) + "," + String(ampReleaseL)
-         + "," + String(ampReleaseU) + "," + String(ampSustainL) + "," + String(ampSustainU) + "," + String(ampDecayL) + "," + String(ampDecayU) + "," + String(ampAttackL)
-         + "," + String(ampAttackU) + "," + String(filterKeyboardL) + "," + String(filterKeyboardU) + "," + String(filterResonanceL) + "," + String(filterResonanceU) + "," + String(osc2VolumeL)
-         + "," + String(osc2VolumeU) + "," + String(osc2PWL) + "," + String(osc2PWU) + "," + String(osc1PWL) + "," + String(osc1PWU) + "," + String(osc1VolumeL)
-         + "," + String(osc1VolumeU) + "," + String(filterCutoffL) + "," + String(filterCutoffU) + "," + String(filterEnvAmountL) + "," + String(filterEnvAmountU) + "," + String(filterAttackL)
-         + "," + String(filterAttackU) + "," + String(filterDecayL) + "," + String(filterDecayU) + "," + String(filterSustainL) + "," + String(filterSustainU) + "," + String(filterReleaseL)
-         + "," + String(filterReleaseU) + "," + String(echoEQL) + "," + String(echoEQU) + "," + String(echoLevelL) + "," + String(echoLevelU) + "," + String(echoFeedbackL)
-         + "," + String(echoFeedbackU) + "," + String(echoSpreadL) + "," + String(echoSpreadU) + "," + String(echoTimeL) + "," + String(echoTimeU) + "," + String(lfo2Destination)
-         + "," + String(unisonDetuneL) + "," + String(unisonDetuneU) + "," + String(glideSpeedL) + "," + String(glideSpeedU) + "," + String(osc1TransposeL) + "," + String(osc1TransposeU)
-         + "," + String(osc2TransposeL) + "," + String(osc2TransposeU) + "," + String(noiseLevelL) + "," + String(noiseLevelU) + "," + String(glideAmountL) + "," + String(glideAmountU)
-         + "," + String(osc1TuneL) + "," + String(osc1TuneU) + "," + String(osc2TuneL) + "," + String(osc2TuneU) + "," + String(bendToFilter) + "," + String(lfo2ToFilter)
-         + "," + String(bendToOsc) + "," + String(lfo2ToOsc) + "," + String(lfo2FreqAcc) + "," + String(lfo2InitFrequency) + "," + String(lfo2InitAmount) + "," + String(seqAssign)
-         + "," + String(seqRate) + "," + String(seqGate) + "," + String(lfo1FrequencyL) + "," + String(lfo1FrequencyU) + "," + String(lfo1DepthAL) + "," + String(lfo1DepthAU)
-         + "," + String(lfo1DelayL) + "," + String(lfo1DelayU) + "," + String(lfo1DepthBL) + "," + String(lfo1DepthBU) + "," + String(arpRange4SWL) + "," + String(arpRange4SWU)
-         + "," + String(arpRange3SWL) + "," + String(arpRange3SWU) + "," + String(arpRange2SWL) + "," + String(arpRange2SWU) + "," + String(arpRange1SWL) + "," + String(arpRange1SWU)
-         + "," + String(arpSyncSWL) + "," + String(arpSyncSWU) + "," + String(arpHoldSWL) + "," + String(arpHoldSWU) + "," + String(arpRandSWL) + "," + String(arpRandSWU)
-         + "," + String(arpUpDownSWL) + "," + String(arpUpDownSWU) + "," + String(arpDownSWL) + "," + String(arpDownSWU) + "," + String(arpUpSWL) + "," + String(arpUpSWU)
-         + "," + String(arpOffSWL) + "," + String(arpOffSWU) + "," + String(envInvSWL) + "," + String(envInvSWU) + "," + String(filterHPSWL) + "," + String(filterHPSWU)
-         + "," + String(filterBP2SWL) + "," + String(filterBP2SWU) + "," + String(filterBP1SWL) + "," + String(filterBP1SWU) + "," + String(filterLP2SWL) + "," + String(filterLP2SWU)
-         + "," + String(filterLP1SWL) + "," + String(filterLP1SWU) + "," + String(revGLTCSWL) + "," + String(revGLTCSWU) + "," + String(revHallSWL) + "," + String(revHallSWU)
-         + "," + String(revPlateSWL) + "," + String(revPlateSWU) + "," + String(revRoomSWL) + "," + String(revRoomSWU) + "," + String(revOffSWL) + "," + String(revOffSWU)
-         + "," + String(noisePinkSWL) + "," + String(noisePinkSWU) + "," + String(noiseWhiteSWL) + "," + String(noiseWhiteSWU) + "," + String(noiseOffSWL) + "," + String(noiseOffSWU)
-         + "," + String(echoSyncSWL) + "," + String(echoSyncSWU) + "," + String(osc1ringModSWL) + "," + String(osc1ringModSWU) + "," + String(osc2ringModSWL) + "," + String(osc2ringModSWU)
-         + "," + String(osc1_osc2PWMSWL) + "," + String(osc1_osc2PWMSWU) + "," + String(osc1pulseSWL) + "," + String(osc1pulseSWU) + "," + String(osc1squareSWL) + "," + String(osc1squareSWU)
-         + "," + String(osc1sawSWL) + "," + String(osc1sawSWU) + "," + String(osc1triangleSWL) + "," + String(osc1triangleSWU) + "," + String(osc2_osc1PWMSWL) + "," + String(osc2_osc1PWMSWU)
-         + "," + String(osc2pulseSWL) + "," + String(osc2pulseSWU) + "," + String(osc2squareSWL) + "," + String(osc2squareSWU) + "," + String(osc2sawSWL) + "," + String(osc2sawSWU)
-         + "," + String(osc2triangleSWL) + "," + String(osc2triangleSWU) + "," + String(echoPingPongSWL) + "," + String(echoPingPongSWU) + "," + String(echoTapeSWL) + "," + String(echoTapeSWU)
-         + "," + String(echoSTDSWL) + "," + String(echoSTDSWU) + "," + String(echoOffSWL) + "," + String(echoOffSWU) + "," + String(chorus3SWL) + "," + String(chorus3SWU)
-         + "," + String(chorus2SWL) + "," + String(chorus2SWU) + "," + String(chorus1SWL) + "," + String(chorus1SWU) + "," + String(chorusOffSWL) + "," + String(chorusOffSWU)
-         + "," + String(osc1_1SWL) + "," + String(osc1_1SWU) + "," + String(osc1_2SWL) + "," + String(osc1_2SWU) + "," + String(osc1_4SWL) + "," + String(osc1_4SWU)
-         + "," + String(osc1_8SWL) + "," + String(osc1_8SWU) + "," + String(osc1_16SWL) + "," + String(osc1_16SWU) + "," + String(osc2_1SWL) + "," + String(osc2_1SWU)
-         + "," + String(osc2_2SWL) + "," + String(osc2_2SWU) + "," + String(osc2_4SWL) + "," + String(osc2_4SWU) + "," + String(osc2_8SWL) + "," + String(osc2_8SWU)
-         + "," + String(osc2_16SWL) + "," + String(osc2_16SWU) + "," + String(osc1glideSWL) + "," + String(osc1glideSWU) + "," + String(osc2glideSWL) + "," + String(osc2glideSWU)
-         + "," + String(portSWL) + "," + String(portSWU) + "," + String(glideSWL) + "," + String(glideSWU) + "," + String(glideOffSWL) + "," + String(glideOffSWU)
-         + "," + String(osc2SyncSWL) + "," + String(osc2SyncSWU) + "," + String(multiTriggerSWL) + "," + String(multiTriggerSWU) + "," + String(singleSW) + "," + String(doubleSW)
-         + "," + String(splitSW) + "," + String(polySWL) + "," + String(polySWU) + "," + String(singleMonoSWL) + "," + String(singleMonoSWU) + "," + String(unisonMonoSWL)
-         + "," + String(unisonMonoSWU) + "," + String(lfo1SyncSWL) + "," + String(lfo1SyncSWU) + "," + String(lfo1modWheelSWL) + "," + String(lfo1modWheelSWU) + "," + String(lfo2SyncSW)
-         + "," + String(lfo1randSWL) + "," + String(lfo1randSWU) + "," + String(lfo1resetSWL) + "," + String(lfo1resetSWU) + "," + String(lfo1osc1SWL) + "," + String(lfo1osc1SWU)
-         + "," + String(lfo1osc2SWL) + "," + String(lfo1osc2SWU) + "," + String(lfo1pw1SWL) + "," + String(lfo1pw1SWU) + "," + String(lfo1pw2SWL) + "," + String(lfo1pw2SWU)
-         + "," + String(lfo1filtSWL) + "," + String(lfo1filtSWU) + "," + String(lfo1ampSWL) + "," + String(lfo1ampSWU) + "," + String(lfo1seqRateSWL) + "," + String(lfo1seqRateSWU)
-         + "," + String(lfo1squareUniSWL) + "," + String(lfo1squareUniSWU) + "," + String(lfo1squareBipSWL) + "," + String(lfo1squareBipSWU) + "," + String(lfo1sawUpSWL) + "," + String(lfo1sawUpSWU)
-         + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU) + "," + String(layerPanL) + "," + String(limiterSW)
-         + "," + String(splitNote);
 }
 
 void checkMux() {
@@ -7548,9 +8370,13 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
     myControlChange(midiChannel, CCupperSW, upperSW);
   }
 
-  if (btnIndex == UTILITY_SW && btnType == ROX_PRESSED) {
-    utilitySW = 1;
+  if (btnIndex == UTILITY_SW && btnType == ROX_RELEASED) {
+    utilitySW = oldutilitySW + 1;
     myControlChange(midiChannel, CCutilitySW, utilitySW);
+  } else {
+    if (btnIndex == UTILITY_SW && btnType == ROX_HELD) {
+      myControlChange(midiChannel, CCutilityAction, utilitySW);
+    }
   }
 
   if (btnIndex == ARP_RANGE_4_SW && btnType == ROX_PRESSED) {
@@ -8296,7 +9122,9 @@ void midiCCOut(byte cc, byte value) {
               MIDI.sendNoteOff(20, 0, midiOutCh);   //MIDI USB is set to Out
               break;
 
-            // lowest note on a 76 note keybed
+              //
+              // lowest note on a 76 note keybed
+              //
 
             case MIDIlfo1modWheelU:
               if (updateParams) {
@@ -8478,7 +9306,7 @@ void midiCCOut(byte cc, byte value) {
               MIDI.sendNoteOff(108, 0, midiOutCh);   //MIDI USB is set to Out
               break;
 
-              case MIDIlayerSolo:
+            case MIDIlayerSolo:
               if (updateParams) {
                 usbMIDI.sendNoteOn(107, 127, midiOutCh);  //MIDI USB is set to Out
                 usbMIDI.sendNoteOff(107, 0, midiOutCh);   //MIDI USB is set to Out
@@ -8510,23 +9338,23 @@ void midiCCOut(byte cc, byte value) {
                 usbMIDI.sendNoteOn(104, 127, midiOutCh);  //MIDI USB is set to Out
               }
               MIDI.sendNoteOn(104, 127, midiOutCh);  //MIDI DIN is set to Out
-            break;
+              break;
 
             case MIDIdoubleSW:
               if (updateParams) {
                 usbMIDI.sendNoteOn(103, 127, midiOutCh);  //MIDI USB is set to Out
               }
               MIDI.sendNoteOn(103, 127, midiOutCh);  //MIDI DIN is set to Out
-            break;
+              break;
 
             case MIDIsplitSW:
               if (updateParams) {
                 usbMIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI USB is set to Out
               }
               MIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI DIN is set to Out
-            break;
+              break;
 
-            // Down to 97 available
+              // Down to 97 available
 
             default:
               if (updateParams) {
@@ -8865,7 +9693,7 @@ void stopLEDs() {
     }
   }
 
-    if (learning) {
+  if (learning) {
     if (currentMillis - split_timer >= interval) {
       split_timer = currentMillis;
       if (sr.readPin(SPLIT_LED) == HIGH) {
@@ -8892,7 +9720,7 @@ void loop() {
   octoswitch.update();  // read all the buttons for the Synthex
   sr.update();          // update all the RED LEDs in the buttons
   green.update();       // update all the GREEN LEDs in the buttons
-  checkEEPROM();                         // check anything that may have changed form the initial startup
-  stopLEDs();                            // blink the wave LEDs once when pressed
+  checkEEPROM();        // check anything that may have changed form the initial startup
+  stopLEDs();           // blink the wave LEDs once when pressed
   //convertIncomingNote();                 // read a note when in learn mode and use it to set the values
 }

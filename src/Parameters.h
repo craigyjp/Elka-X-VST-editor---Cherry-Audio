@@ -7,6 +7,7 @@ int SLIDERintensity = 1;//(EEPROM)
 int oldSLIDERintensity;
 int learningDisplayNumber = 0;
 int learningNote = 0;
+int temp = 0;
 
 static unsigned long lower_timer = 0;
 static unsigned long upper_timer = 0;
@@ -261,6 +262,7 @@ float lfo1DepthBstr = 0;
 int lowerSW = 0;
 int upperSW = 1;
 int utilitySW = 0;
+int oldutilitySW = 0;
 
 int arpRange4SW = 0;
 int arpRange4SWU = 0;
