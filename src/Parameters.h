@@ -544,6 +544,19 @@ int chordMemorySWU = 0;
 boolean chordMemoryWaitL = false;
 boolean chordMemoryWaitU = false;
 
+int seqPlaySW = 0;
+int seqStopSW = 0;
+int seqKeySW = 0;
+int seqTransSW = 0;
+int seqLoopSW = 0;
+int seqFwSW = 0;
+int seqBwSW = 0;
+int seqEnable1SW = 0;
+int seqEnable2SW = 0;
+int seqEnable3SW = 0;
+int seqEnable4SW = 0;
+int seqSyncSW = 0;
+
 // End Synthex Switches
 
 int returnvalue = 0;

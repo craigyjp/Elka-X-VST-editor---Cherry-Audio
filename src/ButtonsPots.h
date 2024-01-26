@@ -151,3 +151,16 @@
 #define CCchordMemorySW 156
 #define CCsplitLearning 157
 #define CCutilityAction 158
+#define CCseqPlaySW 159
+#define CCseqStopSW 160
+#define CCseqKeySW 161
+#define CCseqTransSW 162
+#define CCseqLoopSW 163
+#define CCseqFwSW 164
+#define CCseqBwSW 165
+#define CCseqEnable1SW 166
+#define CCseqEnable2SW 167
+#define CCseqEnable3SW 168
+#define CCseqEnable4SW 169
+#define CCseqSyncSW 170
+

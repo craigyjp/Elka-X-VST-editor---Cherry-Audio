@@ -179,3 +179,15 @@
 #define MIDIsingleSW 173
 #define MIDIdoubleSW 174
 #define MIDIsplitSW 175
+#define MIDIseqPlaySW 176
+#define MIDIseqStopSW 177
+#define MIDIseqKeySW 178
+#define MIDIseqTransSW 179
+#define MIDIseqLoopSW 180
+#define MIDIseqFwSW 181
+#define MIDIseqBwSW 182
+#define MIDIseqEnable1SW 183
+#define MIDIseqEnable2SW 184
+#define MIDIseqEnable3SW 185
+#define MIDIseqEnable4SW 186
+#define MIDIseqSyncSW 187

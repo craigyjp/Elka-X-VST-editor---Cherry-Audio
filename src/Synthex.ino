@@ -310,7 +310,7 @@ void updatemasterVolume() {
 
 void updatelayerPan() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Layer Pan", String(layerPanstr) + " %");
+    showCurrentParameterPage("Layer Pan", String(layerPanstr) + " %");
   }
   if (upperSW) {
     midiCCOut(MIDIlayerPanU, layerPanU);
@@ -322,7 +322,7 @@ void updatelayerPan() {
 
 void updatelayerVolume() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Layer Volume", String(layerVolumestr) + " %");
+    showCurrentParameterPage("Layer Volume", String(layerVolumestr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIlayerVolumeL, layerVolumeL);
@@ -334,7 +334,7 @@ void updatelayerVolume() {
 
 void updatereverbLevel() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Reverb Level", String(reverbLevelstr) + " %");
+    showCurrentParameterPage("Reverb Level", String(reverbLevelstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIreverbLevelL, reverbLevelL);
@@ -346,7 +346,7 @@ void updatereverbLevel() {
 
 void updatereverbDecay() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Reverb Decay", String(reverbDecaystr) + " %");
+    showCurrentParameterPage("Reverb Decay", String(reverbDecaystr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIreverbDecayL, reverbDecayL);
@@ -358,7 +358,7 @@ void updatereverbDecay() {
 
 void updatereverbEQ() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Reverb EQ", String(reverbEQstr) + " %");
+    showCurrentParameterPage("Reverb EQ", String(reverbEQstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIreverbEQL, reverbEQL);
@@ -396,7 +396,7 @@ void updatearpFrequency() {
 
 void updateampVelocity() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Amp Velocity", String(ampVelocitystr) + " %");
+    showCurrentParameterPage("Amp Velocity", String(ampVelocitystr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIampVelocityL, ampVelocityL);
@@ -408,7 +408,7 @@ void updateampVelocity() {
 
 void updatefilterVelocity() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Filter Velocity", String(filterVelocitystr) + " %");
+    showCurrentParameterPage("Filter Velocity", String(filterVelocitystr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterVelocityL, filterVelocityL);
@@ -420,7 +420,7 @@ void updatefilterVelocity() {
 
 void updateampRelease() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Amp Release", String(ampReleasestr) + " mS");
+    showCurrentParameterPage("Amp Release", String(ampReleasestr) + " mS");
   }
   if (lowerSW) {
     midiCCOut(MIDIampReleaseL, ampReleaseL);
@@ -432,7 +432,7 @@ void updateampRelease() {
 
 void updateampSustain() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Amp Sustain", String(ampSustainstr) + " mS");
+    showCurrentParameterPage("Amp Sustain", String(ampSustainstr) + " mS");
   }
   if (lowerSW) {
     midiCCOut(MIDIampSustainL, ampSustainL);
@@ -444,7 +444,7 @@ void updateampSustain() {
 
 void updateampDecay() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Amp Decay", String(ampDecaystr) + " mS");
+    showCurrentParameterPage("Amp Decay", String(ampDecaystr) + " mS");
   }
   if (lowerSW) {
     midiCCOut(MIDIampDecayU, ampDecayL);
@@ -456,7 +456,7 @@ void updateampDecay() {
 
 void updateampAttack() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Amp Attack", String(ampAttackstr) + " mS");
+    showCurrentParameterPage("Amp Attack", String(ampAttackstr) + " mS");
   }
   if (lowerSW) {
     midiCCOut(MIDIampAttackL, ampAttackL);
@@ -468,7 +468,7 @@ void updateampAttack() {
 
 void updatefilterKeyboard() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Key Track", String(filterKeyboardstr) + " %");
+    showCurrentParameterPage("Key Track", String(filterKeyboardstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterKeyboardU, filterKeyboardL);
@@ -480,7 +480,7 @@ void updatefilterKeyboard() {
 
 void updatefilterResonance() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Filter Res", String(filterResonancestr) + " %");
+    showCurrentParameterPage("Filter Res", String(filterResonancestr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterResonanceL, filterResonanceL);
@@ -492,7 +492,7 @@ void updatefilterResonance() {
 
 void updateosc2Volume() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Osc2 Volume", String(osc2Volumestr) + " %");
+    showCurrentParameterPage("Osc2 Volume", String(osc2Volumestr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIosc2VolumeL, osc2VolumeL);
@@ -504,7 +504,7 @@ void updateosc2Volume() {
 
 void updateosc2PW() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Osc2 PW", String(osc2PWstr) + " %");
+    showCurrentParameterPage("Osc2 PW", String(osc2PWstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIosc2PWL, osc2PWL);
@@ -516,7 +516,7 @@ void updateosc2PW() {
 
 void updateosc1PW() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Osc1 PW", String(osc1PWstr) + " %");
+    showCurrentParameterPage("Osc1 PW", String(osc1PWstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIosc1PWL, osc1PWL);
@@ -528,7 +528,7 @@ void updateosc1PW() {
 
 void updateosc1Volume() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Osc1 Volume", String(osc1Volumestr) + " %");
+    showCurrentParameterPage("Osc1 Volume", String(osc1Volumestr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIosc1VolumeL, osc1VolumeL);
@@ -540,7 +540,7 @@ void updateosc1Volume() {
 
 void updatefilterCutoff() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Filter Cutoff", String(filterCutoffstr) + " Hz");
+    showCurrentParameterPage("Filter Cutoff", String(filterCutoffstr) + " Hz");
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterCutoffL, filterCutoffL);
@@ -552,7 +552,7 @@ void updatefilterCutoff() {
 
 void updatefilterEnvAmount() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Filter Envelope", String(filterEnvAmountstr) + " %");
+    showCurrentParameterPage("Filter Envelope", String(filterEnvAmountstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterEnvAmountL, filterEnvAmountL);
@@ -564,7 +564,7 @@ void updatefilterEnvAmount() {
 
 void updatefilterAttack() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Filter Attack", String(filterAttackstr) + " mS");
+    showCurrentParameterPage("Filter Attack", String(filterAttackstr) + " mS");
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterAttackL, filterAttackL);
@@ -576,7 +576,7 @@ void updatefilterAttack() {
 
 void updatefilterDecay() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Filter Decay", String(filterDecaystr) + " mS");
+    showCurrentParameterPage("Filter Decay", String(filterDecaystr) + " mS");
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterDecayL, filterDecayL);
@@ -588,7 +588,7 @@ void updatefilterDecay() {
 
 void updatefilterSustain() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Filter Sustain", String(filterSustainstr) + " mS");
+    showCurrentParameterPage("Filter Sustain", String(filterSustainstr) + " mS");
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterSustainL, filterSustainL);
@@ -600,7 +600,7 @@ void updatefilterSustain() {
 
 void updatefilterRelease() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Filter Release", String(filterReleasestr) + " mS");
+    showCurrentParameterPage("Filter Release", String(filterReleasestr) + " mS");
   }
   if (lowerSW) {
     midiCCOut(MIDIfilterReleaseU, filterReleaseL);
@@ -612,7 +612,7 @@ void updatefilterRelease() {
 
 void updateechoEQ() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Echo EQ", String(echoEQstr) + " %");
+    showCurrentParameterPage("Echo EQ", String(echoEQstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIechoEQL, echoEQL);
@@ -624,7 +624,7 @@ void updateechoEQ() {
 
 void updateechoLevel() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Echo Level", String(echoLevelstr) + " %");
+    showCurrentParameterPage("Echo Level", String(echoLevelstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIechoLevelL, echoLevelL);
@@ -636,7 +636,7 @@ void updateechoLevel() {
 
 void updateechoFeedback() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Echo Feedbck", String(echoFeedbackstr) + " %");
+    showCurrentParameterPage("Echo Feedbck", String(echoFeedbackstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIechoFeedbackL, echoFeedbackL);
@@ -648,7 +648,7 @@ void updateechoFeedback() {
 
 void updateechoSpread() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Echo Spread", String(echoSpreadstr) + " %");
+    showCurrentParameterPage("Echo Spread", String(echoSpreadstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIechoSpreadL, echoSpreadL);
@@ -704,7 +704,7 @@ void updatelfo2Destination() {
 
 void updateunisonDetune() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Unison Detune", String(unisonDetunestr) + " %");
+    showCurrentParameterPage("Unison Detune", String(unisonDetunestr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIunisonDetuneL, unisonDetuneL);
@@ -716,7 +716,7 @@ void updateunisonDetune() {
 
 void updateglideSpeed() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Glide Speed", String(glideSpeedstr) + " mS");
+    showCurrentParameterPage("Glide Speed", String(glideSpeedstr) + " mS");
   }
   if (lowerSW) {
     midiCCOut(MIDIglideSpeedL, glideSpeedL);
@@ -728,7 +728,7 @@ void updateglideSpeed() {
 
 void updateosc1Transpose() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("OSC1 Trans", String(osc1Transposestr) + " Semi");
+    showCurrentParameterPage("OSC1 Trans", String(osc1Transposestr) + " Semi");
   }
   if (lowerSW) {
     midiCCOut(MIDIosc1TransposeL, osc1TransposeL);
@@ -740,7 +740,7 @@ void updateosc1Transpose() {
 
 void updateosc2Transpose() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("OSC2 Trans", String(osc2Transposestr) + " Semi");
+    showCurrentParameterPage("OSC2 Trans", String(osc2Transposestr) + " Semi");
   }
   if (lowerSW) {
     midiCCOut(MIDIosc2TransposeL, osc2TransposeL);
@@ -752,7 +752,7 @@ void updateosc2Transpose() {
 
 void updatenoiseLevel() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Noise Level", String(noiseLevelstr) + " %");
+    showCurrentParameterPage("Noise Level", String(noiseLevelstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDInoiseLevelL, noiseLevelL);
@@ -764,7 +764,7 @@ void updatenoiseLevel() {
 
 void updateglideAmount() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("Glide Amount", String(glideAmountstr) + " Cents");
+    showCurrentParameterPage("Glide Amount", String(glideAmountstr) + " Cents");
   }
   if (lowerSW) {
     midiCCOut(MIDIglideAmountL, glideAmountL);
@@ -776,7 +776,7 @@ void updateglideAmount() {
 
 void updateosc1Tune() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("OSC1 Tune", String(osc1Tunestr) + " Cents");
+    showCurrentParameterPage("OSC1 Tune", String(osc1Tunestr) + " Cents");
   }
   if (lowerSW) {
     midiCCOut(MIDIosc1TuneL, osc1TuneL);
@@ -788,7 +788,7 @@ void updateosc1Tune() {
 
 void updateosc2Tune() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("OSC2 Tune", String(osc2Tunestr) + " Cents");
+    showCurrentParameterPage("OSC2 Tune", String(osc2Tunestr) + " Cents");
   }
   if (lowerSW) {
     midiCCOut(MIDIosc2TuneL, osc2TuneL);
@@ -907,7 +907,7 @@ void updatelfo1Frequency() {
 
 void updatelfo1DepthA() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("LFO1 Depth A", String(lfo1DepthAstr) + " %");
+    showCurrentParameterPage("LFO1 Depth A", String(lfo1DepthAstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIlfo1DepthAL, lfo1DepthAL);
@@ -919,7 +919,7 @@ void updatelfo1DepthA() {
 
 void updatelfo1Delay() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("LFO1 Delay", String(lfo1Delaystr) + " mS");
+    showCurrentParameterPage("LFO1 Delay", String(lfo1Delaystr) + " mS");
   }
   if (lowerSW) {
     midiCCOut(MIDIlfo1DelayL, lfo1DelayL);
@@ -931,7 +931,7 @@ void updatelfo1Delay() {
 
 void updatelfo1DepthB() {
   if (!recallPatchFlag) {
-      showCurrentParameterPage("LFO1 Depth B", String(lfo1DepthBstr) + " %");
+    showCurrentParameterPage("LFO1 Depth B", String(lfo1DepthBstr) + " %");
   }
   if (lowerSW) {
     midiCCOut(MIDIlfo1DepthBL, lfo1DepthBL);
@@ -1294,6 +1294,182 @@ void updatelimiterSW() {
   }
 }
 
+void updateseqPlaySW() {
+  if (seqPlaySW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Play");
+    }
+    sr.writePin(SEQ_PLAY_LED, HIGH);
+    sr.writePin(SEQ_STOP_LED, LOW);
+    midiCCOut(MIDIseqPlaySW, 127);
+  }
+}
+
+void updateseqStopSW() {
+  if (seqStopSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Stop");
+    }
+    sr.writePin(SEQ_PLAY_LED, LOW);
+    sr.writePin(SEQ_STOP_LED, HIGH);
+    midiCCOut(MIDIseqStopSW, 127);
+  }
+}
+
+void updateseqKeySW() {
+  if (seqKeySW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Key Start On");
+    }
+    sr.writePin(SEQ_KEY_LED, HIGH);
+    midiCCOut(MIDIseqKeySW, 127);
+  }
+  if (!seqKeySW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Key Start Off");
+    }
+    sr.writePin(SEQ_KEY_LED, LOW);
+    midiCCOut(MIDIseqKeySW, 127);
+  }
+}
+
+void updateseqTransSW() {
+  if (seqTransSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Transpose On");
+    }
+    sr.writePin(SEQ_TRANS_LED, HIGH);
+    midiCCOut(MIDIseqTransSW, 127);
+  }
+  if (!seqTransSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Transpose Off");
+    }
+    sr.writePin(SEQ_TRANS_LED, LOW);
+    midiCCOut(MIDIseqTransSW, 127);
+  }
+}
+
+void updateseqLoopSW() {
+  if (seqLoopSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Loop On");
+    }
+    sr.writePin(SEQ_LOOP_LED, HIGH);
+    midiCCOut(MIDIseqLoopSW, 127);
+  }
+  if (!seqLoopSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Loop Off");
+    }
+    sr.writePin(SEQ_LOOP_LED, LOW);
+    midiCCOut(MIDIseqLoopSW, 127);
+  }
+}
+
+void updateseqFwSW() {
+  if (seqFwSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "FF");
+    }
+    midiCCOut(MIDIseqFwSW, 127);
+  }
+}
+
+void updateseqBwSW() {
+  if (seqBwSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Rew");
+    }
+    midiCCOut(MIDIseqBwSW, 127);
+  }
+}
+
+void updateseqEnable1SW() {
+  if (seqEnable1SW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", " Track 1");
+    }
+    sr.writePin(SEQ_ENABLE_1_LED, HIGH);
+    midiCCOut(MIDIseqEnable1SW, 127);
+  }
+  if (!seqEnable1SW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Track 1 Off");
+    }
+    sr.writePin(SEQ_ENABLE_1_LED, LOW);
+    midiCCOut(MIDIseqEnable1SW, 127);
+  }
+}
+
+void updateseqEnable2SW() {
+  if (seqEnable2SW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", " Track 2");
+    }
+    sr.writePin(SEQ_ENABLE_2_LED, HIGH);
+    midiCCOut(MIDIseqEnable2SW, 127);
+  }
+  if (!seqEnable2SW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Track 2 Off");
+    }
+    sr.writePin(SEQ_ENABLE_2_LED, LOW);
+    midiCCOut(MIDIseqEnable2SW, 127);
+  }
+}
+
+void updateseqEnable3SW() {
+  if (seqEnable3SW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", " Track 3");
+    }
+    sr.writePin(SEQ_ENABLE_3_LED, HIGH);
+    midiCCOut(MIDIseqEnable3SW, 127);
+  }
+  if (!seqEnable3SW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Track 3 Off");
+    }
+    sr.writePin(SEQ_ENABLE_3_LED, LOW);
+    midiCCOut(MIDIseqEnable3SW, 127);
+  }
+}
+
+void updateseqEnable4SW() {
+  if (seqEnable4SW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", " Track 4");
+    }
+    sr.writePin(SEQ_ENABLE_4_LED, HIGH);
+    midiCCOut(MIDIseqEnable4SW, 127);
+  }
+  if (!seqEnable4SW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Track 4 Off");
+    }
+    sr.writePin(SEQ_ENABLE_4_LED, LOW);
+    midiCCOut(MIDIseqEnable4SW, 127);
+  }
+}
+
+void updateseqSyncSW() {
+  if (seqSyncSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", " Sync On");
+    }
+    sr.writePin(SEQ_SYNC_LED, HIGH);
+    midiCCOut(MIDIseqSyncSW, 127);
+  }
+  if (!seqSyncSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Sync Off");
+    }
+    sr.writePin(SEQ_SYNC_LED, LOW);
+    midiCCOut(MIDIseqSyncSW, 127);
+  }
+}
+
 void updateUtilitySW() {
   switch (utilitySW) {
     case 1:
@@ -1334,9 +1510,9 @@ void updateUtilitySW() {
 }
 
 void swap(int &lowerVal, int &upperVal) {
-    temp = lowerVal;
-    lowerVal = upperVal;
-    upperVal = temp;
+  temp = lowerVal;
+  lowerVal = upperVal;
+  upperVal = temp;
 }
 
 void updateUtilityAction() {
@@ -1747,7 +1923,8 @@ void updateUtilityAction() {
       echoSpreadU = echoSpreadL;
       echoTimeU = echoTimeL;
       echoSyncSWU = echoSyncSWL;
-      echoPingPongSWU = echoPingPongSWL;;
+      echoPingPongSWU = echoPingPongSWL;
+      ;
       echoTapeSWU = echoTapeSWL;
       echoSTDSWU = echoSTDSWL;
       echoOffSWU = echoOffSWL;
@@ -1867,7 +2044,8 @@ void updateUtilityAction() {
       lfo1randSWU = 0;
       lfo1squareUniSWU = 0;
       lfo1squareBipSWU = 0;
-      lfo1sawUpSWU = 0;;
+      lfo1sawUpSWU = 0;
+      ;
       lfo1sawDnSWU = 0;
       lfo1triangleSWU = 1;
 
@@ -7231,6 +7409,66 @@ void myControlChange(byte channel, byte control, int value) {
       updatelfo1seqRateSW();
       break;
 
+    case CCseqPlaySW:
+      value > 0 ? seqPlaySW = 1 : seqPlaySW = 0;
+      updateseqPlaySW();
+      break;
+
+    case CCseqStopSW:
+      value > 0 ? seqStopSW = 1 : seqStopSW = 0;
+      updateseqStopSW();
+      break;
+
+    case CCseqKeySW:
+      value > 0 ? seqKeySW = 1 : seqKeySW = 0;
+      updateseqKeySW();
+      break;
+
+    case CCseqTransSW:
+      value > 0 ? seqTransSW = 1 : seqTransSW = 0;
+      updateseqTransSW();
+      break;
+
+    case CCseqLoopSW:
+      value > 0 ? seqLoopSW = 1 : seqLoopSW = 0;
+      updateseqLoopSW();
+      break;
+
+    case CCseqFwSW:
+      value > 0 ? seqFwSW = 1 : seqFwSW = 0;
+      updateseqFwSW();
+      break;
+
+    case CCseqBwSW:
+      value > 0 ? seqBwSW = 1 : seqBwSW = 0;
+      updateseqBwSW();
+      break; 
+
+    case CCseqEnable1SW:
+      value > 0 ? seqEnable1SW = 1 : seqEnable1SW = 0;
+      updateseqEnable1SW();
+      break;
+
+    case CCseqEnable2SW:
+      value > 0 ? seqEnable2SW = 1 : seqEnable2SW = 0;
+      updateseqEnable2SW();
+      break; 
+
+    case CCseqEnable3SW:
+      value > 0 ? seqEnable3SW = 1 : seqEnable3SW = 0;
+      updateseqEnable3SW();
+      break;
+
+    case CCseqEnable4SW:
+      value > 0 ? seqEnable4SW = 1 : seqEnable4SW = 0;
+      updateseqEnable4SW();
+      break; 
+
+    case CCseqSyncSW:
+      value > 0 ? seqSyncSW = 1 : seqSyncSW = 0;
+      updateseqSyncSW();
+      break; 
+
     case CCmaxVoicesSW:
       value > 0 ? maxVoicesSW = 1 : maxVoicesSW = 0;
       updatemaxVoicesSW();
@@ -7909,7 +8147,6 @@ void updateEverything() {
   updatesingleSW();
   updatedoubleSW();
   updatesplitSW();
-
 }
 
 void checkMux() {
@@ -8697,35 +8934,66 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
     myControlChange(midiChannel, CClfo1seqRateSW, lfo1seqRateSW);
   }
 
-  // if (btnIndex == LEAD_VCO1_WAVE_SW && btnType == ROX_PRESSED) {
-  //   sr.writePin(LEAD_VCO1_WAVE_LED, LOW);
-  //   vco1wave_timer = millis();
-  //   leadVCO1wave = leadVCO1wave + 1;
-  //   if (leadVCO1wave > 5) {
-  //     leadVCO1wave = 1;
-  //   }
-  //   myControlChange(midiChannel, CCleadVCO1wave, leadVCO1wave);
-  // }
+  if (btnIndex == SEQ_PLAY_SW && btnType == ROX_PRESSED) {
+    seqPlaySW = 1;
+    myControlChange(midiChannel, CCseqPlaySW, seqPlaySW);
+  }
 
-  // if (btnIndex == LEAD_VCO2_WAVE_SW && btnType == ROX_PRESSED) {
-  //   sr.writePin(LEAD_VCO2_WAVE_LED, LOW);
-  //   vco2wave_timer = millis();
-  //   leadVCO2wave = leadVCO2wave + 1;
-  //   if (leadVCO2wave > 6) {
-  //     leadVCO2wave = 1;
-  //   }
-  //   myControlChange(midiChannel, CCleadVCO2wave, leadVCO2wave);
-  // }
+  if (btnIndex == SEQ_STOP_SW && btnType == ROX_PRESSED) {
+    seqStopSW = 1;
+    myControlChange(midiChannel, CCseqStopSW, seqStopSW);
+  }
 
-  // if (btnIndex == POLY_WAVE_SW && btnType == ROX_PRESSED) {
-  //   sr.writePin(POLY_WAVE_LED, LOW);
-  //   polywave_timer = millis();
-  //   polyWave = polyWave + 1;
-  //   if (polyWave > 6) {
-  //     polyWave = 1;
-  //   }
-  //   myControlChange(midiChannel, CCpolyWave, polyWave);
-  // }
+  if (btnIndex == SEQ_KEY_SW && btnType == ROX_PRESSED) {
+    seqKeySW = !seqKeySW;
+    myControlChange(midiChannel, CCseqKeySW, seqKeySW);
+  }
+
+  if (btnIndex == SEQ_TRANS_SW && btnType == ROX_PRESSED) {
+    seqTransSW = !seqTransSW;
+    myControlChange(seqTransSW, CCseqTransSW, seqTransSW);
+  }
+
+  if (btnIndex == SEQ_LOOP_SW && btnType == ROX_PRESSED) {
+    seqLoopSW = !seqLoopSW;
+    myControlChange(midiChannel, CCseqLoopSW, seqLoopSW);
+  }
+
+  if (btnIndex == STEP_FW_SW && btnType == ROX_PRESSED) {
+    seqFwSW = 1;
+    myControlChange(midiChannel, CCseqFwSW, seqFwSW);
+  }
+
+  if (btnIndex == STEP_BW_SW && btnType == ROX_PRESSED) {
+    seqBwSW = 1;
+    myControlChange(midiChannel, CCseqBwSW, seqBwSW);
+  }
+
+  if (btnIndex == SEQ_ENABLE_1_SW && btnType == ROX_PRESSED) {
+    seqEnable1SW = !seqEnable1SW;
+    myControlChange(midiChannel, CCseqEnable1SW, seqEnable1SW);
+  }
+
+  if (btnIndex == SEQ_ENABLE_2_SW && btnType == ROX_PRESSED) {
+    seqEnable2SW = !seqEnable2SW;
+    myControlChange(midiChannel, CCseqEnable2SW, seqEnable2SW);
+  }
+
+  if (btnIndex == SEQ_ENABLE_3_SW && btnType == ROX_PRESSED) {
+    seqEnable3SW = !seqEnable3SW;
+    myControlChange(midiChannel, CCseqEnable3SW, seqEnable3SW);
+  }
+
+  if (btnIndex == SEQ_ENABLE_4_SW && btnType == ROX_PRESSED) {
+    seqEnable4SW = !seqEnable4SW;
+    myControlChange(midiChannel, CCseqEnable4SW, seqEnable4SW);
+  }
+
+  if (btnIndex == SEQ_SYNC_SW && btnType == ROX_PRESSED) {
+    seqSyncSW = !seqSyncSW;
+    myControlChange(midiChannel, CCseqSyncSW, seqSyncSW);
+  }
+
 }
 
 void showSettingsPage() {
@@ -9160,6 +9428,22 @@ void midiCCOut(byte cc, byte value) {
               break;
 
               // Down to 97 available
+
+              // MMC messages
+
+            case MIDIseqPlaySW:
+              if (updateParams) {
+                //usbMIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI USB is set to Out
+              }
+              //MIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI DIN is set to Out
+              break;
+
+            case MIDIseqStopSW:
+              if (updateParams) {
+                //usbMIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI USB is set to Out
+              }
+              //MIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI DIN is set to Out
+              break;
 
             default:
               if (updateParams) {
