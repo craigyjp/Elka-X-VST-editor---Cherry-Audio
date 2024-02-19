@@ -59,6 +59,7 @@ MIDIDevice midi1(myusb);
 
 //MIDI 5 Pin DIN
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial6, MIDI6);
 
 #define OCTO_TOTAL 14
 #define BTN_DEBOUNCE 50
@@ -184,7 +185,6 @@ void setup() {
   midi1.setHandleNoteOff(myNoteOff);
   midi1.setHandleNoteOn(myNoteOn);
   midi1.setHandlePitchChange(myPitchBend);
-  midi1.setHandleAfterTouch(myAfterTouch);
   Serial.println("USB HOST MIDI Class Compliant Listening");
 
   //USB Client MIDI
@@ -193,7 +193,6 @@ void setup() {
   usbMIDI.setHandleNoteOff(myNoteOff);
   usbMIDI.setHandleNoteOn(myNoteOn);
   usbMIDI.setHandlePitchChange(myPitchBend);
-  usbMIDI.setHandleAfterTouch(myAfterTouch);
   Serial.println("USB Client MIDI Listening");
 
   //MIDI 5 Pin DIN
@@ -203,7 +202,9 @@ void setup() {
   MIDI.setHandleNoteOn(myNoteOn);
   MIDI.setHandleNoteOff(myNoteOff);
   MIDI.setHandlePitchBend(myPitchBend);
-  MIDI.setHandleAfterTouchChannel(myAfterTouch);
+
+
+  MIDI6.begin();
   Serial.println("MIDI In DIN Listening");
 
   //Read Encoder Direction from EEPROM
@@ -1301,7 +1302,7 @@ void updateseqPlaySW() {
     }
     sr.writePin(SEQ_PLAY_LED, HIGH);
     sr.writePin(SEQ_STOP_LED, LOW);
-    midiCCOut(MIDIseqPlaySW, 127);
+    midi6CCOut(MIDIseqPlaySW, 127);
   }
 }
 
@@ -1312,7 +1313,7 @@ void updateseqStopSW() {
     }
     sr.writePin(SEQ_PLAY_LED, LOW);
     sr.writePin(SEQ_STOP_LED, HIGH);
-    midiCCOut(MIDIseqStopSW, 127);
+    midi6CCOut(MIDIseqStopSW, 127);
   }
 }
 
@@ -1322,14 +1323,14 @@ void updateseqKeySW() {
       showCurrentParameterPage("Sequencer", "Key Start On");
     }
     sr.writePin(SEQ_KEY_LED, HIGH);
-    midiCCOut(MIDIseqKeySW, 127);
+    midi6CCOut(MIDIseqKeySW, 127);
   }
   if (!seqKeySW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Key Start Off");
     }
     sr.writePin(SEQ_KEY_LED, LOW);
-    midiCCOut(MIDIseqKeySW, 127);
+    midi6CCOut(MIDIseqKeySW, 127);
   }
 }
 
@@ -1339,14 +1340,14 @@ void updateseqTransSW() {
       showCurrentParameterPage("Sequencer", "Transpose On");
     }
     sr.writePin(SEQ_TRANS_LED, HIGH);
-    midiCCOut(MIDIseqTransSW, 127);
+    midi6CCOut(MIDIseqTransSW, 127);
   }
   if (!seqTransSW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Transpose Off");
     }
     sr.writePin(SEQ_TRANS_LED, LOW);
-    midiCCOut(MIDIseqTransSW, 127);
+    midi6CCOut(MIDIseqTransSW, 127);
   }
 }
 
@@ -1356,14 +1357,14 @@ void updateseqLoopSW() {
       showCurrentParameterPage("Sequencer", "Loop On");
     }
     sr.writePin(SEQ_LOOP_LED, HIGH);
-    midiCCOut(MIDIseqLoopSW, 127);
+    midi6CCOut(MIDIseqLoopSW, 127);
   }
   if (!seqLoopSW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Loop Off");
     }
     sr.writePin(SEQ_LOOP_LED, LOW);
-    midiCCOut(MIDIseqLoopSW, 127);
+    midi6CCOut(MIDIseqLoopSW, 127);
   }
 }
 
@@ -1372,7 +1373,7 @@ void updateseqFwSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "FF");
     }
-    midiCCOut(MIDIseqFwSW, 127);
+    midi6CCOut(MIDIseqFwSW, 127);
   }
 }
 
@@ -1381,7 +1382,7 @@ void updateseqBwSW() {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Rew");
     }
-    midiCCOut(MIDIseqBwSW, 127);
+    midi6CCOut(MIDIseqBwSW, 127);
   }
 }
 
@@ -1391,14 +1392,14 @@ void updateseqEnable1SW() {
       showCurrentParameterPage("Sequencer", " Track 1");
     }
     sr.writePin(SEQ_ENABLE_1_LED, HIGH);
-    midiCCOut(MIDIseqEnable1SW, 127);
+    midi6CCOut(MIDIseqEnable1SW, 127);
   }
   if (!seqEnable1SW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Track 1 Off");
     }
     sr.writePin(SEQ_ENABLE_1_LED, LOW);
-    midiCCOut(MIDIseqEnable1SW, 127);
+    midi6CCOut(MIDIseqEnable1SW, 127);
   }
 }
 
@@ -1408,14 +1409,14 @@ void updateseqEnable2SW() {
       showCurrentParameterPage("Sequencer", " Track 2");
     }
     sr.writePin(SEQ_ENABLE_2_LED, HIGH);
-    midiCCOut(MIDIseqEnable2SW, 127);
+    midi6CCOut(MIDIseqEnable2SW, 127);
   }
   if (!seqEnable2SW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Track 2 Off");
     }
     sr.writePin(SEQ_ENABLE_2_LED, LOW);
-    midiCCOut(MIDIseqEnable2SW, 127);
+    midi6CCOut(MIDIseqEnable2SW, 127);
   }
 }
 
@@ -1425,14 +1426,14 @@ void updateseqEnable3SW() {
       showCurrentParameterPage("Sequencer", " Track 3");
     }
     sr.writePin(SEQ_ENABLE_3_LED, HIGH);
-    midiCCOut(MIDIseqEnable3SW, 127);
+    midi6CCOut(MIDIseqEnable3SW, 127);
   }
   if (!seqEnable3SW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Track 3 Off");
     }
     sr.writePin(SEQ_ENABLE_3_LED, LOW);
-    midiCCOut(MIDIseqEnable3SW, 127);
+    midi6CCOut(MIDIseqEnable3SW, 127);
   }
 }
 
@@ -1442,14 +1443,14 @@ void updateseqEnable4SW() {
       showCurrentParameterPage("Sequencer", " Track 4");
     }
     sr.writePin(SEQ_ENABLE_4_LED, HIGH);
-    midiCCOut(MIDIseqEnable4SW, 127);
+    midi6CCOut(MIDIseqEnable4SW, 127);
   }
   if (!seqEnable4SW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Track 4 Off");
     }
     sr.writePin(SEQ_ENABLE_4_LED, LOW);
-    midiCCOut(MIDIseqEnable4SW, 127);
+    midi6CCOut(MIDIseqEnable4SW, 127);
   }
 }
 
@@ -1459,14 +1460,76 @@ void updateseqSyncSW() {
       showCurrentParameterPage("Sequencer", " Sync On");
     }
     sr.writePin(SEQ_SYNC_LED, HIGH);
-    midiCCOut(MIDIseqSyncSW, 127);
+    midi6CCOut(MIDIseqSyncSW, 127);
   }
   if (!seqSyncSW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Sync Off");
     }
     sr.writePin(SEQ_SYNC_LED, LOW);
-    midiCCOut(MIDIseqSyncSW, 127);
+    midi6CCOut(MIDIseqSyncSW, 127);
+  }
+}
+
+void updateseqrecEditSW() {
+  if (seqrecEditSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", " Rec/Edit On");
+    }
+    sr.writePin(SEQ_REC_EDIT_LED, HIGH);
+    midi6CCOut(MIDIseqrecEditSW, 127);
+  }
+  if (!seqrecEditSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Rec/Edit Off");
+    }
+    sr.writePin(SEQ_REC_EDIT_LED, LOW);
+    midi6CCOut(MIDIseqrecEditSW, 127);
+  }
+}
+
+void updateseqinsStepSW() {
+  if (seqinsStepSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Insert Step");
+    }
+    midi6CCOut(MIDIseqinsStepSW, 127);
+  }
+}
+
+void updateseqdelStepSW() {
+  if (seqdelStepSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Delete Step");
+    }
+    midi6CCOut(MIDIseqdelStepSW, 127);
+  }
+}
+
+void updateseqaddStepSW() {
+  if (seqaddStepSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Add Step");
+    }
+    midi6CCOut(MIDIseqaddStepSW, 127);
+  }
+}
+
+void updateseqRestSW() {
+  if (seqRestSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Insert Rest");
+    }
+    midi6CCOut(MIDIseqRestSW, 127);
+  }
+}
+
+void updateseqUtilSW() {
+  if (seqUtilSW) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Sequencer", "Utilities");
+    }
+    midi6CCOut(MIDIseqUtilSW, 127);
   }
 }
 
@@ -7442,7 +7505,7 @@ void myControlChange(byte channel, byte control, int value) {
     case CCseqBwSW:
       value > 0 ? seqBwSW = 1 : seqBwSW = 0;
       updateseqBwSW();
-      break; 
+      break;
 
     case CCseqEnable1SW:
       value > 0 ? seqEnable1SW = 1 : seqEnable1SW = 0;
@@ -7452,7 +7515,7 @@ void myControlChange(byte channel, byte control, int value) {
     case CCseqEnable2SW:
       value > 0 ? seqEnable2SW = 1 : seqEnable2SW = 0;
       updateseqEnable2SW();
-      break; 
+      break;
 
     case CCseqEnable3SW:
       value > 0 ? seqEnable3SW = 1 : seqEnable3SW = 0;
@@ -7462,12 +7525,42 @@ void myControlChange(byte channel, byte control, int value) {
     case CCseqEnable4SW:
       value > 0 ? seqEnable4SW = 1 : seqEnable4SW = 0;
       updateseqEnable4SW();
-      break; 
+      break;
 
     case CCseqSyncSW:
       value > 0 ? seqSyncSW = 1 : seqSyncSW = 0;
       updateseqSyncSW();
-      break; 
+      break;
+
+    case CCseqrecEditSW:
+      value > 0 ? seqrecEditSW = 1 : seqrecEditSW = 0;
+      updateseqrecEditSW();
+      break;
+
+    case CCseqinsStepSW:
+      value > 0 ? seqinsStepSW = 1 : seqinsStepSW = 0;
+      updateseqinsStepSW();
+      break;
+
+    case CCseqdelStepSW:
+      value > 0 ? seqdelStepSW = 1 : seqdelStepSW = 0;
+      updateseqdelStepSW();
+      break;
+
+    case CCseqaddStepSW:
+      value > 0 ? seqaddStepSW = 1 : seqaddStepSW = 0;
+      updateseqaddStepSW();
+      break;
+
+    case CCseqRestSW:
+      value > 0 ? seqRestSW = 1 : seqRestSW = 0;
+      updateseqRestSW();
+      break;
+
+    case CCseqUtilSW:
+      value > 0 ? seqUtilSW = 1 : seqUtilSW = 0;
+      updateseqUtilSW();
+      break;
 
     case CCmaxVoicesSW:
       value > 0 ? maxVoicesSW = 1 : maxVoicesSW = 0;
@@ -8994,6 +9087,35 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
     myControlChange(midiChannel, CCseqSyncSW, seqSyncSW);
   }
 
+  if (btnIndex == SEQ_REC_EDIT_SW && btnType == ROX_PRESSED) {
+    seqrecEditSW = !seqrecEditSW;
+    myControlChange(midiChannel, CCseqrecEditSW, seqrecEditSW);
+  }
+
+  if (btnIndex == SEQ_INS_STEP_SW && btnType == ROX_PRESSED) {
+    seqinsStepSW = 1;
+    myControlChange(midiChannel, CCseqinsStepSW, seqinsStepSW);
+  }
+
+  if (btnIndex == SEQ_DEL_STEP_SW && btnType == ROX_PRESSED) {
+    seqdelStepSW = 1;
+    myControlChange(midiChannel, CCseqdelStepSW, seqdelStepSW);
+  }
+
+  if (btnIndex == SEQ_ADD_STEP_SW && btnType == ROX_PRESSED) {
+    seqaddStepSW = 1;
+    myControlChange(midiChannel, CCseqaddStepSW, seqaddStepSW);
+  }
+
+  if (btnIndex == SEQ_UTIL_SW && btnType == ROX_PRESSED) {
+    seqUtilSW = 1;
+    myControlChange(midiChannel, CCseqUtilSW, seqUtilSW);
+  }
+
+  if (btnIndex == SEQ_REST_SW && btnType == ROX_PRESSED) {
+    seqRestSW = 1;
+    myControlChange(midiChannel, CCseqRestSW, seqRestSW);
+  }
 }
 
 void showSettingsPage() {
@@ -9427,24 +9549,6 @@ void midiCCOut(byte cc, byte value) {
               MIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI DIN is set to Out
               break;
 
-              // Down to 97 available
-
-              // MMC messages
-
-            case MIDIseqPlaySW:
-              if (updateParams) {
-                //usbMIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI USB is set to Out
-              }
-              //MIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI DIN is set to Out
-              break;
-
-            case MIDIseqStopSW:
-              if (updateParams) {
-                //usbMIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI USB is set to Out
-              }
-              //MIDI.sendNoteOn(102, 127, midiOutCh);  //MIDI DIN is set to Out
-              break;
-
             default:
               if (updateParams) {
                 usbMIDI.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
@@ -9463,6 +9567,13 @@ void midiCCOut(byte cc, byte value) {
         }
     }
   }
+}
+
+void midi6CCOut(byte cc, byte value) {
+      // if (updateParams) {
+      //   usbMIDI.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
+      // }
+      MIDI6.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
 }
 
 void checkSwitches() {

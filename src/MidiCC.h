@@ -179,15 +179,21 @@
 #define MIDIsingleSW 173
 #define MIDIdoubleSW 174
 #define MIDIsplitSW 175
-#define MIDIseqPlaySW 176
-#define MIDIseqStopSW 177
-#define MIDIseqKeySW 178
-#define MIDIseqTransSW 179
-#define MIDIseqLoopSW 180
-#define MIDIseqFwSW 181
-#define MIDIseqBwSW 182
-#define MIDIseqEnable1SW 183
-#define MIDIseqEnable2SW 184
-#define MIDIseqEnable3SW 185
-#define MIDIseqEnable4SW 186
-#define MIDIseqSyncSW 187
+#define MIDIseqPlaySW 1     // A
+#define MIDIseqStopSW 2     // B
+#define MIDIseqKeySW 3      // C
+#define MIDIseqTransSW 4    // D
+#define MIDIseqLoopSW 5     // E
+#define MIDIseqFwSW 6       // F
+#define MIDIseqBwSW 7      // G
+#define MIDIseqEnable1SW 8 // H
+#define MIDIseqEnable2SW 9 // I
+#define MIDIseqEnable3SW 10 // J
+#define MIDIseqEnable4SW 11 // K
+#define MIDIseqSyncSW 12    // L
+#define MIDIseqrecEditSW 13 // M
+#define MIDIseqinsStepSW 14 // N
+#define MIDIseqdelStepSW 15 // O
+#define MIDIseqaddStepSW 16 // P
+#define MIDIseqRestSW 17    // Q
+#define MIDIseqUtilSW 18    // R

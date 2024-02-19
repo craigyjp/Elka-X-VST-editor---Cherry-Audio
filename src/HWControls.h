@@ -27,7 +27,7 @@ ADC *adc = new ADC();
 #define MUX1_S A0   // ADC1
 #define MUX2_S A1   // ADC1
 #define MUX3_S A2   // ADC1
-#define MUX4_S A10  // ADC0
+#define MUX4_S A16  // ADC0
 
 //Mux 1 Connections
 #define MUX1_masterVolume 0
@@ -221,7 +221,7 @@ ADC *adc = new ADC();
 #define SEQ_ADD_STEP_SW 92
 #define SEQ_DEL_STEP_SW 93
 #define SEQ_INS_STEP_SW 94
-#define EQ_REC_EDIT_SW 95
+#define SEQ_REC_EDIT_SW 95
 
 // 13
 #define SEQ_SYNC_SW 96
@@ -364,7 +364,7 @@ ADC *adc = new ADC();
 #define LFO1_OSC1_LED 92
 #define LFO1_OSC2_LED 93
 #define LFO1_PW1_LED 94
-#define EQ_REC_EDIT_LED 95
+#define SEQ_REC_EDIT_LED 95
 
 // 13
 #define SEQ_SYNC_LED 96

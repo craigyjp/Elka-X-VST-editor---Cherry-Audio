@@ -556,6 +556,12 @@ int seqEnable2SW = 0;
 int seqEnable3SW = 0;
 int seqEnable4SW = 0;
 int seqSyncSW = 0;
+int seqrecEditSW = 0;
+int seqinsStepSW = 0;
+int seqdelStepSW = 0;
+int seqaddStepSW = 0;
+int seqRestSW = 0;
+int seqUtilSW = 0;
 
 // End Synthex Switches
 

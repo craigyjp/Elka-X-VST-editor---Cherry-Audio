@@ -163,4 +163,9 @@
 #define CCseqEnable3SW 168
 #define CCseqEnable4SW 169
 #define CCseqSyncSW 170
-
+#define CCseqrecEditSW 171
+#define CCseqinsStepSW 172
+#define CCseqdelStepSW 173
+#define CCseqaddStepSW 174
+#define CCseqRestSW 175
+#define CCseqUtilSW 176
