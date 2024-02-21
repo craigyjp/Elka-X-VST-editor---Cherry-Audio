@@ -26,7 +26,7 @@ const String SYNTHEXSYNC[20] = {"8 Beats", "4 Beats", "1/2 Dotted", "1/2", "1/2 
 
 #define RE_READ -9
 #define  NO_OF_VOICES 1
-#define NO_OF_PARAMS 270
+#define NO_OF_PARAMS 280
 const char* INITPATCHNAME = "Initial Patch";
 #define HOLD_DURATION 1000
 const uint32_t CLICK_DURATION = 250;

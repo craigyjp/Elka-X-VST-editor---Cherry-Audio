@@ -387,6 +387,7 @@ void setupDisplay()
   tft.initR(INITR_18BLACKTAB);
   tft.setRotation(3);
   tft.invertDisplay(false);
+  tft.fillScreen(ST7735_BLACK);
   renderBootUpPage();
   tft.updateScreen();
   threads.addThread(displayThread);

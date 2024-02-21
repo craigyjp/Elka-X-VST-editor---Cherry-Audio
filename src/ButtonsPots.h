@@ -61,8 +61,8 @@
 #define CCarpSyncSW 61
 #define CCarpHoldSW 62
 #define CClayerSoloSW 63
-#define CCmaxVoicesSW 65
-
+#define CCmaxVoicesSW 67
+#define CCmaxVoicesExitSW 68
 #define CCenvInvSW 70
 #define CCfilterHPSW 71
 #define CCfilterBP2SW 72

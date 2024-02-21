@@ -173,7 +173,7 @@
 #define MIDIlfo1ampL 167
 #define MIDIlfo1seqRateU 168
 #define MIDIlfo1seqRateL 169
-#define MIDImaxVoicesSW 170
+
 #define MIDIchordMemoryL 171
 #define MIDIchordMemoryU 172
 #define MIDIsingleSW 173
@@ -197,3 +197,8 @@
 #define MIDIseqaddStepSW 16 // P
 #define MIDIseqRestSW 17    // Q
 #define MIDIseqUtilSW 18    // R
+#define MIDImaxVoicesSW 19  // S
+#define MIDIEnter 100
+#define MIDIEscape 101
+#define MIDIUpArrow 102
+#define MIDIDownArrow 103

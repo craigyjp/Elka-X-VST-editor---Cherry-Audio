@@ -110,6 +110,7 @@ void setup() {
   octoswitch.begin(PIN_DATA, PIN_LOAD, PIN_CLK);
   octoswitch.setCallback(onButtonPress);
   octoswitch.setIgnoreAfterHold(UTILITY_SW, true);
+  octoswitch.setIgnoreAfterHold(MAX_VOICES_SW, true);
   sr.begin(LED_DATA, LED_LATCH, LED_CLK, LED_PWM);
   green.begin(GREEN_LED_DATA, GREEN_LED_LATCH, GREEN_LED_CLK, GREEN_LED_PWM);
   setupDisplay();
@@ -1238,11 +1239,92 @@ void updatelayerSoloSW() {
 }
 
 void updatemaxVoicesSW() {
-  if (maxVoicesSW == 1) {
+
+  if (maxVoicesSW == 1 && maxVoicesFirstPress == 0) {
+    maxVoices_timer = millis();
+    Serial.println("First press");
+    maxVoices = 2;
     if (!recallPatchFlag) {
-      showCurrentParameterPage("Max Voices", "On");
+      showCurrentParameterPage("Max Voices", maxVoices);
     }
-    midiCCOut(MIDImaxVoicesSW, 127);
+    midi6CCOut(MIDImaxVoicesSW, 127);
+    midi6CCOut(MIDIDownArrow, 127);
+    maxVoicesFirstPress++;
+    updateMaxVoicesDisplay(maxVoices);
+  } else if (maxVoicesSW == 1 && maxVoicesFirstPress > 0) {
+    Serial.println("Consecutive press");
+    maxVoices++;
+    if (maxVoices > 16) {
+      maxVoices = 2;
+    }
+    updateMaxVoicesDisplay(maxVoices);
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Max Voices", maxVoices);
+    }
+    midi6CCOut(MIDIDownArrow, 127);
+    maxVoicesFirstPress++;
+  }
+}
+
+void updatemaxVoicesExitSW() {
+  if (maxVoicesExitSW == 1) {
+    if (!recallPatchFlag) {
+      showCurrentParameterPage("Max Voices", maxVoices);
+    }
+    midi6CCOut(MIDIEnter, 127);
+    maxVoicesFirstPress = 0;
+    maxVoicesSW = 0;
+    updateMaxVoicesDisplay(maxVoices);
+  }
+}
+
+void updateMaxVoicesDisplay(int maxVoices) {
+  switch (maxVoices) {
+    case 2:
+    trilldisplay.print("   2"); 
+    break;
+    case 3:
+    trilldisplay.print("   3"); 
+    break;
+    case 4:
+    trilldisplay.print("   4"); 
+    break;
+    case 5:
+    trilldisplay.print("   5"); 
+    break;
+    case 6:
+    trilldisplay.print("   6"); 
+    break;
+    case 7:
+    trilldisplay.print("   7"); 
+    break;
+    case 8:
+    trilldisplay.print("   8"); 
+    break;
+    case 9:
+    trilldisplay.print("   9"); 
+    break;
+    case 10:
+    trilldisplay.print("  10"); 
+    break;
+    case 11:
+    trilldisplay.print("  11"); 
+    break;
+    case 12:
+    trilldisplay.print("  12"); 
+    break;
+    case 13:
+    trilldisplay.print("  13"); 
+    break;
+    case 14:
+    trilldisplay.print("  14"); 
+    break;
+    case 15:
+    trilldisplay.print("  15"); 
+    break;
+    case 16:
+    trilldisplay.print("  16"); 
+    break;
   }
 }
 
@@ -7567,6 +7649,11 @@ void myControlChange(byte channel, byte control, int value) {
       updatemaxVoicesSW();
       break;
 
+    case CCmaxVoicesExitSW:
+      value > 0 ? maxVoicesExitSW = 1 : maxVoicesExitSW = 0;
+      updatemaxVoicesExitSW();
+      break;
+
     case CClimiterSW:
       value > 0 ? limiterSW = 1 : limiterSW = 0;
       updatelimiterSW();
@@ -7895,6 +7982,7 @@ void setCurrentPatchData(String data[]) {
   layerPanL = data[263].toInt();
   limiterSW = data[264].toInt();
   splitNote = data[265].toInt();
+  maxVoices = data[266].toInt();
 
   updateEverything();
 
@@ -7950,7 +8038,7 @@ String getCurrentPatchData() {
          + "," + String(lfo1filtSWL) + "," + String(lfo1filtSWU) + "," + String(lfo1ampSWL) + "," + String(lfo1ampSWU) + "," + String(lfo1seqRateSWL) + "," + String(lfo1seqRateSWU)
          + "," + String(lfo1squareUniSWL) + "," + String(lfo1squareUniSWU) + "," + String(lfo1squareBipSWL) + "," + String(lfo1squareBipSWU) + "," + String(lfo1sawUpSWL) + "," + String(lfo1sawUpSWU)
          + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU) + "," + String(layerPanL) + "," + String(limiterSW)
-         + "," + String(splitNote);
+         + "," + String(splitNote) + "," + String(maxVoices);
 }
 
 void updateEverything() {
@@ -8240,6 +8328,7 @@ void updateEverything() {
   updatesingleSW();
   updatedoubleSW();
   updatesplitSW();
+  updatemaxVoicesSW();
 }
 
 void checkMux() {
@@ -8937,9 +9026,14 @@ void onButtonPress(uint16_t btnIndex, uint8_t btnType) {
     myControlChange(midiChannel, CCunisonMonoSW, unisonMonoSW);
   }
 
-  if (btnIndex == MAX_VOICES_SW && btnType == ROX_PRESSED) {
+  if (btnIndex == MAX_VOICES_SW && btnType == ROX_RELEASED) {
     maxVoicesSW = 1;
     myControlChange(midiChannel, CCmaxVoicesSW, maxVoicesSW);
+  } else {
+    if (btnIndex == MAX_VOICES_SW && btnType == ROX_HELD) {
+      maxVoicesExitSW = 1;
+      myControlChange(midiChannel, CCmaxVoicesExitSW, maxVoicesExitSW);
+    }
   }
 
   if (btnIndex == LFO1_SYNC_SW && btnType == ROX_PRESSED) {
@@ -9909,6 +10003,13 @@ void stopLEDs() {
   }
 }
 
+void sendEscapeKey() {
+  if ((maxVoices_timer > 0) && (millis() - maxVoices_timer > 10000)) {
+    midi6CCOut(MIDIEscape, 127);
+    maxVoices_timer = 0;
+  }
+}
+
 void loop() {
   myusb.Task();
   midi1.read();  //USB HOST MIDI Class Compliant
@@ -9922,5 +10023,6 @@ void loop() {
   green.update();       // update all the GREEN LEDs in the buttons
   checkEEPROM();        // check anything that may have changed form the initial startup
   stopLEDs();           // blink the wave LEDs once when pressed
+  sendEscapeKey();
   //convertIncomingNote();                 // read a note when in learn mode and use it to set the values
 }
