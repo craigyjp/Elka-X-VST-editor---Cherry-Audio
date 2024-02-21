@@ -120,6 +120,14 @@ void setup() {
   //UPPER_LED.setMode(ROX_DEFAULT);
   //setUpLEDS();
 
+  // Initialize the array with some values (optional)
+  for (int i = 0; i < 128; i++) {
+    for (int j = 0; j < 4; j++) {
+      // Assign some values, for example, i * j
+      seqArray[i][j] = -1;
+    }
+  }
+
   LEDintensity = getLEDintensity();
   LEDintensity = LEDintensity * 10;
   oldLEDintensity = LEDintensity;
@@ -1242,7 +1250,6 @@ void updatemaxVoicesSW() {
 
   if (maxVoicesSW == 1 && maxVoicesFirstPress == 0) {
     maxVoices_timer = millis();
-    Serial.println("First press");
     maxVoices = 2;
     if (!recallPatchFlag) {
       showCurrentParameterPage("Max Voices", maxVoices);
@@ -1252,7 +1259,6 @@ void updatemaxVoicesSW() {
     maxVoicesFirstPress++;
     updateMaxVoicesDisplay(maxVoices);
   } else if (maxVoicesSW == 1 && maxVoicesFirstPress > 0) {
-    Serial.println("Consecutive press");
     maxVoices++;
     if (maxVoices > 16) {
       maxVoices = 2;
@@ -1281,50 +1287,50 @@ void updatemaxVoicesExitSW() {
 void updateMaxVoicesDisplay(int maxVoices) {
   switch (maxVoices) {
     case 2:
-    trilldisplay.print("   2"); 
-    break;
+      trilldisplay.print("   2");
+      break;
     case 3:
-    trilldisplay.print("   3"); 
-    break;
+      trilldisplay.print("   3");
+      break;
     case 4:
-    trilldisplay.print("   4"); 
-    break;
+      trilldisplay.print("   4");
+      break;
     case 5:
-    trilldisplay.print("   5"); 
-    break;
+      trilldisplay.print("   5");
+      break;
     case 6:
-    trilldisplay.print("   6"); 
-    break;
+      trilldisplay.print("   6");
+      break;
     case 7:
-    trilldisplay.print("   7"); 
-    break;
+      trilldisplay.print("   7");
+      break;
     case 8:
-    trilldisplay.print("   8"); 
-    break;
+      trilldisplay.print("   8");
+      break;
     case 9:
-    trilldisplay.print("   9"); 
-    break;
+      trilldisplay.print("   9");
+      break;
     case 10:
-    trilldisplay.print("  10"); 
-    break;
+      trilldisplay.print("  10");
+      break;
     case 11:
-    trilldisplay.print("  11"); 
-    break;
+      trilldisplay.print("  11");
+      break;
     case 12:
-    trilldisplay.print("  12"); 
-    break;
+      trilldisplay.print("  12");
+      break;
     case 13:
-    trilldisplay.print("  13"); 
-    break;
+      trilldisplay.print("  13");
+      break;
     case 14:
-    trilldisplay.print("  14"); 
-    break;
+      trilldisplay.print("  14");
+      break;
     case 15:
-    trilldisplay.print("  15"); 
-    break;
+      trilldisplay.print("  15");
+      break;
     case 16:
-    trilldisplay.print("  16"); 
-    break;
+      trilldisplay.print("  16");
+      break;
   }
 }
 
@@ -1384,6 +1390,7 @@ void updateseqPlaySW() {
     }
     sr.writePin(SEQ_PLAY_LED, HIGH);
     sr.writePin(SEQ_STOP_LED, LOW);
+    seqStopSW = 0;
     midi6CCOut(MIDIseqPlaySW, 127);
   }
 }
@@ -1395,6 +1402,7 @@ void updateseqStopSW() {
     }
     sr.writePin(SEQ_PLAY_LED, LOW);
     sr.writePin(SEQ_STOP_LED, HIGH);
+    seqPlaySW = 0;
     midi6CCOut(MIDIseqStopSW, 127);
   }
 }
@@ -1410,9 +1418,10 @@ void updateseqKeySW() {
   if (!seqKeySW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Key Start Off");
+
+      sr.writePin(SEQ_KEY_LED, LOW);
+      midi6CCOut(MIDIseqKeySW, 127);
     }
-    sr.writePin(SEQ_KEY_LED, LOW);
-    midi6CCOut(MIDIseqKeySW, 127);
   }
 }
 
@@ -1427,9 +1436,10 @@ void updateseqTransSW() {
   if (!seqTransSW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Transpose Off");
+
+      sr.writePin(SEQ_TRANS_LED, LOW);
+      midi6CCOut(MIDIseqTransSW, 127);
     }
-    sr.writePin(SEQ_TRANS_LED, LOW);
-    midi6CCOut(MIDIseqTransSW, 127);
   }
 }
 
@@ -1444,9 +1454,10 @@ void updateseqLoopSW() {
   if (!seqLoopSW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Loop Off");
+
+      sr.writePin(SEQ_LOOP_LED, LOW);
+      midi6CCOut(MIDIseqLoopSW, 127);
     }
-    sr.writePin(SEQ_LOOP_LED, LOW);
-    midi6CCOut(MIDIseqLoopSW, 127);
   }
 }
 
@@ -1479,9 +1490,9 @@ void updateseqEnable1SW() {
   if (!seqEnable1SW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Track 1 Off");
+      sr.writePin(SEQ_ENABLE_1_LED, LOW);
+      midi6CCOut(MIDIseqEnable1SW, 127);
     }
-    sr.writePin(SEQ_ENABLE_1_LED, LOW);
-    midi6CCOut(MIDIseqEnable1SW, 127);
   }
 }
 
@@ -1496,9 +1507,9 @@ void updateseqEnable2SW() {
   if (!seqEnable2SW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Track 2 Off");
+      sr.writePin(SEQ_ENABLE_2_LED, LOW);
+      midi6CCOut(MIDIseqEnable2SW, 127);
     }
-    sr.writePin(SEQ_ENABLE_2_LED, LOW);
-    midi6CCOut(MIDIseqEnable2SW, 127);
   }
 }
 
@@ -1513,9 +1524,9 @@ void updateseqEnable3SW() {
   if (!seqEnable3SW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Track 3 Off");
+      sr.writePin(SEQ_ENABLE_3_LED, LOW);
+      midi6CCOut(MIDIseqEnable3SW, 127);
     }
-    sr.writePin(SEQ_ENABLE_3_LED, LOW);
-    midi6CCOut(MIDIseqEnable3SW, 127);
   }
 }
 
@@ -1530,9 +1541,9 @@ void updateseqEnable4SW() {
   if (!seqEnable4SW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Track 4 Off");
+      sr.writePin(SEQ_ENABLE_4_LED, LOW);
+      midi6CCOut(MIDIseqEnable4SW, 127);
     }
-    sr.writePin(SEQ_ENABLE_4_LED, LOW);
-    midi6CCOut(MIDIseqEnable4SW, 127);
   }
 }
 
@@ -1547,9 +1558,9 @@ void updateseqSyncSW() {
   if (!seqSyncSW) {
     if (!recallPatchFlag) {
       showCurrentParameterPage("Sequencer", "Sync Off");
+      sr.writePin(SEQ_SYNC_LED, LOW);
+      midi6CCOut(MIDIseqSyncSW, 127);
     }
-    sr.writePin(SEQ_SYNC_LED, LOW);
-    midi6CCOut(MIDIseqSyncSW, 127);
   }
 }
 
@@ -5958,7 +5969,6 @@ void updatelfo1seqRateSW() {
 
 void switchLEDs() {
   layerPatchFlag = true;
-  recallPatchFlag = true;
   updatearpRange1SW();
   updatearpRange2SW();
   updatearpRange3SW();
@@ -6043,7 +6053,6 @@ void switchLEDs() {
   updatelfo1ampSW();
   updatelfo1seqRateSW();
 
-  recallPatchFlag = false;
   layerPatchFlag = false;
 }
 
@@ -7707,7 +7716,6 @@ void recallPatch(int patchNo) {
     setCurrentPatchData(data);
     patchFile.close();
   }
-  recallPatchFlag = false;
 }
 
 void setCurrentPatchData(String data[]) {
@@ -7983,8 +7991,18 @@ void setCurrentPatchData(String data[]) {
   limiterSW = data[264].toInt();
   splitNote = data[265].toInt();
   maxVoices = data[266].toInt();
+  seqPlaySW = data[267].toInt();
+  seqKeySW = data[268].toInt();
+  seqTransSW = data[269].toInt();
+  seqLoopSW = data[270].toInt();
+  seqSyncSW = data[271].toInt();
+  seqEnable1SW = data[272].toInt();
+  seqEnable2SW = data[273].toInt();
+  seqEnable3SW = data[274].toInt();
+  seqEnable4SW = data[275].toInt();
 
   updateEverything();
+  recallPatchFlag = false;
 
   //Patchname
   updatePatchname();
@@ -8038,12 +8056,13 @@ String getCurrentPatchData() {
          + "," + String(lfo1filtSWL) + "," + String(lfo1filtSWU) + "," + String(lfo1ampSWL) + "," + String(lfo1ampSWU) + "," + String(lfo1seqRateSWL) + "," + String(lfo1seqRateSWU)
          + "," + String(lfo1squareUniSWL) + "," + String(lfo1squareUniSWU) + "," + String(lfo1squareBipSWL) + "," + String(lfo1squareBipSWU) + "," + String(lfo1sawUpSWL) + "," + String(lfo1sawUpSWU)
          + "," + String(lfo1sawDnSWL) + "," + String(lfo1sawDnSWU) + "," + String(lfo1triangleSWL) + "," + String(lfo1triangleSWU) + "," + String(layerPanL) + "," + String(limiterSW)
-         + "," + String(splitNote) + "," + String(maxVoices);
+         + "," + String(splitNote) + "," + String(maxVoices) + "," + String(seqPlaySW) + "," + String(seqKeySW) + "," + String(seqTransSW) + "," + String(seqLoopSW)
+         + "," + String(seqSyncSW) + "," + String(seqEnable1SW) + "," + String(seqEnable2SW) + "," + String(seqEnable3SW) + "," + String(seqEnable4SW);
 }
 
 void updateEverything() {
   //Pots
-
+  recallPatchFlag = true;
   lowerSW = true;
   upperSW = false;
 
@@ -8329,6 +8348,17 @@ void updateEverything() {
   updatedoubleSW();
   updatesplitSW();
   updatemaxVoicesSW();
+  updateseqSyncSW();
+  updateseqLoopSW();
+  updateseqPlaySW();
+  updateseqKeySW();
+  updateseqTransSW();
+  updateseqEnable1SW();
+  updateseqEnable2SW();
+  updateseqEnable3SW();
+  updateseqEnable4SW();
+
+  recallPatchFlag = false;
 }
 
 void checkMux() {
@@ -9664,10 +9694,10 @@ void midiCCOut(byte cc, byte value) {
 }
 
 void midi6CCOut(byte cc, byte value) {
-      // if (updateParams) {
-      //   usbMIDI.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
-      // }
-      MIDI6.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
+  // if (updateParams) {
+  //   usbMIDI.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
+  // }
+  MIDI6.sendControlChange(cc, value, midiOutCh);  //MIDI DIN is set to Out
 }
 
 void checkSwitches() {

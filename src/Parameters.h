@@ -556,6 +556,10 @@ int seqTransSW = 0;
 int seqLoopSW = 0;
 int seqFwSW = 0;
 int seqBwSW = 0;
+int seqPointer1 = 0;
+int seqPointer2 = 0;
+int seqPointer3 = 0;
+int seqPointer4 = 0;
 int seqEnable1SW = 0;
 int seqEnable2SW = 0;
 int seqEnable3SW = 0;
@@ -567,6 +571,8 @@ int seqdelStepSW = 0;
 int seqaddStepSW = 0;
 int seqRestSW = 0;
 int seqUtilSW = 0;
+
+int seqArray[128][4];
 
 // End Synthex Switches
 
